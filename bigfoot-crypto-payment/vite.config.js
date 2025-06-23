@@ -3,16 +3,21 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// ES modules equivalent of __dirname
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
-  base: '/bigfoot-crypto-payment/', // GitHub Pages base path
+  base: '/bigfoot-crypto-payment/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  define: {
+    global: 'globalThis',
+  },
+  optimizeDeps: {
+    include: ['buffer', 'process']
   },
   build: {
     outDir: 'dist',
@@ -22,6 +27,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          web3: ['ethers', '@solana/web3.js', 'bitcoinjs-lib'],
           ui: ['lucide-react'],
           state: ['zustand']
         }
