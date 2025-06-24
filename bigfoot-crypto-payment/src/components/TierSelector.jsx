@@ -24,13 +24,7 @@ const TierSelector = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-600 via-blue-600 to-gray-700 bg-clip-text text-transparent mb-3">
-          Płatność Krypto
-        </h1>
-        <p className="text-xl text-gray-600">Wsparcie BigFoot Works Bikepark</p>
-      </div>
+    <div className="max-w-5xl mx-auto p-3">
 
       {/* Pierwszy rząd - Student i Tourist */}
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -55,7 +49,7 @@ const TierSelector = () => {
       </div>
 
       {/* Trzeci rząd - Szeryf na pełną szerokość */}
-      <div className="mb-8">
+      <div className="mb-4">
         <TierCard 
           tier={TIERS[4]}
           onClick={() => handleTierSelect(TIERS[4].amount)}
@@ -98,15 +92,15 @@ const TierCard = ({ tier, onClick, fullWidth = false }) => (
 );
 
 const CustomAmountSelector = ({ value, onChange, onSubmit }) => (
-  <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 p-8 rounded-2xl max-w-md mx-auto shadow-lg">
-    <h3 className="text-xl font-bold mb-4 text-center text-gray-800">Własna kwota</h3>
+  <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 p-4 rounded-2xl max-w-md mx-auto shadow-lg">
+    <h3 className="text-l font-bold mb-2 text-center text-gray-800">Własna kwota</h3>
     <div className="flex gap-3">
       <input
         type="number"
         placeholder="PLN"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex-1 p-4 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg"
+        className="flex-1 p-2 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg"
       />
       <button
         onClick={onSubmit}

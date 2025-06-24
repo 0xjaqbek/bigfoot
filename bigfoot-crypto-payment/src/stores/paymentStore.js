@@ -25,7 +25,7 @@ export const usePaymentStore = create((set, get) => ({
   // Transaction State - NEW
   transaction: {
     hash: null,
-    status: 'pending', // pending, confirmed, failed
+    status: 'idle', // ← Fixed: idle, pending, confirmed, failed
     timestamp: null,
     amount: null,
     currency: null
@@ -70,7 +70,7 @@ export const usePaymentStore = create((set, get) => ({
   resetTransaction: () => set({ 
     transaction: { 
       hash: null, 
-      status: 'pending', 
+      status: 'idle', 
       timestamp: null, 
       amount: null, 
       currency: null 
@@ -95,7 +95,7 @@ export const usePaymentStore = create((set, get) => ({
     error: null,
     transaction: { 
       hash: null, 
-      status: 'pending', 
+      status: 'idle', 
       timestamp: null, 
       amount: null, 
       currency: null 

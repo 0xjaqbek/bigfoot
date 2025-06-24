@@ -1,11 +1,19 @@
 import React from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
-import { CheckCircle } from 'lucide-react';
-import { generateMockTxHash } from '../utils/helpers';
+import { CheckCircle, ExternalLink } from 'lucide-react';
+import { openInExplorer, getExplorerName } from '../utils/explorers';
 
 const PaymentSuccess = () => {
-  const { resetPayment } = usePaymentStore();
-  const txHash = generateMockTxHash();
+  const { resetPayment, transaction, selectedBlockchain } = usePaymentStore();
+  
+  const txHash = transaction.hash;
+  const explorerName = getExplorerName(selectedBlockchain);
+
+  const handleExplorerClick = () => {
+    if (txHash && selectedBlockchain) {
+      openInExplorer(selectedBlockchain, txHash);
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto p-6 text-center">
@@ -22,17 +30,23 @@ const PaymentSuccess = () => {
         </div>
       </div>
 
-      <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-4 mb-8 text-left shadow-sm">
-        <div className="text-sm">
-          <div className="font-semibold mb-2 text-gray-800">Hash transakcji:</div>
-          <div className="font-mono text-xs backdrop-blur-sm bg-white/70 p-3 rounded-xl border border-gray-200/50 break-all">
-            {txHash}
+      {txHash && (
+        <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-4 mb-8 text-left shadow-sm">
+          <div className="text-sm">
+            <div className="font-semibold mb-2 text-gray-800">Hash transakcji:</div>
+            <div className="font-mono text-xs backdrop-blur-sm bg-white/70 p-3 rounded-xl border border-gray-200/50 break-all mb-3">
+              {txHash}
+            </div>
+            <button 
+              onClick={handleExplorerClick}
+              className="flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
+            >
+              <ExternalLink className="w-4 h-4 mr-1" />
+              Zobacz w {explorerName} →
+            </button>
           </div>
-          <button className="text-blue-600 hover:text-blue-700 text-xs mt-2 font-medium">
-            Zobacz w eksploratorze →
-          </button>
         </div>
-      </div>
+      )}
 
       <button
         onClick={resetPayment}

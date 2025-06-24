@@ -8,14 +8,14 @@ export const TIERS = [
     rewards: 'Naklejka + dostęp do grupy FB'
   },
   { 
-    name: 'Tourist', 
+    name: 'Turysta', 
     amount: 100, 
     color: 'from-emerald-400/60 to-green-500/60', 
     icon: '🗺️',
     rewards: 'Naklejka + opaska + grupa FB'
   },
   { 
-    name: 'Scout', 
+    name: 'Skaut', 
     amount: 170, 
     color: 'from-amber-400/60 to-yellow-500/60', 
     icon: '🔍',
