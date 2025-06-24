@@ -1,7 +1,7 @@
 {
-  "url": "http://localhost:3000/bigfoot-crypto-payment",
-  "name": "BigFoot Works Crypto Payment",
-  "iconUrl": "http://localhost:3000/bigfoot-crypto-payment/favicon.ico",
+  "url": "https://0xjaqbek.github.io/bigfoot/",
+  "name": "BigFoot Works - Wsparcie Kryptowalutą",
+  "iconUrl": "https://bigfootworks.pl/wp-content/uploads/2024/06/yeti-ramka-gold-400-kopia.webp",
   "termsOfUseUrl": "https://bigfootworks.pl/regulamin/",
   "privacyPolicyUrl": "https://bigfootworks.pl/polityka-prywatnosci/"
 }
