@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
+import { useTranslations } from '../hooks/useTranslations';
 import { BLOCKCHAIN_GROUPS } from '../utils/constants';
 import { ChevronLeft } from 'lucide-react';
 import BackButton from './BackButton';
@@ -15,6 +16,8 @@ const BlockchainSelector = () => {
     nextStep,
     prevStep 
   } = usePaymentStore();
+  
+  const { t } = useTranslations();
 
   const handleBlockchainSelect = (chain) => {
     setMobileInfo(chain);
@@ -27,12 +30,31 @@ const BlockchainSelector = () => {
     nextStep();
   };
 
+  // Get localized blockchain group titles
+  const getLocalizedGroup = (group) => {
+    const groupTitleMap = {
+      'Szybkie i tanie': t('fastAndCheap'),
+      'Fast & Cheap': t('fastAndCheap'),
+      'Schnell & Günstig': t('fastAndCheap'),
+      'Popularne': t('popular'),
+      'Popular': t('popular'),
+      'Beliebt': t('popular'),
+      'L2 Ethereum': t('ethereumL2'),
+      'Ethereum L2': t('ethereumL2')
+    };
+    
+    return {
+      ...group,
+      title: groupTitleMap[group.title] || group.title
+    };
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-6">
       <BackButton onClick={prevStep} />
 
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-100 mb-4">Wybierz blockchain</h2>
+        <h2 className="text-4xl font-bold text-gray-100 mb-4">{t('selectBlockchain')}</h2>
         <div className="backdrop-blur-sm bg-gradient-to-r from-emerald-400/20 to-green-500/20 border border-emerald-300/30 inline-block px-6 py-3 rounded-xl shadow-sm">
           <span className="text-emerald-200 font-bold text-lg">{selectedAmount} PLN</span>
         </div>
@@ -43,7 +65,7 @@ const BlockchainSelector = () => {
         {BLOCKCHAIN_GROUPS.map((group) => (
           <BlockchainGroup 
             key={group.title}
-            group={group}
+            group={getLocalizedGroup(group)}
             onChainSelect={handleBlockchainSelect}
           />
         ))}

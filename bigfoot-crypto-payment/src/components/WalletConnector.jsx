@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
+import { useTranslations } from '../hooks/useTranslations';
 import { useWallet } from '../hooks/useWallet';
 import { WALLETS_BY_TYPE } from '../utils/constants';
 import BackButton from './BackButton';
@@ -10,7 +11,8 @@ const WalletConnector = () => {
     nextStep,
     prevStep 
   } = usePaymentStore();
-
+  
+  const { t } = useTranslations();
   const { connect, isConnecting, error, detectWallets } = useWallet();
   const [availableWallets, setAvailableWallets] = useState([]);
 
@@ -44,9 +46,9 @@ const WalletConnector = () => {
       <BackButton onClick={prevStep} />
 
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-100 mb-4">Połącz portfel</h2>
+        <h2 className="text-3xl font-bold text-gray-100 mb-4">{t('connectWalletTitle')}</h2>
         <div className="text-sm text-gray-600 backdrop-blur-sm bg-white/40 px-4 py-2 rounded-xl border border-gray-200/50 inline-block">
-          Kompatybilne z {selectedBlockchain?.name}
+          {t('compatibleWith')} {selectedBlockchain?.name}
         </div>
       </div>
 
@@ -72,8 +74,8 @@ const WalletConnector = () => {
       {availableWallets.filter(w => w.detected).length === 0 && (
         <div className="text-center mt-6 p-4 bg-yellow-100/70 border border-yellow-200/50 rounded-xl">
           <div className="text-yellow-800 text-sm">
-            Nie wykryto żadnych portfeli dla sieci {selectedBlockchain?.name}.
-            Zainstaluj jeden z obsługiwanych portfeli.
+            {t('noWalletsDetected')} {selectedBlockchain?.name}.
+            {' '}{t('installSupportedWallet')}
           </div>
         </div>
       )}
@@ -81,27 +83,31 @@ const WalletConnector = () => {
   );
 };
 
-const WalletButton = ({ wallet, isConnecting, onClick }) => (
-  <button
-    onClick={onClick}
-    disabled={isConnecting || !wallet.detected}
-    className={`w-full p-5 backdrop-blur-sm bg-gradient-to-r ${wallet.color} border border-white/30 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-between group hover:scale-105 shadow-md
-      ${!wallet.detected ? 'opacity-50 cursor-not-allowed' : ''}
-      ${isConnecting ? 'opacity-75' : ''}`}
-  >
-    <div className="flex items-center">
-      <span className="text-2xl mr-4">{wallet.icon}</span>
-      <div className="text-left">
-        <span className="font-semibold text-lg text-white block">{wallet.name}</span>
-        {!wallet.detected && (
-          <span className="text-xs text-white/70">Nie zainstalowany</span>
-        )}
+const WalletButton = ({ wallet, isConnecting, onClick }) => {
+  const { t } = useTranslations();
+  
+  return (
+    <button
+      onClick={onClick}
+      disabled={isConnecting || !wallet.detected}
+      className={`w-full p-5 backdrop-blur-sm bg-gradient-to-r ${wallet.color} border border-white/30 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-between group hover:scale-105 shadow-md
+        ${!wallet.detected ? 'opacity-50 cursor-not-allowed' : ''}
+        ${isConnecting ? 'opacity-75' : ''}`}
+    >
+      <div className="flex items-center">
+        <span className="text-2xl mr-4">{wallet.icon}</span>
+        <div className="text-left">
+          <span className="font-semibold text-lg text-white block">{wallet.name}</span>
+          {!wallet.detected && (
+            <span className="text-xs text-white/70">{t('notInstalled')}</span>
+          )}
+        </div>
       </div>
-    </div>
-    {isConnecting && (
-      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-    )}
-  </button>
-);
+      {isConnecting && (
+        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      )}
+    </button>
+  );
+};
 
 export default WalletConnector;

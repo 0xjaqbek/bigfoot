@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
+import { useTranslations } from '../hooks/useTranslations';
 import { User, Mail, MapPin, Users, Phone, AlertCircle } from 'lucide-react';
 import BackButton from './BackButton';
 
@@ -9,8 +10,11 @@ const UserInfoForm = () => {
     userInfo,
     setUserInfo,
     nextStep,
-    prevStep 
+    prevStep,
+    language
   } = usePaymentStore();
+  
+  const { t } = useTranslations();
 
   const [formData, setFormData] = useState({
     firstName: userInfo?.firstName || '',
@@ -19,7 +23,7 @@ const UserInfoForm = () => {
     address: userInfo?.address || '',
     city: userInfo?.city || '',
     postalCode: userInfo?.postalCode || '',
-    country: userInfo?.country || 'Polska',
+    country: userInfo?.country || getDefaultCountry(language),
     fbUsername: userInfo?.fbUsername || '',
     phone: userInfo?.phone || '',
     termsAccepted: userInfo?.termsAccepted || false,
@@ -28,12 +32,25 @@ const UserInfoForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  // Sprawdź czy nagrody fizyczne są potrzebne
+  // Get default country based on language
+  function getDefaultCountry(lang) {
+    const defaults = {
+      pl: 'Polska',
+      en: 'Poland', 
+      de: 'Polen',
+      sv: 'Polen',
+      no: 'Polen',
+      da: 'Polen'
+    };
+    return defaults[lang] || 'Polska';
+  }
+
+  // Check if physical rewards are needed
   const needsPhysicalRewards = selectedAmount >= 50;
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Usuń błąd dla tego pola
+    // Remove error for this field
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: null }));
     }
@@ -42,32 +59,32 @@ const UserInfoForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Wymagane pola
-    if (!formData.firstName.trim()) newErrors.firstName = 'Imię jest wymagane';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Nazwisko jest wymagane';
-    if (!formData.email.trim()) newErrors.email = 'Email jest wymagany';
+    // Required fields
+    if (!formData.firstName.trim()) newErrors.firstName = t('firstNameRequired');
+    if (!formData.lastName.trim()) newErrors.lastName = t('lastNameRequired');
+    if (!formData.email.trim()) newErrors.email = t('emailRequired');
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Nieprawidłowy format email';
+      newErrors.email = t('invalidEmail');
     }
 
-    // Adres wymagany tylko dla nagród fizycznych
+    // Address required only for physical rewards
     if (needsPhysicalRewards) {
-      if (!formData.address.trim()) newErrors.address = 'Adres jest wymagany dla wysyłki nagród';
-      if (!formData.city.trim()) newErrors.city = 'Miasto jest wymagane';
-      if (!formData.postalCode.trim()) newErrors.postalCode = 'Kod pocztowy jest wymagany';
+      if (!formData.address.trim()) newErrors.address = t('addressRequired');
+      if (!formData.city.trim()) newErrors.city = t('cityRequired');
+      if (!formData.postalCode.trim()) newErrors.postalCode = t('postalCodeRequired');
       else if (!/^\d{2}-\d{3}$/.test(formData.postalCode)) {
-        newErrors.postalCode = 'Format: XX-XXX';
+        newErrors.postalCode = t('postalCodeFormat');
       }
     }
 
-    // Facebook username dla dostępu do grupy
+    // Facebook username for group access
     if (!formData.fbUsername.trim()) {
-      newErrors.fbUsername = 'Nazwa użytkownika FB jest wymagana do dodania do grupy';
+      newErrors.fbUsername = t('facebookRequired');
     }
 
-    // Regulamin i polityka prywatności - wymagane
+    // Terms and privacy policy - required
     if (!formData.termsAccepted) {
-      newErrors.termsAccepted = 'Akceptacja regulaminu i polityki prywatności jest wymagana';
+      newErrors.termsAccepted = t('termsRequired');
     }
 
     return newErrors;
@@ -82,17 +99,15 @@ const UserInfoForm = () => {
       return;
     }
 
-    // Zapisz dane użytkownika
+    // Save user data
     setUserInfo(formData);
     nextStep();
   };
 
   const getTierInfo = () => {
-    if (selectedAmount <= 50) return { name: 'Student', rewards: 'Naklejka + dostęp do grupy FB' };
-    if (selectedAmount <= 100) return { name: 'Turysta', rewards: 'Naklejka + opaska + grupa FB' };
-    if (selectedAmount <= 170) return { name: 'Skaut', rewards: 'Naklejka + złota opaska + grupa FB' };
-    if (selectedAmount <= 360) return { name: 'Ranger', rewards: 'Wypukła naklejka + opaska + grupa FB' };
-    return { name: 'Szeryf', rewards: 'Pełen pakiet: naklejki, opaska, t-shirt, czapka, otwieracz + pierwszeństwo w eventach' };
+    // Używamy paymentStore.getTierInfo() które już ma tłumaczenia
+    const storeGetTierInfo = usePaymentStore.getState().getTierInfo;
+    return storeGetTierInfo();
   };
 
   const tierInfo = getTierInfo();
@@ -102,7 +117,7 @@ const UserInfoForm = () => {
       <BackButton onClick={prevStep} />
 
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-100 mb-4">Dane wspierającego</h2>
+        <h2 className="text-4xl font-bold text-gray-100 mb-4">{t('supporterData')}</h2>
         <div className="backdrop-blur-sm bg-gradient-to-r from-emerald-400/20 to-green-500/20 border border-emerald-300/30 inline-block px-6 py-3 rounded-xl shadow-sm">
           <span className="text-emerald-200 font-bold text-lg">{selectedAmount} PLN</span>
           <span className="text-emerald-300 text-sm ml-2">• {tierInfo.name}</span>
@@ -113,32 +128,32 @@ const UserInfoForm = () => {
       <div className="backdrop-blur-sm bg-blue-100/70 border border-blue-200/50 rounded-xl p-4 mb-6">
         <div className="flex items-center mb-2">
           <User className="w-5 h-5 text-blue-600 mr-2" />
-          <span className="font-semibold text-blue-800">Twoje nagrody</span>
+          <span className="font-semibold text-blue-800">{t('yourRewards')}</span>
         </div>
         <p className="text-sm text-blue-700">{tierInfo.rewards}</p>
         {needsPhysicalRewards && (
-          <p className="text-xs text-blue-600 mt-2">📦 Zawiera wysyłkę - wymagany adres pocztowy</p>
+          <p className="text-xs text-blue-600 mt-2">📦 {t('shippingRequired')}</p>
         )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Podstawowe dane */}
+        {/* Basic data */}
         <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             <User className="w-5 h-5 mr-2" />
-            Dane osobowe
+            {t('personalData')}
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
-              label="Imię *"
+              label={`${t('firstName')} *`}
               value={formData.firstName}
               onChange={(value) => handleInputChange('firstName', value)}
               error={errors.firstName}
               placeholder="Jan"
             />
             <FormField
-              label="Nazwisko *"
+              label={`${t('lastName')} *`}
               value={formData.lastName}
               onChange={(value) => handleInputChange('lastName', value)}
               error={errors.lastName}
@@ -147,7 +162,7 @@ const UserInfoForm = () => {
           </div>
 
           <FormField
-            label="Email *"
+            label={`${t('email')} *`}
             type="email"
             value={formData.email}
             onChange={(value) => handleInputChange('email', value)}
@@ -157,7 +172,7 @@ const UserInfoForm = () => {
           />
 
           <FormField
-            label="Telefon (opcjonalnie)"
+            label={t('phone')}
             type="tel"
             value={formData.phone}
             onChange={(value) => handleInputChange('phone', value)}
@@ -167,16 +182,16 @@ const UserInfoForm = () => {
           />
         </div>
 
-        {/* Adres - tylko dla nagród fizycznych */}
+        {/* Address - only for physical rewards */}
         {needsPhysicalRewards && (
           <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
               <MapPin className="w-5 h-5 mr-2" />
-              Adres wysyłki nagród
+              {t('shippingAddress')}
             </h3>
             
             <FormField
-              label="Ulica i numer *"
+              label={`${t('streetAndNumber')} *`}
               value={formData.address}
               onChange={(value) => handleInputChange('address', value)}
               error={errors.address}
@@ -185,25 +200,25 @@ const UserInfoForm = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
-                label="Miasto *"
+                label={`${t('city')} *`}
                 value={formData.city}
                 onChange={(value) => handleInputChange('city', value)}
                 error={errors.city}
                 placeholder="Warszawa"
               />
               <FormField
-                label="Kod pocztowy *"
+                label={`${t('postalCode')} *`}
                 value={formData.postalCode}
                 onChange={(value) => handleInputChange('postalCode', value)}
                 error={errors.postalCode}
                 placeholder="00-001"
               />
               <FormField
-                label="Kraj"
+                label={t('country')}
                 value={formData.country}
                 onChange={(value) => handleInputChange('country', value)}
                 error={errors.country}
-                placeholder="Polska"
+                placeholder={getDefaultCountry(language)}
               />
             </div>
           </div>
@@ -213,22 +228,22 @@ const UserInfoForm = () => {
         <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             <Users className="w-5 h-5 mr-2" />
-            Dostęp do grupy Facebook
+            {t('facebookAccess')}
           </h3>
           
           <FormField
-            label="Nazwa użytkownika Facebook *"
+            label={`${t('facebookUsername')} *`}
             value={formData.fbUsername}
             onChange={(value) => handleInputChange('fbUsername', value)}
             error={errors.fbUsername}
             placeholder="jan.kowalski lub @jankowalski"
-            helpText="Podaj nazwę użytkownika lub handle, aby zostać dodanym do prywatnej grupy FB"
+            helpText={t('facebookHelp')}
           />
         </div>
 
-        {/* Zgody */}
+        {/* Consents */}
         <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg space-y-4">
-          {/* Obowiązkowa zgoda na regulamin */}
+          {/* Required consent for terms */}
           <div>
             <label className="flex items-start space-x-3 cursor-pointer">
               <input
@@ -238,25 +253,25 @@ const UserInfoForm = () => {
                 className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               />
               <div className="text-sm text-gray-700">
-                <span className="font-medium">Akceptuję </span>
+                <span className="font-medium">{t('acceptTerms')} </span>
                 <a 
                   href="https://bigfootworks.pl/regulamin/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
                 >
-                  regulamin
+                  {t('terms')}
                 </a>
-                <span> oraz </span>
+                <span> {t('and')} </span>
                 <a 
                   href="https://bigfootworks.pl/polityka-prywatnosci/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
                 >
-                  politykę prywatności
+                  {t('privacyPolicy')}
                 </a>
-                <span className="text-red-500 ml-1">*</span>
+                <span className="text-red-500 ml-1">{t('required')}</span>
               </div>
             </label>
             {errors.termsAccepted && (
@@ -267,7 +282,7 @@ const UserInfoForm = () => {
             )}
           </div>
 
-          {/* Opcjonalna zgoda na newsletter */}
+          {/* Optional consent for newsletter */}
           <label className="flex items-start space-x-3 cursor-pointer">
             <input
               type="checkbox"
@@ -276,7 +291,7 @@ const UserInfoForm = () => {
               className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">
-              Wyrażam zgodę na otrzymywanie informacji o wydarzeniach BigFoot Works (opcjonalnie)
+              {t('marketingConsent')}
             </span>
           </label>
         </div>
@@ -286,7 +301,7 @@ const UserInfoForm = () => {
           type="submit"
           className="w-full bg-gradient-to-r from-blue-500/80 to-indigo-600/80 backdrop-blur-sm text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-blue-600/80 hover:to-indigo-700/80 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
         >
-          Kontynuuj do płatności
+          {t('continueToPayment')}
         </button>
       </form>
     </div>

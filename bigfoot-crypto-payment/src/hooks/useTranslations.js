@@ -1,3 +1,16 @@
+import { usePaymentStore } from '../stores/paymentStore';
+
+// Language Configuration
+export const LANGUAGES = [
+  { code: 'pl', name: 'Polski', flag: '🇵🇱' },
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'sv', name: 'Svenska', flag: '🇸🇪' },
+  { code: 'no', name: 'Norsk', flag: '🇳🇴' },
+  { code: 'da', name: 'Dansk', flag: '🇩🇰' }
+];
+
+// Complete translations object
 export const translations = {
   pl: {
     // Header
@@ -27,6 +40,7 @@ export const translations = {
     stablecoin: "Stablecoin (USDC)",
     nativeDescription: "Oryginalna waluta sieci",
     stablecoinDescription: "Stabilna wartość w USD",
+    selectCurrencyType: "Wybierz typ waluty:",
     
     // Payment Summary
     paymentSummary: "Podsumowanie płatności",
@@ -45,6 +59,7 @@ export const translations = {
     loading: "Ładowanie...",
     calculationError: "Błąd kalkulacji",
     connectWallet: "Połącz portfel",
+    unavailable: "Niedostępne",
     
     // User Info Form
     supporterData: "Dane wspierającego",
@@ -162,6 +177,7 @@ export const translations = {
     stablecoin: "Stablecoin (USDC)",
     nativeDescription: "Original network currency",
     stablecoinDescription: "Stable USD value",
+    selectCurrencyType: "Select currency type:",
     
     // Payment Summary
     paymentSummary: "Payment Summary",
@@ -180,6 +196,7 @@ export const translations = {
     loading: "Loading...",
     calculationError: "Calculation error",
     connectWallet: "Connect Wallet",
+    unavailable: "Unavailable",
     
     // User Info Form
     supporterData: "Supporter Information",
@@ -297,6 +314,7 @@ export const translations = {
     stablecoin: "Stablecoin (USDC)",
     nativeDescription: "Original-Netzwerkwährung",
     stablecoinDescription: "Stabiler USD-Wert",
+    selectCurrencyType: "Währungstyp wählen:",
     
     // Payment Summary
     paymentSummary: "Zahlungsübersicht",
@@ -315,6 +333,7 @@ export const translations = {
     loading: "Lädt...",
     calculationError: "Berechnungsfehler",
     connectWallet: "Wallet verbinden",
+    unavailable: "Nicht verfügbar",
     
     // User Info Form
     supporterData: "Unterstützer-Daten",
@@ -402,5 +421,429 @@ export const translations = {
     slow: "Langsam",
     standard: "Standard",
     fast: "Schnell"
+  },
+  
+  sv: {
+    // Header
+    title: "Krypto-stöd",
+    step: "Steg",
+    
+    // Navigation
+    back: "Tillbaka",
+    continue: "Fortsätt",
+    continueToPayment: "Fortsätt till betalning",
+    sendPayment: "Skicka betalning",
+    nextPayment: "Nästa betalning",
+    
+    // Tier Selector
+    customAmount: "Anpassat belopp",
+    
+    // Blockchain Selector
+    selectBlockchain: "Välj blockchain",
+    fastAndCheap: "Snabbt & Billigt",
+    popular: "Populärt",
+    ethereumL2: "Ethereum L2",
+    networkFee: "Nätverksavgift",
+    confirmation: "Bekräftelse",
+    
+    // Currency Types
+    nativeCurrency: "Inbyggd",
+    stablecoin: "Stablecoin (USDC)",
+    nativeDescription: "Original nätverksvaluta",
+    stablecoinDescription: "Stabilt USD-värde",
+    selectCurrencyType: "Välj valuta typ:",
+    
+    // Payment Summary
+    paymentSummary: "Betalningssammanfattning",
+    toPay: "Att betala",
+    network: "Nätverk",
+    currencyType: "Valuta typ",
+    networkFeeTitle: "Nätverksavgift",
+    selectedFee: "Vald avgift",
+    refreshingPrices: "Uppdaterar priser...",
+    refreshingFees: "Uppdaterar nätverksavgifter...",
+    pricesError: "Prisfel",
+    feesError: "Avgiftsfel",
+    tryAgain: "Försök igen",
+    pricesOutdated: "Priserna kan vara föråldrade",
+    refresh: "Uppdatera",
+    loading: "Laddar...",
+    calculationError: "Beräkningsfel",
+    connectWallet: "Anslut plånbok",
+    unavailable: "Ej tillgänglig",
+    
+    // User Info Form
+    supporterData: "Supporterinformation",
+    yourRewards: "Dina belöningar",
+    shippingRequired: "Inkluderar frakt - postadress krävs",
+    personalData: "Personlig data",
+    firstName: "Förnamn",
+    lastName: "Efternamn",
+    email: "E-post",
+    phone: "Telefon (valfritt)",
+    shippingAddress: "Fraktadress för belöningar",
+    streetAndNumber: "Gata och nummer",
+    city: "Stad",
+    postalCode: "Postnummer",
+    country: "Land",
+    facebookAccess: "Facebook-gruppåtkomst",
+    facebookUsername: "Facebook-användarnamn",
+    facebookHelp: "Ange användarnamn eller handle för att läggas till i privat FB-grupp",
+    
+    // Consents
+    acceptTerms: "Jag accepterar",
+    terms: "användarvillkor",
+    and: "och",
+    privacyPolicy: "integritetspolicy",
+    required: "*",
+    marketingConsent: "Jag samtycker till att få information om BigFoot Works evenemang (valfritt)",
+    
+    // Validation Errors
+    firstNameRequired: "Förnamn krävs",
+    lastNameRequired: "Efternamn krävs",
+    emailRequired: "E-post krävs",
+    invalidEmail: "Ogiltigt e-postformat",
+    addressRequired: "Adress krävs för belöningsfrakt",
+    cityRequired: "Stad krävs",
+    postalCodeRequired: "Postnummer krävs",
+    postalCodeFormat: "Format: XXX XX",
+    facebookRequired: "FB-användarnamn krävs för gruppåtkomst",
+    termsRequired: "Accepterande av användarvillkor och integritetspolicy krävs",
+    
+    // Wallet Connector
+    connectWalletTitle: "Anslut plånbok",
+    compatibleWith: "Kompatibel med",
+    notInstalled: "Inte installerad",
+    noWalletsDetected: "Inga plånböcker upptäckta för nätverk",
+    installSupportedWallet: "Installera en av de stödda plånböckerna.",
+    
+    // Payment Confirmation
+    walletConnected: "Plånbok ansluten",
+    amountToPay: "Belopp att betala",
+    sending: "Skickar...",
+    confirmationTime: "Bekräftelse:",
+    waiting: "Väntar...",
+    processing: "Bearbetar betalning...",
+    confirmed: "Transaktion bekräftad!",
+    failed: "Transaktion misslyckades",
+    
+    // Payment Success
+    paymentSent: "Betalning skickad!",
+    thankYou: "Tack för ditt stöd!",
+    transactionProcessing: "Transaktionen bearbetas. Du kommer att få ett e-postmeddelande med bekräftelse och belöningsdetaljer.",
+    transactionHash: "Transaktionshash:",
+    viewInExplorer: "Visa i",
+    
+    // Tiers
+    student: "Student",
+    tourist: "Turist",
+    scout: "Scout",
+    ranger: "Ranger",
+    sheriff: "Sheriff",
+    
+    // Tier Rewards
+    studentRewards: "Klistermärke + FB-gruppåtkomst",
+    touristRewards: "Klistermärke + armband + FB-grupp",
+    scoutRewards: "Klistermärke + guldarmband + FB-grupp",
+    rangerRewards: "3D-klistermärke + armband + FB-grupp",
+    sheriffRewards: "Fullständigt paket: klistermärken, armband, t-shirt, keps, flasköppnare + evenemangsprioritet",
+    
+    // Footer
+    madeBy: "Skapad av",
+    for: "för",
+    year: new Date().getFullYear().toString(),
+    footerDescription: "Kryptobetalningar för cykelpark • Säker • Decentraliserad",
+    
+    // Fee speeds
+    slow: "Långsam",
+    standard: "Standard",
+    fast: "Snabb"
+  },
+  
+  no: {
+    // Header
+    title: "Krypto-støtte",
+    step: "Trinn",
+    
+    // Navigation
+    back: "Tilbake",
+    continue: "Fortsett",
+    continueToPayment: "Fortsett til betaling",
+    sendPayment: "Send betaling",
+    nextPayment: "Neste betaling",
+    
+    // Tier Selector
+    customAmount: "Tilpasset beløp",
+    
+    // Blockchain Selector
+    selectBlockchain: "Velg blockchain",
+    fastAndCheap: "Raskt & Billig",
+    popular: "Populært",
+    ethereumL2: "Ethereum L2",
+    networkFee: "Nettverksavgift",
+    confirmation: "Bekreftelse",
+    
+    // Currency Types
+    nativeCurrency: "Innebygd",
+    stablecoin: "Stablecoin (USDC)",
+    nativeDescription: "Original nettverksvaluta",
+    stablecoinDescription: "Stabil USD-verdi",
+    selectCurrencyType: "Velg valuta type:",
+    
+    // Payment Summary
+    paymentSummary: "Betalingssammendrag",
+    toPay: "Å betale",
+    network: "Nettverk",
+    currencyType: "Valuta type",
+    networkFeeTitle: "Nettverksavgift",
+    selectedFee: "Valgt avgift",
+    refreshingPrices: "Oppdaterer priser...",
+    refreshingFees: "Oppdaterer nettverksavgifter...",
+    pricesError: "Prisfeil",
+    feesError: "Avgiftsfeil",
+    tryAgain: "Prøv igjen",
+    pricesOutdated: "Prisene kan være utdaterte",
+    refresh: "Oppdater",
+    loading: "Laster...",
+    calculationError: "Beregningsfeil",
+    connectWallet: "Koble til lommebok",
+    unavailable: "Ikke tilgjengelig",
+    
+    // User Info Form
+    supporterData: "Støtteinformasjon",
+    yourRewards: "Dine belønninger",
+    shippingRequired: "Inkluderer frakt - postadresse påkrevd",
+    personalData: "Personlige data",
+    firstName: "Fornavn",
+    lastName: "Etternavn",
+    email: "E-post",
+    phone: "Telefon (valgfritt)",
+    shippingAddress: "Fraktadresse for belønninger",
+    streetAndNumber: "Gate og nummer",
+    city: "By",
+    postalCode: "Postnummer",
+    country: "Land",
+    facebookAccess: "Facebook-gruppeadgang",
+    facebookUsername: "Facebook-brukernavn",
+    facebookHelp: "Oppgi brukernavn eller handle for å bli lagt til i privat FB-gruppe",
+    
+    // Consents
+    acceptTerms: "Jeg aksepterer",
+    terms: "vilkår",
+    and: "og",
+    privacyPolicy: "personvernpolicy",
+    required: "*",
+    marketingConsent: "Jeg samtykker til å motta informasjon om BigFoot Works-arrangementer (valgfritt)",
+    
+    // Validation Errors
+    firstNameRequired: "Fornavn er påkrevd",
+    lastNameRequired: "Etternavn er påkrevd",
+    emailRequired: "E-post er påkrevd",
+    invalidEmail: "Ugyldig e-postformat",
+    addressRequired: "Adresse er påkrevd for belønningsfrakt",
+    cityRequired: "By er påkrevd",
+    postalCodeRequired: "Postnummer er påkrevd",
+    postalCodeFormat: "Format: XXXX",
+    facebookRequired: "FB-brukernavn er påkrevd for gruppeadgang",
+    termsRequired: "Akseptering av vilkår og personvernpolicy er påkrevd",
+    
+    // Wallet Connector
+    connectWalletTitle: "Koble til lommebok",
+    compatibleWith: "Kompatibel med",
+    notInstalled: "Ikke installert",
+    noWalletsDetected: "Ingen lommebøker oppdaget for nettverk",
+    installSupportedWallet: "installer en av de støttede lommebøkene.",
+    
+    // Payment Confirmation
+    walletConnected: "Lommebok tilkoblet",
+    amountToPay: "Beløp å betale",
+    sending: "Sender...",
+    confirmationTime: "Bekreftelse:",
+    waiting: "Venter...",
+    processing: "Behandler betaling...",
+    confirmed: "Transaksjon bekreftet!",
+    failed: "Transaksjon mislyktes",
+    
+    // Payment Success
+    paymentSent: "Betaling sendt!",
+    thankYou: "Takk for din støtte!",
+    transactionProcessing: "Transaksjonen behandles. Du vil motta en e-post med bekreftelse og belønningsdetaljer.",
+    transactionHash: "Transaksjonshash:",
+    viewInExplorer: "Vis i",
+    
+    // Tiers
+    student: "Student",
+    tourist: "Turist",
+    scout: "Speider",
+    ranger: "Ranger",
+    sheriff: "Sheriff",
+    
+    // Tier Rewards
+    studentRewards: "Klistremerke + FB-gruppeadgang",
+    touristRewards: "Klistremerke + armbånd + FB-gruppe",
+    scoutRewards: "Klistremerke + gullarmbånd + FB-gruppe",
+    rangerRewards: "3D-klistremerke + armbånd + FB-gruppe",
+    sheriffRewards: "Komplett pakke: klistremerker, armbånd, t-skjorte, caps, flaskeåpner + arrangementsprioritet",
+    
+    // Footer
+    madeBy: "Laget av",
+    for: "for",
+    year: new Date().getFullYear().toString(),
+    footerDescription: "Kryptobetalinger for sykkelpark • Sikker • Desentralisert",
+    
+    // Fee speeds
+    slow: "Langsom",
+    standard: "Standard",
+    fast: "Rask"
+  },
+  
+  da: {
+    // Header
+    title: "Krypto-støtte",
+    step: "Trin",
+    
+    // Navigation
+    back: "Tilbage",
+    continue: "Fortsæt",
+    continueToPayment: "Fortsæt til betaling",
+    sendPayment: "Send betaling",
+    nextPayment: "Næste betaling",
+    
+    // Tier Selector
+    customAmount: "Tilpasset beløb",
+    
+    // Blockchain Selector
+    selectBlockchain: "Vælg blockchain",
+    fastAndCheap: "Hurtigt & Billigt",
+    popular: "Populært",
+    ethereumL2: "Ethereum L2",
+    networkFee: "Netværksgebyr",
+    confirmation: "Bekræftelse",
+    
+    // Currency Types
+    nativeCurrency: "Indbygget",
+    stablecoin: "Stablecoin (USDC)",
+    nativeDescription: "Original netværksvaluta",
+    stablecoinDescription: "Stabil USD-værdi",
+    selectCurrencyType: "Vælg valuta type:",
+    
+    // Payment Summary
+    paymentSummary: "Betalingsoversigt",
+    toPay: "At betale",
+    network: "Netværk",
+    currencyType: "Valuta type",
+    networkFeeTitle: "Netværksgebyr",
+    selectedFee: "Valgt gebyr",
+    refreshingPrices: "Opdaterer priser...",
+    refreshingFees: "Opdaterer netværksgebyrer...",
+    pricesError: "Prisfejl",
+    feesError: "Gebyrfejl",
+    tryAgain: "Prøv igen",
+    pricesOutdated: "Priserne kan være forældede",
+    refresh: "Opdater",
+    loading: "Indlæser...",
+    calculationError: "Beregningsfejl",
+    connectWallet: "Tilslut tegnebog",
+    unavailable: "Ikke tilgængelig",
+    
+    // User Info Form
+    supporterData: "Støtteinformation",
+    yourRewards: "Dine belønninger",
+    shippingRequired: "Inkluderer fragt - postadresse påkrævet",
+    personalData: "Personlige data",
+    firstName: "Fornavn",
+    lastName: "Efternavn",
+    email: "E-mail",
+    phone: "Telefon (valgfrit)",
+    shippingAddress: "Fragtadresse for belønninger",
+    streetAndNumber: "Gade og nummer",
+    city: "By",
+    postalCode: "Postnummer",
+    country: "Land",
+    facebookAccess: "Facebook-gruppeadgang",
+    facebookUsername: "Facebook-brugernavn",
+    facebookHelp: "Angiv brugernavn eller handle for at blive tilføjet til privat FB-gruppe",
+    
+    // Consents
+    acceptTerms: "Jeg accepterer",
+    terms: "vilkår",
+    and: "og",
+    privacyPolicy: "privatlivspolitik",
+    required: "*",
+    marketingConsent: "Jeg samtykker i at modtage information om BigFoot Works-arrangementer (valgfrit)",
+    
+    // Validation Errors
+    firstNameRequired: "Fornavn er påkrævet",
+    lastNameRequired: "Efternavn er påkrævet",
+    emailRequired: "E-mail er påkrævet",
+    invalidEmail: "Ugyldigt e-mail-format",
+    addressRequired: "Adresse er påkrævet for belønningsfragt",
+    cityRequired: "By er påkrævet",
+    postalCodeRequired: "Postnummer er påkrævet",
+    postalCodeFormat: "Format: XXXX",
+    facebookRequired: "FB-brugernavn er påkrævet for gruppeadgang",
+    termsRequired: "Acceptering af vilkår og privatlivspolitik er påkrævet",
+    
+    // Wallet Connector
+    connectWalletTitle: "Tilslut tegnebog",
+    compatibleWith: "Kompatibel med",
+    notInstalled: "Ikke installeret",
+    noWalletsDetected: "Ingen tegnebøger opdaget for netværk",
+    installSupportedWallet: "Installer en af de understøttede tegnebøger.",
+    
+    // Payment Confirmation
+    walletConnected: "Tegnebog tilsluttet",
+    amountToPay: "Beløb at betale",
+    sending: "Sender...",
+    confirmationTime: "Bekræftelse:",
+    waiting: "Venter...",
+    processing: "Behandler betaling...",
+    confirmed: "Transaktion bekræftet!",
+    failed: "Transaktion mislykkedes",
+    
+    // Payment Success
+    paymentSent: "Betaling sendt!",
+    thankYou: "Tak for din støtte!",
+    transactionProcessing: "Transaktionen behandles. Du vil modtage en e-mail med bekræftelse og belønningsdetaljer.",
+    transactionHash: "Transaktionshash:",
+    viewInExplorer: "Vis i",
+    
+    // Tiers
+    student: "Student",
+    tourist: "Turist",
+    scout: "Spejder",
+    ranger: "Ranger",
+    sheriff: "Sheriff",
+    
+    // Tier Rewards
+    studentRewards: "Klistermærke + FB-gruppeadgang",
+    touristRewards: "Klistermærke + armbånd + FB-gruppe",
+    scoutRewards: "Klistermærke + guldarmbånd + FB-gruppe",
+    rangerRewards: "3D-klistermærke + armbånd + FB-gruppe",
+    sheriffRewards: "Komplet pakke: klistermærker, armbånd, t-shirt, kasket, flaskeåbner + arrangementsprioritet",
+    
+    // Footer
+    madeBy: "Lavet af",
+    for: "for",
+    year: new Date().getFullYear().toString(),
+    footerDescription: "Kryptobetalinger for cykelpark • Sikker • Decentraliseret",
+    
+    // Fee speeds
+    slow: "Langsom",
+    standard: "Standard",
+    fast: "Hurtig"
   }
+};
+
+// Main hook for translations
+export const useTranslations = () => {
+  const { language } = usePaymentStore();
+  
+  const currentTranslations = translations[language] || translations.pl;
+  
+  const t = (key, fallback = key) => {
+    return currentTranslations[key] || fallback;
+  };
+  
+  return { t, language, translations: currentTranslations };
 };

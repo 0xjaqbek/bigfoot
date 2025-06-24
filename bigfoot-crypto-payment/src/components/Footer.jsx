@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslations } from '../hooks/useTranslations';
 import { Code, Heart, Mail } from 'lucide-react';
 
 const Footer = () => {
+  const { t } = useTranslations();
+  
   const handleEthClick = () => {
     window.open('mailto:jaqbek.eth@gmail.com');
   };
@@ -15,7 +18,7 @@ const Footer = () => {
             {/* Made by */}
             <div className="flex items-center space-x-1 text-sm text-gray-700">
               <Code className="w-4 h-4" />
-              <span>Stworzone przez</span>
+              <span>{t('madeBy')}</span>
               <button 
                 onClick={handleEthClick}
                 className="font-semibold text-blue-600 hover:text-blue-700 transition-colors flex items-center space-x-1 hover:underline"
@@ -27,21 +30,21 @@ const Footer = () => {
 
             {/* For BigFoot Works */}
             <div className="flex items-center space-x-1 text-gray-600">
-              <span className="text-sm">dla</span>
+              <span className="text-sm">{t('for')}</span>
               <Heart className="w-4 h-4 text-red-500" />
               <span className="text-sm font-medium">BigFoot Works</span>
             </div>
 
             {/* Year */}
             <div className="text-sm text-gray-600 font-medium">
-              {new Date().getFullYear()}
+              {t('year')}
             </div>
           </div>
           
           {/* Bottom line - Additional info */}
           <div className="mt-1 pt-1 border-t border-gray-200/30 text-center">
             <p className="text-xs text-gray-600">
-              Kryptopłatności dla bikeparku • Bezpieczne • Decentralizowane
+              {t('footerDescription')}
             </p>
           </div>
         </div>

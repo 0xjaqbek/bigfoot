@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
+import { useTranslations } from '../hooks/useTranslations';
 import { TIERS } from '../utils/constants';
 import { isValidAmount } from '../utils/helpers';
 
@@ -10,6 +11,8 @@ const TierSelector = () => {
     setCustomAmount, 
     nextStep 
   } = usePaymentStore();
+  
+  const { t } = useTranslations();
 
   const handleTierSelect = (amount) => {
     setAmount(amount);
@@ -23,6 +26,26 @@ const TierSelector = () => {
     }
   };
 
+  // Get localized tier names and rewards
+  const getLocalizedTier = (tier) => {
+    // Mapowanie polskich nazw na klucze tłumaczeń
+    const tierKeyMap = {
+      'Student': 'student',
+      'Turysta': 'tourist', 
+      'Skaut': 'scout',
+      'Ranger': 'ranger',
+      'Szeryf': 'sheriff'
+    };
+    
+    const tierKey = tierKeyMap[tier.name] || tier.name.toLowerCase();
+    
+    return {
+      ...tier,
+      name: t(tierKey, tier.name),
+      rewards: t(`${tierKey}Rewards`, tier.rewards)
+    };
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-3">
 
@@ -31,7 +54,7 @@ const TierSelector = () => {
         {TIERS.slice(0, 2).map((tier) => (
           <TierCard 
             key={tier.name}
-            tier={tier}
+            tier={getLocalizedTier(tier)}
             onClick={() => handleTierSelect(tier.amount)}
           />
         ))}
@@ -42,7 +65,7 @@ const TierSelector = () => {
         {TIERS.slice(2, 4).map((tier) => (
           <TierCard 
             key={tier.name}
-            tier={tier}
+            tier={getLocalizedTier(tier)}
             onClick={() => handleTierSelect(tier.amount)}
           />
         ))}
@@ -51,7 +74,7 @@ const TierSelector = () => {
       {/* Trzeci rząd - Szeryf na pełną szerokość */}
       <div className="mb-4">
         <TierCard 
-          tier={TIERS[4]}
+          tier={getLocalizedTier(TIERS[4])}
           onClick={() => handleTierSelect(TIERS[4].amount)}
           fullWidth
         />
@@ -91,26 +114,30 @@ const TierCard = ({ tier, onClick, fullWidth = false }) => (
   </button>
 );
 
-const CustomAmountSelector = ({ value, onChange, onSubmit }) => (
-  <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 p-4 rounded-2xl max-w-md mx-auto shadow-lg">
-    <h3 className="text-l font-bold mb-2 text-center text-gray-800">Własna kwota</h3>
-    <div className="space-y-3">
-      <input
-        type="number"
-        placeholder="PLN"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full p-3 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg text-center"
-      />
-      <button
-        onClick={onSubmit}
-        disabled={!isValidAmount(value)}
-        className="w-full bg-gradient-to-r from-blue-500/80 to-indigo-600/80 backdrop-blur-sm text-white py-3 px-8 rounded-xl hover:from-blue-600/80 hover:to-indigo-700/80 disabled:from-gray-400/80 disabled:to-gray-500/80 disabled:cursor-not-allowed transition-all duration-300 font-semibold shadow-lg"
-      >
-        Dalej
-      </button>
+const CustomAmountSelector = ({ value, onChange, onSubmit }) => {
+  const { t } = useTranslations();
+  
+  return (
+    <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 p-4 rounded-2xl max-w-md mx-auto shadow-lg">
+      <h3 className="text-l font-bold mb-2 text-center text-gray-800">{t('customAmount')}</h3>
+      <div className="space-y-3">
+        <input
+          type="number"
+          placeholder="PLN"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full p-3 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg text-center"
+        />
+        <button
+          onClick={onSubmit}
+          disabled={!isValidAmount(value)}
+          className="w-full bg-gradient-to-r from-blue-500/80 to-indigo-600/80 backdrop-blur-sm text-white py-3 px-8 rounded-xl hover:from-blue-600/80 hover:to-indigo-700/80 disabled:from-gray-400/80 disabled:to-gray-500/80 disabled:cursor-not-allowed transition-all duration-300 font-semibold shadow-lg"
+        >
+          {t('continue')}
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default TierSelector;

@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 
 export const usePaymentStore = create((set, get) => ({
+  // Language State
+  language: 'pl', // domyślny język
+  
   // Payment State
   currentStep: 1,
   selectedAmount: null,
@@ -50,6 +53,28 @@ export const usePaymentStore = create((set, get) => ({
   emailSent: false,
   emailError: null,
   supporterEmailSent: false,
+
+  // Actions - Language
+  setLanguage: (language) => {
+    set({ language });
+    // Update country default based on language
+    const countryDefaults = {
+      pl: 'Polska',
+      en: 'Poland',
+      de: 'Polen',
+      sv: 'Polen',
+      no: 'Polen', 
+      da: 'Polen'
+    };
+    if (get().userInfo.country === get().userInfo.country) {
+      set(state => ({
+        userInfo: {
+          ...state.userInfo,
+          country: countryDefaults[language] || 'Polska'
+        }
+      }));
+    }
+  },
 
   // Actions - Step Navigation
   setStep: (step) => set({ currentStep: step }),
@@ -151,6 +176,7 @@ export const usePaymentStore = create((set, get) => ({
     emailSent: false,
     emailError: null,
     supporterEmailSent: false
+    // language nie resetujemy - pozostaje wybór użytkownika
   }),
 
   // Helper - Check if can proceed to next step
@@ -193,37 +219,87 @@ export const usePaymentStore = create((set, get) => ({
   // Helper - Get tier info by amount
   getTierInfo: () => {
     const amount = get().selectedAmount;
+    const language = get().language;
+    
     if (!amount) return null;
     
+    // Get localized tier data
+    const tierData = {
+      pl: {
+        student: { name: 'Student', rewards: 'Naklejka + dostęp do grupy FB' },
+        tourist: { name: 'Turysta', rewards: 'Naklejka + opaska + grupa FB' },
+        scout: { name: 'Skaut', rewards: 'Naklejka + złota opaska + grupa FB' },
+        ranger: { name: 'Ranger', rewards: 'Wypukła naklejka + opaska + grupa FB' },
+        sheriff: { name: 'Szeryf', rewards: 'Pełen pakiet: naklejki, opaska, t-shirt, czapka, otwieracz + pierwszeństwo w eventach' },
+        custom: { name: 'Custom', rewards: 'Niestandardowa kwota wsparcia' }
+      },
+      en: {
+        student: { name: 'Student', rewards: 'Sticker + FB group access' },
+        tourist: { name: 'Tourist', rewards: 'Sticker + wristband + FB group' },
+        scout: { name: 'Scout', rewards: 'Sticker + gold wristband + FB group' },
+        ranger: { name: 'Ranger', rewards: '3D sticker + wristband + FB group' },
+        sheriff: { name: 'Sheriff', rewards: 'Full package: stickers, wristband, t-shirt, cap, bottle opener + event priority' },
+        custom: { name: 'Custom', rewards: 'Custom support amount' }
+      },
+      de: {
+        student: { name: 'Student', rewards: 'Aufkleber + FB-Gruppenzugang' },
+        tourist: { name: 'Tourist', rewards: 'Aufkleber + Armband + FB-Gruppe' },
+        scout: { name: 'Pfadfinder', rewards: 'Aufkleber + goldenes Armband + FB-Gruppe' },
+        ranger: { name: 'Ranger', rewards: '3D-Aufkleber + Armband + FB-Gruppe' },
+        sheriff: { name: 'Sheriff', rewards: 'Vollpaket: Aufkleber, Armband, T-Shirt, Mütze, Flaschenöffner + Event-Priorität' },
+        custom: { name: 'Custom', rewards: 'Individuelle Unterstützung' }
+      },
+      sv: {
+        student: { name: 'Student', rewards: 'Klistermärke + FB-gruppåtkomst' },
+        tourist: { name: 'Turist', rewards: 'Klistermärke + armband + FB-grupp' },
+        scout: { name: 'Scout', rewards: 'Klistermärke + guldarmband + FB-grupp' },
+        ranger: { name: 'Ranger', rewards: '3D-klistermärke + armband + FB-grupp' },
+        sheriff: { name: 'Sheriff', rewards: 'Fullständigt paket: klistermärken, armband, t-shirt, keps, flasköppnare + evenemangsprioritet' },
+        custom: { name: 'Anpassad', rewards: 'Anpassat stödbelopp' }
+      },
+      no: {
+        student: { name: 'Student', rewards: 'Klistremerke + FB-gruppeadgang' },
+        tourist: { name: 'Turist', rewards: 'Klistremerke + armbånd + FB-gruppe' },
+        scout: { name: 'Speider', rewards: 'Klistremerke + gullarmbånd + FB-gruppe' },
+        ranger: { name: 'Ranger', rewards: '3D-klistremerke + armbånd + FB-gruppe' },
+        sheriff: { name: 'Sheriff', rewards: 'Komplett pakke: klistremerker, armbånd, t-skjorte, caps, flaskeåpner + arrangementsprioritet' },
+        custom: { name: 'Tilpasset', rewards: 'Tilpasset støttebeløp' }
+      },
+      da: {
+        student: { name: 'Student', rewards: 'Klistermærke + FB-gruppeadgang' },
+        tourist: { name: 'Turist', rewards: 'Klistermærke + armbånd + FB-gruppe' },
+        scout: { name: 'Spejder', rewards: 'Klistermærke + guldarmbånd + FB-gruppe' },
+        ranger: { name: 'Ranger', rewards: '3D-klistermærke + armbånd + FB-gruppe' },
+        sheriff: { name: 'Sheriff', rewards: 'Komplet pakke: klistermærker, armbånd, t-shirt, kasket, flaskeåbner + arrangementsprioritet' },
+        custom: { name: 'Tilpasset', rewards: 'Tilpasset støttebeløb' }
+      }
+    };
+    
+    const currentLang = tierData[language] || tierData.pl;
+    
     if (amount <= 50) return { 
-      name: 'Student', 
-      rewards: 'Naklejka + dostęp do grupy FB',
+      ...currentLang.student,
       hasPhysicalRewards: true
     };
     if (amount <= 100) return { 
-      name: 'Turysta', 
-      rewards: 'Naklejka + opaska + grupa FB',
+      ...currentLang.tourist,
       hasPhysicalRewards: true
     };
     if (amount <= 170) return { 
-      name: 'Skaut', 
-      rewards: 'Naklejka + złota opaska + grupa FB',
+      ...currentLang.scout,
       hasPhysicalRewards: true
     };
     if (amount <= 360) return { 
-      name: 'Ranger', 
-      rewards: 'Wypukła naklejka + opaska + grupa FB',
+      ...currentLang.ranger,
       hasPhysicalRewards: true
     };
     if (amount >= 750) return { 
-      name: 'Szeryf', 
-      rewards: 'Pełen pakiet: naklejki, opaska, t-shirt, czapka, otwieracz + pierwszeństwo w eventach',
+      ...currentLang.sheriff,
       hasPhysicalRewards: true
     };
     
     return { 
-      name: 'Custom', 
-      rewards: 'Niestandardowa kwota wsparcia',
+      ...currentLang.custom,
       hasPhysicalRewards: amount >= 50
     };
   },
@@ -273,7 +349,8 @@ export const usePaymentStore = create((set, get) => ({
       // Metadata
       timestamp: new Date().toISOString(),
       paymentDate: new Date().toLocaleDateString('pl-PL'),
-      paymentTime: new Date().toLocaleTimeString('pl-PL')
+      paymentTime: new Date().toLocaleTimeString('pl-PL'),
+      language: state.language
     };
   },
   

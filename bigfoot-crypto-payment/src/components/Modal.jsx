@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslations } from '../hooks/useTranslations';
 import { X, Shield, Zap } from 'lucide-react';
 
 const Modal = ({ chain, onClose, onConfirm }) => {
+  const { _t } = useTranslations();
+  
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="backdrop-blur-xl bg-white/95 rounded-2xl p-6 max-w-sm w-full shadow-xl border border-gray-200/50">
@@ -28,51 +31,59 @@ const Modal = ({ chain, onClose, onConfirm }) => {
   );
 };
 
-const ChainDetails = ({ chain }) => (
-  <div className="backdrop-blur-sm bg-gray-50/70 rounded-xl p-4 mb-6">
-    <div className="space-y-3">
-      <div className="flex justify-between">
-        <span className="text-gray-600">Symbol:</span>
-        <span className="font-semibold text-gray-800">{chain.symbol}</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-gray-600">Opłata sieciowa:</span>
-        <span className="font-semibold text-gray-800">{chain.fee}</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-gray-600">Potwierdzenie:</span>
-        <span className="font-semibold text-gray-800">{chain.time}</span>
+const ChainDetails = ({ chain }) => {
+  const { t } = useTranslations();
+  
+  return (
+    <div className="backdrop-blur-sm bg-gray-50/70 rounded-xl p-4 mb-6">
+      <div className="space-y-3">
+        <div className="flex justify-between">
+          <span className="text-gray-600">Symbol:</span>
+          <span className="font-semibold text-gray-800">{chain.symbol}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600">{t('networkFee')}:</span>
+          <span className="font-semibold text-gray-800">{chain.fee}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-600">{t('confirmation')}:</span>
+          <span className="font-semibold text-gray-800">{chain.time}</span>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-const CurrencySelection = ({ chain, onConfirm }) => (
-  <div>
-    <h4 className="font-semibold text-gray-800 mb-3">Wybierz typ waluty:</h4>
-    <div className="space-y-3">
-      {/* Native Currency */}
-      <CurrencyOption
-        icon={<Zap className="w-5 h-5 text-orange-700" />}
-        title={`Natywna ${chain.symbol}`}
-        description="Oryginalna waluta sieci"
-        bgColor="bg-orange-100/50 border-orange-200/50 hover:bg-orange-200/50"
-        onClick={() => onConfirm(chain, 'native')}
-      />
-
-      {/* Stablecoin (if supported) */}
-      {chain.hasStablecoin && (
+const CurrencySelection = ({ chain, onConfirm }) => {
+  const { t } = useTranslations();
+  
+  return (
+    <div>
+      <h4 className="font-semibold text-gray-800 mb-3">{t('selectCurrencyType')}</h4>
+      <div className="space-y-3">
+        {/* Native Currency */}
         <CurrencyOption
-          icon={<Shield className="w-5 h-5 text-emerald-700" />}
-          title="Stablecoin (USDC)"
-          description="Stabilna wartość w USD"
-          bgColor="bg-emerald-100/50 border-emerald-200/50 hover:bg-emerald-200/50"
-          onClick={() => onConfirm(chain, 'stablecoin')}
+          icon={<Zap className="w-5 h-5 text-orange-700" />}
+          title={`${t('nativeCurrency')} ${chain.symbol}`}
+          description={t('nativeDescription')}
+          bgColor="bg-orange-100/50 border-orange-200/50 hover:bg-orange-200/50"
+          onClick={() => onConfirm(chain, 'native')}
         />
-      )}
+
+        {/* Stablecoin (if supported) */}
+        {chain.hasStablecoin && (
+          <CurrencyOption
+            icon={<Shield className="w-5 h-5 text-emerald-700" />}
+            title={t('stablecoin')}
+            description={t('stablecoinDescription')}
+            bgColor="bg-emerald-100/50 border-emerald-200/50 hover:bg-emerald-200/50"
+            onClick={() => onConfirm(chain, 'stablecoin')}
+          />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const CurrencyOption = ({ icon, title, description, bgColor, onClick }) => (
   <button

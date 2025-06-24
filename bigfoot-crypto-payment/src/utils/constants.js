@@ -1,4 +1,3 @@
-// Payment Tiers
 export const TIERS = [
   { 
     name: 'Student', 
@@ -37,10 +36,11 @@ export const TIERS = [
   }
 ];
 
-// Blockchain Networks
+// Blockchain Networks - zawierają domyślne nazwy grup
+// Tłumaczenia są obsługiwane przez useTranslations hook
 export const BLOCKCHAIN_GROUPS = [
   {
-    title: 'Szybkie i tanie',
+    title: 'Szybkie i tanie', // Tłumaczone w BlockchainSelector jako t('fastAndCheap')
     icon: '⚡',
     color: 'from-emerald-400/20 to-green-500/20',
     chains: [
@@ -71,7 +71,7 @@ export const BLOCKCHAIN_GROUPS = [
     ]
   },
   {
-    title: 'Popularne',
+    title: 'Popularne', // Tłumaczone jako t('popular')
     icon: '🌟', 
     color: 'from-blue-400/20 to-indigo-500/20',
     chains: [
@@ -94,7 +94,7 @@ export const BLOCKCHAIN_GROUPS = [
     ]
   },
   {
-    title: 'L2 Ethereum',
+    title: 'L2 Ethereum', // Tłumaczone jako t('ethereumL2')
     icon: '🚀',
     color: 'from-purple-400/20 to-violet-500/20', 
     chains: [
@@ -168,7 +168,8 @@ export const APP_CONFIG = {
   description: 'Wsparcie BigFoot Works Bikepark',
   totalSteps: 7, // Updated: 1=Tier, 2=Blockchain, 3=Summary, 4=UserInfo, 5=Wallet, 6=Confirmation, 7=Success
   priceUpdateInterval: 30000, // 30 seconds
-  defaultLanguage: 'pl'
+  defaultLanguage: 'pl',
+  supportedLanguages: ['pl', 'en', 'de', 'sv', 'no', 'da']
 };
 
 // Email Templates Configuration
@@ -193,4 +194,35 @@ export const VALIDATION_RULES = {
   phone: /^(\+48\s?)?(\d{3}\s?\d{3}\s?\d{3}|\d{2}\s?\d{3}\s?\d{2}\s?\d{2})$/,
   minAmount: 1,
   maxAmount: 10000
+};
+
+// Default country names by language
+export const DEFAULT_COUNTRIES = {
+  pl: 'Polska',
+  en: 'Poland',
+  de: 'Polen',
+  sv: 'Polen',
+  no: 'Polen', 
+  da: 'Polen'
+};
+
+// Links and URLs
+export const LINKS = {
+  terms: {
+    pl: 'https://bigfootworks.pl/regulamin/',
+    en: 'https://bigfootworks.pl/regulamin/', // Jeśli będzie wersja angielska
+    de: 'https://bigfootworks.pl/regulamin/', // Jeśli będzie wersja niemiecka
+    sv: 'https://bigfootworks.pl/regulamin/', // Jeśli będzie wersja szwedzka
+    no: 'https://bigfootworks.pl/regulamin/', // Jeśli będzie wersja norweska
+    da: 'https://bigfootworks.pl/regulamin/' // Jeśli będzie wersja duńska
+  },
+  privacy: {
+    pl: 'https://bigfootworks.pl/polityka-prywatnosci/',
+    en: 'https://bigfootworks.pl/polityka-prywatnosci/', // Jeśli będzie wersja angielska
+    de: 'https://bigfootworks.pl/polityka-prywatnosci/', // Jeśli będzie wersja niemiecka
+    sv: 'https://bigfootworks.pl/polityka-prywatnosci/', // Jeśli będzie wersja szwedzka
+    no: 'https://bigfootworks.pl/polityka-prywatnosci/', // Jeśli będzie wersja norweska
+    da: 'https://bigfootworks.pl/polityka-prywatnosci/' // Jeśli będzie wersja duńska
+  },
+  website: 'https://bigfootworks.pl'
 };

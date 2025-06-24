@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
+import { useTranslations } from '../hooks/useTranslations';
 import TierSelector from './TierSelector';
 import BlockchainSelector from './BlockchainSelector';
 import PaymentSummary from './PaymentSummary';
@@ -8,11 +9,13 @@ import WalletConnector from './WalletConnector';
 import PaymentConfirmation from './PaymentConfirmation';
 import PaymentSuccess from './PaymentSuccess';
 import Footer from './Footer'; 
+import LanguageSelector from './LanguageSelector';
 import { APP_CONFIG } from '../utils/constants';
 import logo from '../assets/BFW-GOLD.png';
 
 const PaymentFlow = () => {
   const { currentStep } = usePaymentStore();
+  const { _t } = useTranslations();
 
   return (
     <div 
@@ -52,11 +55,17 @@ const PaymentFlow = () => {
 
 const Header = () => {
   const { currentStep } = usePaymentStore();
+  const { t } = useTranslations();
 
   return (
     <div className="text-center">
       <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] p-4 text-center" 
        style={{ background: 'black'}}>
+        {/* Language Selector - positioned at top right */}
+        <div className="absolute top-4 right-4 z-20">
+          <LanguageSelector />
+        </div>
+        
         <img
           src={logo}
           alt="BigFoot Works Logo"
@@ -69,14 +78,14 @@ const Header = () => {
               '"Syncopate", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
           }}
         >
-          Wsparcie Kryptowalutą
+          {t('title')}
         </p>
       </div>
 
       {/* Progress Bar */}
       <div className="flex items-center justify-center space-x-4">
         <div className="text-sm text-white font-medium backdrop-blur-sm bg-black px-3 py-1 rounded-xl border border-gray-200/50">
-          Krok {currentStep} / {APP_CONFIG.totalSteps}
+          {t('step')} {currentStep} / {APP_CONFIG.totalSteps}
         </div>
         <div className="w-32 backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
           <div 
