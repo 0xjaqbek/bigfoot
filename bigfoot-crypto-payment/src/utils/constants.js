@@ -79,16 +79,16 @@ export const BLOCKCHAIN_GROUPS = [
       { 
         name: 'Bitcoin', 
         symbol: 'BTC', 
-        fee: '15-50zł', 
-        time: '30min', 
+        fee: '5-50zł', 
+        time: '~30min', 
         type: 'bitcoin', 
         hasStablecoin: false 
       },
       { 
         name: 'Ethereum', 
         symbol: 'ETH', 
-        fee: '20-80zł', 
-        time: '2min', 
+        fee: '5-80zł', 
+        time: '~2min', 
         type: 'evm', 
         hasStablecoin: true 
       }
@@ -103,7 +103,7 @@ export const BLOCKCHAIN_GROUPS = [
         name: 'Arbitrum', 
         symbol: 'ARB', 
         fee: '~2zł', 
-        time: '1min', 
+        time: '~1min', 
         type: 'evm', 
         hasStablecoin: true 
       },
@@ -111,7 +111,7 @@ export const BLOCKCHAIN_GROUPS = [
         name: 'Optimism', 
         symbol: 'OP', 
         fee: '~2zł', 
-        time: '1min', 
+        time: '~1min', 
         type: 'evm', 
         hasStablecoin: true 
       },
@@ -119,7 +119,7 @@ export const BLOCKCHAIN_GROUPS = [
         name: 'zkSync', 
         symbol: 'ZKS', 
         fee: '~1zł', 
-        time: '30s', 
+        time: '~30s', 
         type: 'evm', 
         hasStablecoin: true 
       }
