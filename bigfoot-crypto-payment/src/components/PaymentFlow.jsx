@@ -53,25 +53,25 @@ const Header = () => {
 
   return (
     <div className="text-center">
-<div className="relative p-1 rounded-lg text-center" 
-     style={{
-       background: 'linear-gradient(90deg, #f8fafc 0%, #000000 50%, #f1f5f9 100%)'
-     }}>
-  <img
-    src={logo}
-    alt="BigFoot Works Logo"
-    className="mx-auto h-21 object-contain mb-1"
-  />
-  <p
-    className="text-white text-xl font-semibold"
-    style={{
-      fontFamily:
-        '"Syncopate", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-    }}
-  >
-    Płatność Krypto
-  </p>
-</div>
+      <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] p-4 text-center" 
+       style={{ background: 'black'}}>
+        <img
+          src={logo}
+          alt="BigFoot Works Logo"
+          className="mx-auto h-21 object-contain mb-1"
+        />
+        <p
+          className="text-white text-xl font-semibold"
+          style={{
+            fontFamily:
+              '"Syncopate", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+          }}
+        >
+          Płatność Krypto
+        </p>
+      </div>
+
+      {/* Progress Bar */}
       <div className="flex items-center justify-center space-x-4">
         <div className="text-sm text-gray-600 font-medium backdrop-blur-sm bg-white/40 px-3 py-1 rounded-xl border border-gray-200/50">
           Krok {currentStep} / {APP_CONFIG.totalSteps}
