@@ -1,7 +1,7 @@
 import { connectMetaMask, connectWalletConnect, connectCoinbaseWallet, sendEvmTransaction } from './evmWalletService';
 import { connectUnisat, connectTrustWallet, sendBitcoinTransaction } from './bitcoinWalletService';
 import { connectPhantom, connectSolflare, sendSolanaTransaction } from './solanaWalletService';
-import { connectTonkeeper, connectTonWallet as connectTonWalletDirect, connectTonUniversal, sendTonTransaction } from './tonWalletService';
+import { connectTonkeeper, connectTonWallet as connectTonWalletDirect, connectTonUniversal, connectTonMock, sendTonTransaction } from './tonWalletService';
 
 // Unified wallet connection
 export const connectWallet = async (walletName, blockchainType) => {
@@ -81,21 +81,34 @@ const connectSolanaWallet = async (walletName) => {
   }
 };
 
-// TON Wallets - FIXED
+// TON Wallets - FIXED with fallback
 const connectTonWalletHelper = async (walletName) => {
-  // ✅ IMPROVED: Use universal connection for better UX
-  // This will show a modal with all available TON wallets
   try {
+    // ✅ FIRST: Try universal connection (best UX)
     return await connectTonUniversal();
-  } catch {
-    // Fallback to specific wallet connections if universal fails
-    switch (walletName) {
-      case 'Tonkeeper':
-        return await connectTonkeeper();
-      case 'TON Wallet':
-        return await connectTonWalletDirect();
-      default:
-        throw new Error('Nieznany TON wallet');
+  } catch (tonError) {
+    console.warn('Universal TON connection failed:', tonError.message);
+    
+    try {
+      // ✅ FALLBACK: Try specific wallet
+      switch (walletName) {
+        case 'Tonkeeper':
+          return await connectTonkeeper();
+        case 'TON Wallet':
+          return await connectTonWalletDirect();
+        default:
+          throw new Error('Nieznany TON wallet');
+      }
+    } catch (specificError) {
+      console.warn('Specific TON wallet failed:', specificError.message);
+      
+      // ✅ LAST RESORT: Mock connection for development
+      if (import.meta.env.NODE_ENV === 'development') {
+        console.warn('Using mock TON connection for development');
+        return await connectTonMock();
+      }
+      
+      throw new Error(`Wszystkie metody połączenia TON nie powiodły się. Ostatni błąd: ${specificError.message}`);
     }
   }
 };
