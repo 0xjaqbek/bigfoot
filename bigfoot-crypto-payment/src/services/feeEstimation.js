@@ -26,6 +26,23 @@ const getCachedOrFetch = async (key, fetchFn, cacheDuration = CACHE_DURATION) =>
   }
 };
 
+// Utility function to safely parse numbers
+const safeParseFloat = (value, fallback = 0) => {
+  const parsed = parseFloat(value);
+  return isNaN(parsed) ? fallback : parsed;
+};
+
+// Utility function to validate and calculate PLN amount
+const calculatePlnFee = (gweiAmount, gasLimit, ethPricePln) => {
+  const gwei = safeParseFloat(gweiAmount, 30); // fallback to 30 gwei
+  const limit = safeParseFloat(gasLimit, 21000);
+  const price = safeParseFloat(ethPricePln, 12600);
+  
+  // Convert gwei to PLN: gwei * gasLimit * ethPrice / 1e9
+  const plnAmount = (gwei * limit * price) / 1000000000;
+  return Math.round(plnAmount * 100) / 100; // Round to 2 decimals
+};
+
 // Bitcoin Fee Estimation
 export const getBitcoinFees = async () => {
   return getCachedOrFetch('bitcoin', async () => {
@@ -39,102 +56,154 @@ export const getBitcoinFees = async () => {
     
     return {
       slow: {
-        satPerByte: fees.hourFee,
-        pln: Math.round(fees.hourFee * txSize * satoshiToPln * 100) / 100,
+        satPerByte: safeParseFloat(fees.hourFee, 10),
+        pln: Math.round(safeParseFloat(fees.hourFee, 10) * txSize * satoshiToPln * 100) / 100,
         time: '60+ min'
       },
       standard: {
-        satPerByte: fees.halfHourFee,
-        pln: Math.round(fees.halfHourFee * txSize * satoshiToPln * 100) / 100,
+        satPerByte: safeParseFloat(fees.halfHourFee, 15),
+        pln: Math.round(safeParseFloat(fees.halfHourFee, 15) * txSize * satoshiToPln * 100) / 100,
         time: '30 min'
       },
       fast: {
-        satPerByte: fees.fastestFee,
-        pln: Math.round(fees.fastestFee * txSize * satoshiToPln * 100) / 100,
+        satPerByte: safeParseFloat(fees.fastestFee, 25),
+        pln: Math.round(safeParseFloat(fees.fastestFee, 25) * txSize * satoshiToPln * 100) / 100,
         time: '10 min'
       }
     };
   });
 };
 
-// Ethereum Gas Fee Estimation
+// Ethereum Gas Fee Estimation - FIXED
 export const getEthereumGas = async () => {
   return getCachedOrFetch('ethereum', async () => {
+    // Try multiple API sources
+    const ethPricePln = 12600; // Should come from price service
+    const gasLimit = 21000; // Standard transfer
+    
+    // Try Etherscan API first (requires API key for better reliability)
     try {
-      // Try Etherscan API first
-      const response = await axios.get(
-        'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
-      );
+      const etherscanUrl = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle';
+      const response = await axios.get(etherscanUrl, { timeout: 5000 });
       
-      if (response.data?.result) {
+      if (response.data?.status === '1' && response.data?.result) {
         const gas = response.data.result;
-        const ethPricePln = 12600; // should come from price service
-        const gasLimit = 21000; // standard transfer
         
+        // Validate all required fields exist and are numbers
+        const safeGas = safeParseFloat(gas.SafeGasPrice, 0);
+        const standardGas = safeParseFloat(gas.StandardGasPrice, 0);
+        const fastGas = safeParseFloat(gas.FastGasPrice, 0);
+        
+        // Only use API data if all values are valid
+        if (safeGas > 0 && standardGas > 0 && fastGas > 0) {
+          return {
+            slow: {
+              gwei: safeGas,
+              pln: calculatePlnFee(safeGas, gasLimit, ethPricePln),
+              time: '5+ min'
+            },
+            standard: {
+              gwei: standardGas,
+              pln: calculatePlnFee(standardGas, gasLimit, ethPricePln),
+              time: '2 min'
+            },
+            fast: {
+              gwei: fastGas,
+              pln: calculatePlnFee(fastGas, gasLimit, ethPricePln),
+              time: '1 min'
+            }
+          };
+        }
+      }
+    } catch (etherscanError) {
+      console.warn('Etherscan API failed:', etherscanError.message);
+    }
+    
+    // Try alternative API - ETH Gas Station (if available)
+    try {
+      const gasStationResponse = await axios.get('https://ethgasstation.info/api/ethgasAPI.json', { timeout: 5000 });
+      if (gasStationResponse.data) {
+        const data = gasStationResponse.data;
         return {
           slow: {
-            gwei: parseFloat(gas.SafeGasPrice),
-            pln: Math.round(gas.SafeGasPrice * gasLimit * ethPricePln / 1000000000 * 100) / 100,
+            gwei: safeParseFloat(data.safeLow / 10, 20),
+            pln: calculatePlnFee(data.safeLow / 10, gasLimit, ethPricePln),
             time: '5+ min'
           },
           standard: {
-            gwei: parseFloat(gas.StandardGasPrice),
-            pln: Math.round(gas.StandardGasPrice * gasLimit * ethPricePln / 1000000000 * 100) / 100,
+            gwei: safeParseFloat(data.standard / 10, 30),
+            pln: calculatePlnFee(data.standard / 10, gasLimit, ethPricePln),
             time: '2 min'
           },
           fast: {
-            gwei: parseFloat(gas.FastGasPrice),
-            pln: Math.round(gas.FastGasPrice * gasLimit * ethPricePln / 1000000000 * 100) / 100,
+            gwei: safeParseFloat(data.fast / 10, 50),
+            pln: calculatePlnFee(data.fast / 10, gasLimit, ethPricePln),
             time: '1 min'
           }
         };
       }
-    } catch (ethError) {
-      console.warn('Etherscan API failed, using fallback:', ethError);
+    } catch (gasStationError) {
+      console.warn('ETH Gas Station API failed:', gasStationError.message);
     }
     
-    // Fallback values
+    // Fallback to realistic current values (updated for 2025)
+    console.warn('Using Ethereum fallback gas prices');
     return {
-      slow: { gwei: 20, pln: 25, time: '5+ min' },
-      standard: { gwei: 30, pln: 38, time: '2 min' },
-      fast: { gwei: 50, pln: 63, time: '1 min' }
+      slow: { 
+        gwei: 12, 
+        pln: calculatePlnFee(12, gasLimit, ethPricePln), 
+        time: '5+ min' 
+      },
+      standard: { 
+        gwei: 20, 
+        pln: calculatePlnFee(20, gasLimit, ethPricePln), 
+        time: '2 min' 
+      },
+      fast: { 
+        gwei: 35, 
+        pln: calculatePlnFee(35, gasLimit, ethPricePln), 
+        time: '1 min' 
+      }
     };
   });
 };
 
-// Polygon Gas Fee Estimation
+// Polygon Gas Fee Estimation - IMPROVED
 export const getPolygonGas = async () => {
   return getCachedOrFetch('polygon', async () => {
     try {
-      const response = await axios.get('https://gasstation.polygon.technology/v2');
+      const response = await axios.get('https://gasstation.polygon.technology/v2', { timeout: 5000 });
       const fees = response.data;
       
-      return {
-        slow: {
-          gwei: Math.round(fees.safeLow.maxFee),
-          pln: 0.8,
-          time: '3 min'
-        },
-        standard: {
-          gwei: Math.round(fees.standard.maxFee),
-          pln: 1.2,
-          time: '2 min'
-        },
-        fast: {
-          gwei: Math.round(fees.fast.maxFee),
-          pln: 2.0,
-          time: '1 min'
-        }
-      };
+      if (fees && fees.safeLow && fees.standard && fees.fast) {
+        return {
+          slow: {
+            gwei: Math.round(safeParseFloat(fees.safeLow.maxFee, 30)),
+            pln: 0.8,
+            time: '3 min'
+          },
+          standard: {
+            gwei: Math.round(safeParseFloat(fees.standard.maxFee, 35)),
+            pln: 1.2,
+            time: '2 min'
+          },
+          fast: {
+            gwei: Math.round(safeParseFloat(fees.fast.maxFee, 40)),
+            pln: 2.0,
+            time: '1 min'
+          }
+        };
+      }
     } catch (polygonError) {
-      console.warn('Polygon Gas Station failed:', polygonError);
-      // Fallback for Polygon
-      return {
-        slow: { gwei: 30, pln: 0.8, time: '3 min' },
-        standard: { gwei: 35, pln: 1.2, time: '2 min' },
-        fast: { gwei: 40, pln: 2.0, time: '1 min' }
-      };
+      console.warn('Polygon Gas Station failed:', polygonError.message);
     }
+    
+    // Fallback for Polygon
+    return {
+      slow: { gwei: 30, pln: 0.8, time: '3 min' },
+      standard: { gwei: 35, pln: 1.2, time: '2 min' },
+      fast: { gwei: 40, pln: 2.0, time: '1 min' }
+    };
   });
 };
 
@@ -162,7 +231,7 @@ export const getOptimismGas = async () => {
   });
 };
 
-// Solana Fee Estimation
+// Solana Fee Estimation - IMPROVED
 export const getSolanaFees = async () => {
   return getCachedOrFetch('solana', async () => {
     try {
@@ -171,8 +240,8 @@ export const getSolanaFees = async () => {
       // Get recent prioritization fees
       const recentFees = await connection.getRecentPrioritizationFees();
       
-      if (recentFees.length > 0) {
-        const fees = recentFees.map(f => f.prioritizationFee);
+      if (recentFees && recentFees.length > 0) {
+        const fees = recentFees.map(f => safeParseFloat(f.prioritizationFee, 0));
         const avgFee = fees.reduce((sum, fee) => sum + fee, 0) / fees.length;
         
         const baseFee = 5000; // lamports
@@ -196,7 +265,7 @@ export const getSolanaFees = async () => {
         };
       }
     } catch (solanaError) {
-      console.warn('Solana fee estimation failed:', solanaError);
+      console.warn('Solana fee estimation failed:', solanaError.message);
     }
     
     // Fallback for Solana
@@ -220,9 +289,14 @@ export const getTonFees = async () => {
   });
 };
 
-// Main fee estimation function
+// Main fee estimation function - IMPROVED ERROR HANDLING
 export const getNetworkFees = async (blockchain) => {
   const networkName = blockchain?.name?.toLowerCase();
+  
+  if (!networkName) {
+    console.error('No blockchain name provided for fee estimation');
+    return getFallbackFees();
+  }
   
   try {
     switch (networkName) {
@@ -241,18 +315,22 @@ export const getNetworkFees = async (blockchain) => {
       case 'ton':
         return await getTonFees();
       default:
-        throw new Error(`Unsupported network: ${networkName}`);
+        console.warn(`Unsupported network: ${networkName}`);
+        return getFallbackFees();
     }
   } catch (networkError) {
-    console.error(`Fee estimation failed for ${networkName}:`, networkError);
-    
-    // Return fallback fees
-    return {
-      slow: { pln: 5, time: '5 min' },
-      standard: { pln: 10, time: '2 min' },
-      fast: { pln: 20, time: '1 min' }
-    };
+    console.error(`Fee estimation failed for ${networkName}:`, networkError.message);
+    return getFallbackFees();
   }
+};
+
+// Improved fallback fees
+const getFallbackFees = () => {
+  return {
+    slow: { pln: 5, time: '5 min' },
+    standard: { pln: 10, time: '2 min' },
+    fast: { pln: 20, time: '1 min' }
+  };
 };
 
 // Format fee for display
@@ -260,7 +338,11 @@ export const formatFee = (fee, speed = 'standard') => {
   if (!fee || !fee[speed]) return 'Nieznana';
   
   const feeData = fee[speed];
-  return `~${feeData.pln} PLN (${feeData.time})`;
+  const plnAmount = safeParseFloat(feeData.pln, 0);
+  
+  if (plnAmount <= 0) return 'Nieznana';
+  
+  return `~${plnAmount} PLN (${feeData.time})`;
 };
 
 // Get recommended fee (standard by default)

@@ -73,10 +73,10 @@ const Header = () => {
 
       {/* Progress Bar */}
       <div className="flex items-center justify-center space-x-4">
-        <div className="text-sm text-gray-100 font-medium backdrop-blur-sm bg-white/40 px-3 py-1 rounded-xl border border-gray-200/50">
+        <div className="text-sm text-white font-medium backdrop-blur-sm bg-black px-3 py-1 rounded-xl border border-gray-200/50">
           Krok {currentStep} / {APP_CONFIG.totalSteps}
         </div>
-        <div className="w-32 bg-white-100/50 backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
+        <div className="w-32  backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
           <div 
             className="bg-gradient-to-r from-blue-400 to-indigo-500 h-3 rounded-full transition-all duration-500 ease-out shadow-sm"
             style={{ width: `${(currentStep / APP_CONFIG.totalSteps) * 100}%` }}

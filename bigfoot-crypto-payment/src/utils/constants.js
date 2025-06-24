@@ -49,7 +49,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'SOL', 
         fee: '~0.01$', 
         time: '1s', 
-        logo: '◐', 
         type: 'solana', 
         hasStablecoin: true 
       },
@@ -58,7 +57,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'TON', 
         fee: '~0.02$', 
         time: '5s', 
-        logo: '💎', 
         type: 'ton', 
         hasStablecoin: true 
       },
@@ -67,7 +65,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'MATIC', 
         fee: '~0.05$', 
         time: '2s', 
-        logo: '🔷', 
         type: 'evm', 
         hasStablecoin: true 
       }
@@ -83,7 +80,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'BTC', 
         fee: '15-50zł', 
         time: '30min', 
-        logo: '₿', 
         type: 'bitcoin', 
         hasStablecoin: false 
       },
@@ -92,7 +88,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'ETH', 
         fee: '20-80zł', 
         time: '2min', 
-        logo: 'Ξ', 
         type: 'evm', 
         hasStablecoin: true 
       }
@@ -108,7 +103,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'ARB', 
         fee: '~2zł', 
         time: '1min', 
-        logo: '🔵', 
         type: 'evm', 
         hasStablecoin: true 
       },
@@ -117,7 +111,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'OP', 
         fee: '~2zł', 
         time: '1min', 
-        logo: '🔴', 
         type: 'evm', 
         hasStablecoin: true 
       },
@@ -126,7 +119,6 @@ export const BLOCKCHAIN_GROUPS = [
         symbol: 'ZKS', 
         fee: '~1zł', 
         time: '30s', 
-        logo: '⚪', 
         type: 'evm', 
         hasStablecoin: true 
       }

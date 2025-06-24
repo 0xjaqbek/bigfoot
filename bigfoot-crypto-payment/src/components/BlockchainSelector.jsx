@@ -87,7 +87,6 @@ const BlockchainCard = ({ chain, onClick }) => (
     className="w-full h-14 backdrop-blur-sm bg-white/60 border border-gray-200/50 hover:border-gray-300/70 rounded-xl p-3 transition-all duration-200 hover:shadow-md hover:scale-102 flex items-center justify-center text-left"
   >
     <div className="flex items-center space-x-2">
-      <div className="text-lg">{chain.logo}</div>
       <div>
         <div className="font-semibold text-gray-800 text-sm">{chain.name}</div>
       </div>
