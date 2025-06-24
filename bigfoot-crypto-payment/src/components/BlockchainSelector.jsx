@@ -32,9 +32,9 @@ const BlockchainSelector = () => {
       <BackButton onClick={prevStep} />
 
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">Wybierz blockchain</h2>
+        <h2 className="text-4xl font-bold text-gray-100 mb-4">Wybierz blockchain</h2>
         <div className="backdrop-blur-sm bg-gradient-to-r from-emerald-400/20 to-green-500/20 border border-emerald-300/30 inline-block px-6 py-3 rounded-xl shadow-sm">
-          <span className="text-emerald-700 font-bold text-lg">{selectedAmount} PLN</span>
+          <span className="text-emerald-200 font-bold text-lg">{selectedAmount} PLN</span>
         </div>
       </div>
 

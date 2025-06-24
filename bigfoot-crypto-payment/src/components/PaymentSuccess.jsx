@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
         <CheckCircle className="w-12 h-12 text-white" />
       </div>
       
-      <h2 className="text-4xl font-bold text-gray-800 mb-6">Płatność wysłana!</h2>
+      <h2 className="text-4xl font-bold text-gray-100 mb-6">Płatność wysłana!</h2>
       
       <div className="backdrop-blur-sm bg-emerald-100/60 border border-emerald-200/50 rounded-2xl p-6 mb-8 shadow-lg">
         <div className="text-emerald-800">

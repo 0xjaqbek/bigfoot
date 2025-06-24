@@ -17,7 +17,7 @@ const PaymentFlow = () => {
     <div 
       className="min-h-screen relative overflow-hidden"
       style={{
-        background: 'linear-gradient(90deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
+        background: 'linear-gradient(180deg, black 20%, #f1f5f9 100%)',
       }}
     >
       {/* Background elements */}
@@ -67,16 +67,16 @@ const Header = () => {
               '"Syncopate", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
           }}
         >
-          Płatność Krypto
+          Płatność Kryptowalutą
         </p>
       </div>
 
       {/* Progress Bar */}
       <div className="flex items-center justify-center space-x-4">
-        <div className="text-sm text-gray-600 font-medium backdrop-blur-sm bg-white/40 px-3 py-1 rounded-xl border border-gray-200/50">
+        <div className="text-sm text-gray-100 font-medium backdrop-blur-sm bg-white/40 px-3 py-1 rounded-xl border border-gray-200/50">
           Krok {currentStep} / {APP_CONFIG.totalSteps}
         </div>
-        <div className="w-32 bg-gray-200/50 backdrop-blur-sm rounded-full h-3 border border-gray-300/30">
+        <div className="w-32 bg-white-100/50 backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
           <div 
             className="bg-gradient-to-r from-blue-400 to-indigo-500 h-3 rounded-full transition-all duration-500 ease-out shadow-sm"
             style={{ width: `${(currentStep / APP_CONFIG.totalSteps) * 100}%` }}

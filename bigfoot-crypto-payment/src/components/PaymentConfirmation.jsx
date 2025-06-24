@@ -31,7 +31,7 @@ const PaymentConfirmation = () => {
         <div className="w-20 h-20 backdrop-blur-sm bg-gradient-to-br from-emerald-400/70 to-green-500/70 border border-white/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
           <CheckCircle className="w-10 h-10 text-white" />
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Portfel połączony</h2>
+        <h2 className="text-3xl font-bold text-gray-100 mb-4">Portfel połączony</h2>
         <div className="text-sm text-gray-600">
           {connectedWallet?.walletName} • {connectedWallet?.address?.slice(0, 8)}...
         </div>

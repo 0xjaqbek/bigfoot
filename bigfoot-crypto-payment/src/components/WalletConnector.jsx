@@ -44,7 +44,7 @@ const WalletConnector = () => {
       <BackButton onClick={prevStep} />
 
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Połącz portfel</h2>
+        <h2 className="text-3xl font-bold text-gray-100 mb-4">Połącz portfel</h2>
         <div className="text-sm text-gray-600 backdrop-blur-sm bg-white/40 px-4 py-2 rounded-xl border border-gray-200/50 inline-block">
           Kompatybilne z {selectedBlockchain?.name}
         </div>
