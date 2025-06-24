@@ -1,7 +1,7 @@
 import { connectMetaMask, connectWalletConnect, connectCoinbaseWallet, sendEvmTransaction } from './evmWalletService';
 import { connectUnisat, connectTrustWallet, sendBitcoinTransaction } from './bitcoinWalletService';
 import { connectPhantom, connectSolflare, sendSolanaTransaction } from './solanaWalletService';
-import { connectTonkeeper, connectTonWallet as connectTonWalletDirect, sendTonTransaction } from './tonWalletService';
+import { connectTonkeeper, connectTonWallet as connectTonWalletDirect, connectTonUniversal, sendTonTransaction } from './tonWalletService';
 
 // Unified wallet connection
 export const connectWallet = async (walletName, blockchainType) => {
@@ -81,15 +81,22 @@ const connectSolanaWallet = async (walletName) => {
   }
 };
 
-// TON Wallets (renamed to avoid conflict)
+// TON Wallets - FIXED
 const connectTonWalletHelper = async (walletName) => {
-  switch (walletName) {
-    case 'Tonkeeper':
-      return await connectTonkeeper();
-    case 'TON Wallet':
-      return await connectTonWalletDirect();
-    default:
-      throw new Error('Nieznany TON wallet');
+  // ✅ IMPROVED: Use universal connection for better UX
+  // This will show a modal with all available TON wallets
+  try {
+    return await connectTonUniversal();
+  } catch {
+    // Fallback to specific wallet connections if universal fails
+    switch (walletName) {
+      case 'Tonkeeper':
+        return await connectTonkeeper();
+      case 'TON Wallet':
+        return await connectTonWalletDirect();
+      default:
+        throw new Error('Nieznany TON wallet');
+    }
   }
 };
 
@@ -143,8 +150,7 @@ export const detectAvailableWallets = () => {
   if (window.solana?.isPhantom) available.solana.push('Phantom');
   if (window.solflare?.isSolflare) available.solana.push('Solflare');
 
-  // TON wallets detection is more complex due to bridge nature
-  // For now, assume they're always available
+  // TON wallets - Always available via bridge
   available.ton.push('Tonkeeper', 'TON Wallet');
 
   return available;

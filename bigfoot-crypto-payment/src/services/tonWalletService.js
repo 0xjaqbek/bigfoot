@@ -1,16 +1,16 @@
-import { TonConnect } from '@tonconnect/sdk';
+import { TonConnectUI } from '@tonconnect/ui-react';
 
-// ✅ FIXED: Proper TonConnect initialization
-let tonConnect = null;
+// ✅ FIXED: Use TonConnect UI instead of SDK
+let tonConnectUI = null;
 
-// Initialize TonConnect
+// Initialize TonConnect UI
 const initTonConnect = () => {
-  if (!tonConnect) {
-    tonConnect = new TonConnect({
-      manifestUrl: window.location.origin + '/tonconnect-manifest.json'
+  if (!tonConnectUI) {
+    tonConnectUI = new TonConnectUI({
+      manifestUrl: window.location.origin + '/bigfoot/tonconnect-manifest.json'
     });
   }
-  return tonConnect;
+  return tonConnectUI;
 };
 
 // Tonkeeper Connection - FIXED
@@ -18,15 +18,12 @@ export const connectTonkeeper = async () => {
   try {
     const connector = initTonConnect();
     
-    // ✅ FIXED: Use proper TonConnect API
-    const walletConnectionSource = {
-      bridgeUrl: "https://bridge.tonapi.io/bridge",
-      universalLink: "https://app.tonkeeper.com/ton-connect",
-      jsBridgeKey: "tonkeeper"
-    };
-
-    // Connect to wallet
-    await connector.connect(walletConnectionSource);
+    // Connect to Tonkeeper specifically
+    await connector.connectWallet({
+      name: 'tonkeeper',
+      bridgeUrl: 'https://bridge.tonapi.io/bridge',
+      universalLink: 'https://app.tonkeeper.com/ton-connect'
+    });
     
     // Wait for connection
     const wallet = connector.wallet;
@@ -51,13 +48,12 @@ export const connectTonWallet = async () => {
   try {
     const connector = initTonConnect();
     
-    const walletConnectionSource = {
-      bridgeUrl: "https://bridge.tonapi.io/bridge", 
-      universalLink: "https://wallet.ton.org/ton-connect",
-      jsBridgeKey: "tonwallet"
-    };
-
-    await connector.connect(walletConnectionSource);
+    // Connect to TON Wallet
+    await connector.connectWallet({
+      name: 'tonwallet',
+      bridgeUrl: 'https://bridge.tonapi.io/bridge',
+      universalLink: 'https://wallet.ton.org/ton-connect'
+    });
     
     const wallet = connector.wallet;
     if (!wallet) {
@@ -76,10 +72,44 @@ export const connectTonWallet = async () => {
   }
 };
 
+// ✅ IMPROVED: Universal TON connection with wallet selection
+export const connectTonUniversal = async () => {
+  try {
+    const connector = initTonConnect();
+    
+    // Open wallet selection modal
+    await connector.openModal();
+    
+    // Return promise that resolves when wallet connects
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Timeout: Nie wybrano portfela w ciągu 60 sekund'));
+      }, 60000);
+      
+      // Listen for wallet connection
+      const unsubscribe = connector.onStatusChange((wallet) => {
+        if (wallet) {
+          clearTimeout(timeout);
+          unsubscribe();
+          resolve({
+            address: wallet.account.address,
+            chain: wallet.account.chain,
+            publicKey: wallet.account.publicKey,
+            provider: connector
+          });
+        }
+      });
+    });
+  } catch (error) {
+    console.error('TON Universal connection error:', error);
+    throw new Error(`Błąd połączenia TON: ${error.message}`);
+  }
+};
+
 // Send TON Transaction - FIXED
 export const sendTonTransaction = async (to, amount) => {
   try {
-    const connector = tonConnect;
+    const connector = tonConnectUI;
     if (!connector || !connector.wallet) {
       throw new Error('TON wallet nie jest połączony');
     }
@@ -99,4 +129,14 @@ export const sendTonTransaction = async (to, amount) => {
   } catch (error) {
     throw new Error(`Błąd wysyłania TON: ${error.message}`);
   }
+};
+
+// ✅ NEW: Check if TON wallets are available
+export const detectTonWallets = () => {
+  // TON wallets work via bridge, so they're always "available"
+  // Real detection happens during connection attempt
+  return [
+    { name: 'Tonkeeper', detected: true },
+    { name: 'TON Wallet', detected: true }
+  ];
 };
