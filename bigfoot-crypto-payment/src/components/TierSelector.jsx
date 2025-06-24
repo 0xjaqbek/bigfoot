@@ -94,18 +94,18 @@ const TierCard = ({ tier, onClick, fullWidth = false }) => (
 const CustomAmountSelector = ({ value, onChange, onSubmit }) => (
   <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 p-4 rounded-2xl max-w-md mx-auto shadow-lg">
     <h3 className="text-l font-bold mb-2 text-center text-gray-800">Własna kwota</h3>
-    <div className="flex gap-3">
+    <div className="space-y-3">
       <input
         type="number"
         placeholder="PLN"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex-1 p-2 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg"
+        className="w-full p-3 backdrop-blur-sm bg-white/70 border border-gray-200/50 rounded-xl focus:ring-2 focus:ring-blue-400/50 focus:border-gray-300/50 text-lg text-center"
       />
       <button
         onClick={onSubmit}
         disabled={!isValidAmount(value)}
-        className="bg-gradient-to-r from-blue-500/80 to-indigo-600/80 backdrop-blur-sm text-white px-8 py-4 rounded-xl hover:from-blue-600/80 hover:to-indigo-700/80 disabled:from-gray-400/80 disabled:to-gray-500/80 disabled:cursor-not-allowed transition-all duration-300 font-semibold shadow-lg"
+        className="w-full bg-gradient-to-r from-blue-500/80 to-indigo-600/80 backdrop-blur-sm text-white py-3 px-8 rounded-xl hover:from-blue-600/80 hover:to-indigo-700/80 disabled:from-gray-400/80 disabled:to-gray-500/80 disabled:cursor-not-allowed transition-all duration-300 font-semibold shadow-lg"
       >
         Dalej
       </button>

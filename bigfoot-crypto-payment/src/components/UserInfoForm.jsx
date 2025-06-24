@@ -22,6 +22,7 @@ const UserInfoForm = () => {
     country: userInfo?.country || 'Polska',
     fbUsername: userInfo?.fbUsername || '',
     phone: userInfo?.phone || '',
+    termsAccepted: userInfo?.termsAccepted || false,
     marketingConsent: userInfo?.marketingConsent || false
   });
 
@@ -62,6 +63,11 @@ const UserInfoForm = () => {
     // Facebook username dla dostępu do grupy
     if (!formData.fbUsername.trim()) {
       newErrors.fbUsername = 'Nazwa użytkownika FB jest wymagana do dodania do grupy';
+    }
+
+    // Regulamin i polityka prywatności - wymagane
+    if (!formData.termsAccepted) {
+      newErrors.termsAccepted = 'Akceptacja regulaminu i polityki prywatności jest wymagana';
     }
 
     return newErrors;
@@ -221,7 +227,47 @@ const UserInfoForm = () => {
         </div>
 
         {/* Zgody */}
-        <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg">
+        <div className="backdrop-blur-sm bg-white/50 border border-gray-200/50 rounded-xl p-6 shadow-lg space-y-4">
+          {/* Obowiązkowa zgoda na regulamin */}
+          <div>
+            <label className="flex items-start space-x-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.termsAccepted}
+                onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
+                className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <div className="text-sm text-gray-700">
+                <span className="font-medium">Akceptuję </span>
+                <a 
+                  href="https://bigfootworks.pl/regulamin/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                >
+                  regulamin
+                </a>
+                <span> oraz </span>
+                <a 
+                  href="https://bigfootworks.pl/polityka-prywatnosci/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                >
+                  politykę prywatności
+                </a>
+                <span className="text-red-500 ml-1">*</span>
+              </div>
+            </label>
+            {errors.termsAccepted && (
+              <div className="flex items-center text-red-600 text-xs mt-2 ml-7">
+                <AlertCircle className="w-3 h-3 mr-1" />
+                {errors.termsAccepted}
+              </div>
+            )}
+          </div>
+
+          {/* Opcjonalna zgoda na newsletter */}
           <label className="flex items-start space-x-3 cursor-pointer">
             <input
               type="checkbox"

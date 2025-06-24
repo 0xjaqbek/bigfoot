@@ -21,6 +21,7 @@ export const usePaymentStore = create((set, get) => ({
     country: 'Polska',
     fbUsername: '',
     phone: '',
+    termsAccepted: false,
     marketingConsent: false
   },
   
@@ -75,6 +76,7 @@ export const usePaymentStore = create((set, get) => ({
       country: 'Polska',
       fbUsername: '',
       phone: '',
+      termsAccepted: false,
       marketingConsent: false
     }
   }),
@@ -133,6 +135,7 @@ export const usePaymentStore = create((set, get) => ({
       country: 'Polska',
       fbUsername: '',
       phone: '',
+      termsAccepted: false,
       marketingConsent: false
     },
     isConnecting: false,
@@ -165,7 +168,8 @@ export const usePaymentStore = create((set, get) => ({
         const userValid = state.userInfo.firstName.trim() && 
                           state.userInfo.lastName.trim() && 
                           state.userInfo.email.trim() &&
-                          state.userInfo.fbUsername.trim();
+                          state.userInfo.fbUsername.trim() &&
+                          state.userInfo.termsAccepted;
         
         // Address validation for physical rewards (amount >= 50)
         const needsAddress = state.selectedAmount >= 50;
@@ -259,6 +263,7 @@ export const usePaymentStore = create((set, get) => ({
       hasPhysicalRewards: tierInfo?.hasPhysicalRewards || false,
       
       // Preferences
+      termsAccepted: state.userInfo.termsAccepted,
       marketingConsent: state.userInfo.marketingConsent,
       
       // Transaction details
@@ -291,6 +296,11 @@ export const usePaymentStore = create((set, get) => ({
     }
     if (!state.userInfo.fbUsername.trim()) {
       errors.fbUsername = 'Nazwa użytkownika Facebook jest wymagana';
+    }
+    
+    // Wymagana akceptacja regulaminu
+    if (!state.userInfo.termsAccepted) {
+      errors.termsAccepted = 'Akceptacja regulaminu i polityki prywatności jest wymagana';
     }
     
     // Address validation for physical rewards

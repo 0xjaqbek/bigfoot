@@ -172,7 +172,9 @@ export const sendPaymentNotification = async (paymentData) => {
       processing_time: tierDetails.processingTime,
       
       // Marketing and privacy
+      terms_accepted: paymentData.termsAccepted ? 'TAK - zaakceptowano regulamin i politykę prywatności' : 'NIE - nie zaakceptowano',
       marketing_consent: paymentData.marketingConsent ? 'TAK - może otrzymywać newsletter' : 'NIE - tylko niezbędne komunikaty',
+            
       
       // Action items for foundation
       action_items: `
@@ -422,30 +424,31 @@ export const testEmailConfiguration = async () => {
 
 // Send test emails
 export const sendTestEmails = async () => {
-  const testData = {
-    amountPln: 100,
-    amountCrypto: '0.025',
-    currency: 'ETH',
-    blockchain: 'Ethereum',
-    wallet: 'MetaMask',
-    firstName: 'Jan',
-    lastName: 'Testowy',
-    fullName: 'Jan Testowy',
-    email: 'test@example.com',
-    phone: '+48 123 456 789',
-    fbUsername: 'jan.testowy',
-    address: 'ul. Testowa 123',
-    city: 'Warszawa',
-    postalCode: '00-001',
-    country: 'Polska',
-    fullAddress: 'ul. Testowa 123, 00-001 Warszawa, Polska',
-    tierLevel: 'Turysta',
-    marketingConsent: true,
-    txHash: '0x1234567890abcdef...',
-    transactionStatus: 'confirmed',
-    paymentDate: new Date().toLocaleDateString('pl-PL'),
-    paymentTime: new Date().toLocaleTimeString('pl-PL')
-  };
+const testData = {
+  amountPln: 100,
+  amountCrypto: '0.025',
+  currency: 'ETH',
+  blockchain: 'Ethereum',
+  wallet: 'MetaMask',
+  firstName: 'Jan',
+  lastName: 'Testowy',
+  fullName: 'Jan Testowy',
+  email: 'test@example.com',
+  phone: '+48 123 456 789',
+  fbUsername: 'jan.testowy',
+  address: 'ul. Testowa 123',
+  city: 'Warszawa',
+  postalCode: '00-001',
+  country: 'Polska',
+  fullAddress: 'ul. Testowa 123, 00-001 Warszawa, Polska',
+  tierLevel: 'Turysta',
+  termsAccepted: true,
+  marketingConsent: true,
+  txHash: '0x1234567890abcdef...',
+  transactionStatus: 'confirmed',
+  paymentDate: new Date().toLocaleDateString('pl-PL'),
+  paymentTime: new Date().toLocaleTimeString('pl-PL')
+};
 
   try {
     const foundationResult = await sendPaymentNotification(testData);
