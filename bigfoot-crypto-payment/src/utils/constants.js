@@ -1,4 +1,3 @@
-
 // Payment Tiers
 export const TIERS = [
   { 
@@ -163,11 +162,35 @@ export const COIN_IDS = {
   'USDC': 'usd-coin'
 };
 
-// App Configuration
+// App Configuration - UPDATED WITH 7 STEPS
 export const APP_CONFIG = {
   title: 'BigFoot Works - Płatność Krypto',
   description: 'Wsparcie BigFoot Works Bikepark',
-  totalSteps: 6,
+  totalSteps: 7, // Updated: 1=Tier, 2=Blockchain, 3=Summary, 4=UserInfo, 5=Wallet, 6=Confirmation, 7=Success
   priceUpdateInterval: 30000, // 30 seconds
   defaultLanguage: 'pl'
+};
+
+// Email Templates Configuration
+export const EMAIL_CONFIG = {
+  foundation: {
+    required: true,
+    templateEnvVar: 'VITE_EMAILJS_FOUNDATION_TEMPLATE_ID',
+    fallbackEnvVar: 'VITE_EMAILJS_TEMPLATE_ID',
+    recipient: 'VITE_FOUNDATION_EMAIL'
+  },
+  supporter: {
+    required: false,
+    templateEnvVar: 'VITE_EMAILJS_SUPPORTER_TEMPLATE_ID',
+    recipient: 'dynamic' // Based on user input
+  }
+};
+
+// Validation Rules
+export const VALIDATION_RULES = {
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  postalCode: /^\d{2}-\d{3}$/,
+  phone: /^(\+48\s?)?(\d{3}\s?\d{3}\s?\d{3}|\d{2}\s?\d{3}\s?\d{2}\s?\d{2})$/,
+  minAmount: 1,
+  maxAmount: 10000
 };

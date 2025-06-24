@@ -25,6 +25,11 @@ const EXPLORERS = {
     baseUrl: 'https://optimistic.etherscan.io/tx/',
     txUrl: (hash) => `https://optimistic.etherscan.io/tx/${hash}`
   },
+  zksync: {
+    name: 'zkSync Era Explorer',
+    baseUrl: 'https://explorer.zksync.io/tx/',
+    txUrl: (hash) => `https://explorer.zksync.io/tx/${hash}`
+  },
   solana: {
     name: 'Solscan',
     baseUrl: 'https://solscan.io/tx/',

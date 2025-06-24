@@ -3,6 +3,7 @@ import { usePaymentStore } from '../stores/paymentStore';
 import TierSelector from './TierSelector';
 import BlockchainSelector from './BlockchainSelector';
 import PaymentSummary from './PaymentSummary';
+import UserInfoForm from './UserInfoForm';
 import WalletConnector from './WalletConnector';
 import PaymentConfirmation from './PaymentConfirmation';
 import PaymentSuccess from './PaymentSuccess';
@@ -27,7 +28,7 @@ const PaymentFlow = () => {
         <div className="absolute top-1/3 left-1/4 w-60 h-60 bg-indigo-100/20 rounded-full blur-3xl"></div>
       </div>
       
-      <div className="container mx-auto  relative z-10">
+      <div className="container mx-auto relative z-10">
         {/* Header */}
         <Header />
 
@@ -36,12 +37,13 @@ const PaymentFlow = () => {
           {currentStep === 1 && <TierSelector />}
           {currentStep === 2 && <BlockchainSelector />}
           {currentStep === 3 && <PaymentSummary />}
-          {currentStep === 4 && <WalletConnector />}
-          {currentStep === 5 && <PaymentConfirmation />}
-          {currentStep === 6 && <PaymentSuccess />}
+          {currentStep === 4 && <UserInfoForm />}
+          {currentStep === 5 && <WalletConnector />}
+          {currentStep === 6 && <PaymentConfirmation />}
+          {currentStep === 7 && <PaymentSuccess />}
         </div>
 
-        {/* Footer - NEW */}
+        {/* Footer */}
         <Footer />
       </div>
     </div>
@@ -67,7 +69,7 @@ const Header = () => {
               '"Syncopate", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
           }}
         >
-          Płatność Kryptowalutą
+          Wsparcie Kryptowalutą
         </p>
       </div>
 
@@ -76,7 +78,7 @@ const Header = () => {
         <div className="text-sm text-white font-medium backdrop-blur-sm bg-black px-3 py-1 rounded-xl border border-gray-200/50">
           Krok {currentStep} / {APP_CONFIG.totalSteps}
         </div>
-        <div className="w-32  backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
+        <div className="w-32 backdrop-blur-sm rounded-full h-3 border border-gray-100/30">
           <div 
             className="bg-gradient-to-r from-blue-400 to-indigo-500 h-3 rounded-full transition-all duration-500 ease-out shadow-sm"
             style={{ width: `${(currentStep / APP_CONFIG.totalSteps) * 100}%` }}
