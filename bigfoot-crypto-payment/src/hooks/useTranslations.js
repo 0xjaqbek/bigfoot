@@ -146,7 +146,46 @@ export const translations = {
     // Fee speeds
     slow: "Wolna",
     standard: "Standardowa", 
-    fast: "Szybka"
+    fast: "Szybka",
+
+        // Welcome Modal
+    welcomeTitle: "Witamy!",
+    welcomeToApp: "Witamy w BigFoot Works Crypto Donation",
+    welcomeDescription: "Bezpieczny i przejrzysty sposób wspierania BigFoot Works Bikepark za pomocą kryptowalut. Możesz użyć tego narzędzia lub wysłać dotację ręcznie bezpośrednio z portfela.",
+    securePayments: "Bezpieczne płatności",
+    securePaymentsDesc: "Decentralizowane transakcje bez pośredników",
+    multipleChains: "Wiele sieci blockchain",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON i więcej",
+    openSource: "Kod źródłowy",
+    openSourceDesc: "Sprawdź kod na GitHub dla pełnej transparentności",
+    manualDonationOption: "Opcja ręcznej dotacji",
+    manualDonationDesc: "Wolisz wysłać środki bezpośrednio z portfela? Mamy dla Ciebie prostszą opcję!",
+    startDonation: "Rozpocznij w aplikacji",
+    manualDonation: "Wyślij ręcznie z portfela",
+    viewSourceCode: "Zobacz kod źródłowy",
+    trustMessage: "💯 Transparentny, bezpieczny i zbudowany dla BFW",
+    
+    // Manual Donation
+    manualDonationTitle: "Ręczna dotacja z portfela",
+    walletAddresses: "Adresy portfeli fundacji",
+    copyAddress: "Kopiuj adres",
+    copied: "Skopiowano!",
+    donationDetails: "Szczegóły dotacji",
+    donationInfo: "Informacje o dotacji",
+    amount: "Kwota",
+    blockchain: "Blockchain",
+    transactionLink: "Link do transakcji",
+    transactionLinkHelp: "Wklej link do transakcji z eksploratora blockchain (np. Etherscan, Blockstream)",
+    amountRequired: "Kwota jest wymagana",
+    invalidAmount: "Nieprawidłowa kwota",
+    blockchainRequired: "Wybór blockchain jest wymagany",
+    transactionLinkRequired: "Link do transakcji jest wymagany",
+    submitDonation: "Wyślij zgłoszenie dotacji",
+    submitting: "Wysyłanie...",
+    donationSubmitted: "Dotacja zgłoszona!",
+    manualDonationThankYou: "Dziękujemy za dotację! Sprawdzimy Twoją transakcję i skontaktujemy się w sprawie nagród.",
+    backToMain: "Powrót do strony głównej",
+    submissionFailed: "Błąd wysyłania. Spróbuj ponownie.",
   },
   
   en: {
@@ -283,7 +322,46 @@ export const translations = {
     // Fee speeds
     slow: "Slow",
     standard: "Standard",
-    fast: "Fast"
+    fast: "Fast",
+
+        // Welcome Modal
+    welcomeTitle: "Welcome!",
+    welcomeToApp: "Welcome to BigFoot Works Crypto Donation",
+    welcomeDescription: "A secure and transparent way to support BigFoot Works Bikepark using cryptocurrencies. You can use this tool or send donation manually directly from your wallet.",
+    securePayments: "Secure payments",
+    securePaymentsDesc: "Decentralized transactions without intermediaries",
+    multipleChains: "Multiple blockchains",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON and more",
+    openSource: "Open source",
+    openSourceDesc: "Check the code on GitHub for full transparency",
+    manualDonationOption: "Manual donation option",
+    manualDonationDesc: "Prefer to send funds directly from your wallet? We have a simpler option for you!",
+    startDonation: "Start in app",
+    manualDonation: "Send manually from wallet",
+    viewSourceCode: "View source code",
+    trustMessage: "💯 Transparent, secure and built for the MTB community",
+    
+    // Manual Donation
+    manualDonationTitle: "Manual donation from wallet",
+    walletAddresses: "Foundation wallet addresses",
+    copyAddress: "Copy address",
+    copied: "Copied!",
+    donationDetails: "Donation details",
+    donationInfo: "Donation information",
+    amount: "Amount",
+    blockchain: "Blockchain",
+    transactionLink: "Transaction link",
+    transactionLinkHelp: "Paste the transaction link from blockchain explorer (e.g. Etherscan, Blockstream)",
+    amountRequired: "Amount is required",
+    invalidAmount: "Invalid amount",
+    blockchainRequired: "Blockchain selection is required",
+    transactionLinkRequired: "Transaction link is required",
+    submitDonation: "Submit donation",
+    submitting: "Submitting...",
+    donationSubmitted: "Donation submitted!",
+    manualDonationThankYou: "Thank you for your donation! We will verify your transaction and contact you about rewards.",
+    backToMain: "Back to main page",
+    submissionFailed: "Submission failed. Please try again.",
   },
   
   de: {
@@ -420,7 +498,47 @@ export const translations = {
     // Fee speeds
     slow: "Langsam",
     standard: "Standard",
-    fast: "Schnell"
+    fast: "Schnell",
+
+        // Welcome Modal
+    welcomeTitle: "Willkommen!",
+    welcomeToApp: "Willkommen bei BigFoot Works Crypto Donation",
+    welcomeDescription: "Ein sicherer und transparenter Weg, BigFoot Works Bikepark mit Kryptowährungen zu unterstützen. Sie können dieses Tool verwenden oder eine Spende manuell direkt von Ihrer Wallet senden.",
+    securePayments: "Sichere Zahlungen",
+    securePaymentsDesc: "Dezentrale Transaktionen ohne Vermittler",
+    multipleChains: "Mehrere Blockchains",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON und mehr",
+    openSource: "Open Source",
+    openSourceDesc: "Überprüfen Sie den Code auf GitHub für volle Transparenz",
+    manualDonationOption: "Manuelle Spende-Option",
+    manualDonationDesc: "Bevorzugen Sie es, Geld direkt von Ihrer Wallet zu senden? Wir haben eine einfachere Option für Sie!",
+    startDonation: "In der App starten",
+    manualDonation: "Manuell von Wallet senden",
+    viewSourceCode: "Quellcode ansehen",
+    trustMessage: "💯 Transparent, sicher und für die MTB-Community gebaut",
+    
+    // Manual Donation
+    manualDonationTitle: "Manuelle Spende von Wallet",
+    walletAddresses: "Stiftungs-Wallet-Adressen",
+    copyAddress: "Adresse kopieren",
+    copied: "Kopiert!",
+    donationDetails: "Spendendetails",
+    donationInfo: "Spenden-Informationen",
+    amount: "Betrag",
+    blockchain: "Blockchain",
+    transactionLink: "Transaktionslink",
+    transactionLinkHelp: "Fügen Sie den Transaktionslink vom Blockchain-Explorer ein (z.B. Etherscan, Blockstream)",
+    amountRequired: "Betrag ist erforderlich",
+    invalidAmount: "Ungültiger Betrag",
+    blockchainRequired: "Blockchain-Auswahl ist erforderlich",
+    transactionLinkRequired: "Transaktionslink ist erforderlich",
+    submitDonation: "Spende einreichen",
+    submitting: "Wird eingereicht...",
+    donationSubmitted: "Spende eingereicht!",
+    manualDonationThankYou: "Vielen Dank für Ihre Spende! Wir werden Ihre Transaktion überprüfen und Sie bezüglich der Belohnungen kontaktieren.",
+    backToMain: "Zurück zur Hauptseite",
+    submissionFailed: "Einreichung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+
   },
   
   sv: {
@@ -557,7 +675,47 @@ export const translations = {
     // Fee speeds
     slow: "Långsam",
     standard: "Standard",
-    fast: "Snabb"
+    fast: "Snabb",
+
+       // Welcome Modal
+    welcomeTitle: "Välkommen!",
+    welcomeToApp: "Välkommen till BigFoot Works Crypto Donation",
+    welcomeDescription: "Ett säkert och transparent sätt att stödja BigFoot Works Bikepark med kryptovalutor. Du kan använda detta verktyg eller skicka donation manuellt direkt från din plånbok.",
+    securePayments: "Säkra betalningar",
+    securePaymentsDesc: "Decentraliserade transaktioner utan mellanhänder",
+    multipleChains: "Flera blockkedjor",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON och mer",
+    openSource: "Öppen källkod",
+    openSourceDesc: "Kolla koden på GitHub för full transparens",
+    manualDonationOption: "Manuell donationsalternativ",
+    manualDonationDesc: "Föredrar du att skicka pengar direkt från din plånbok? Vi har ett enklare alternativ för dig!",
+    startDonation: "Starta i appen",
+    manualDonation: "Skicka manuellt från plånbok",
+    viewSourceCode: "Visa källkod",
+    trustMessage: "💯 Transparent, säker och byggd för MTB-gemenskapen",
+    
+    // Manual Donation
+    manualDonationTitle: "Manuell donation från plånbok",
+    walletAddresses: "Stiftelsens plånboksadresser",
+    copyAddress: "Kopiera adress",
+    copied: "Kopierat!",
+    donationDetails: "Donationsdetaljer",
+    donationInfo: "Donationsinformation",
+    amount: "Belopp",
+    blockchain: "Blockchain",
+    transactionLink: "Transaktionslänk",
+    transactionLinkHelp: "Klistra in transaktionslänken från blockchain-utforskaren (t.ex. Etherscan, Blockstream)",
+    amountRequired: "Belopp krävs",
+    invalidAmount: "Ogiltigt belopp",
+    blockchainRequired: "Blockchain-val krävs",
+    transactionLinkRequired: "Transaktionslänk krävs",
+    submitDonation: "Skicka donation",
+    submitting: "Skickar...",
+    donationSubmitted: "Donation skickad!",
+    manualDonationThankYou: "Tack för din donation! Vi kommer att verifiera din transaktion och kontakta dig om belöningar.",
+    backToMain: "Tillbaka till huvudsidan",
+    submissionFailed: "Inlämning misslyckades. Försök igen.",
+
   },
   
   no: {
@@ -694,7 +852,47 @@ export const translations = {
     // Fee speeds
     slow: "Langsom",
     standard: "Standard",
-    fast: "Rask"
+    fast: "Rask",
+
+        // Welcome Modal
+    welcomeTitle: "Velkommen!",
+    welcomeToApp: "Velkommen til BigFoot Works Crypto Donation",
+    welcomeDescription: "En sikker og transparent måte å støtte BigFoot Works Bikepark ved hjelp av kryptovalutaer. Du kan bruke dette verktøyet eller sende donasjon manuelt direkte fra lommeboken din.",
+    securePayments: "Sikre betalinger",
+    securePaymentsDesc: "Desentraliserte transaksjoner uten mellommenn",
+    multipleChains: "Flere blokkjeder",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON og mer",
+    openSource: "Åpen kildekode",
+    openSourceDesc: "Sjekk koden på GitHub for full åpenhet",
+    manualDonationOption: "Manuelt donasjonsalternativ",
+    manualDonationDesc: "Foretrekker du å sende penger direkte fra lommeboken din? Vi har et enklere alternativ for deg!",
+    startDonation: "Start i appen",
+    manualDonation: "Send manuelt fra lommebok",
+    viewSourceCode: "Vis kildekode",
+    trustMessage: "💯 Transparent, sikker og bygget for MTB-fellesskapet",
+    
+    // Manual Donation
+    manualDonationTitle: "Manuell donasjon fra lommebok",
+    walletAddresses: "Stiftelsens lommebokadresser",
+    copyAddress: "Kopier adresse",
+    copied: "Kopiert!",
+    donationDetails: "Donasjonsdetaljer",
+    donationInfo: "Donasjonsinformasjon",
+    amount: "Beløp",
+    blockchain: "Blockchain",
+    transactionLink: "Transaksjonslenke",
+    transactionLinkHelp: "Lim inn transaksjonslenken fra blockchain-utforskeren (f.eks. Etherscan, Blockstream)",
+    amountRequired: "Beløp er påkrevd",
+    invalidAmount: "Ugyldig beløp",
+    blockchainRequired: "Blockchain-valg er påkrevd",
+    transactionLinkRequired: "Transaksjonslenke er påkrevd",
+    submitDonation: "Send inn donasjon",
+    submitting: "Sender inn...",
+    donationSubmitted: "Donasjon sendt inn!",
+    manualDonationThankYou: "Takk for din donasjon! Vi vil verifisere transaksjonen din og kontakte deg om belønninger.",
+    backToMain: "Tilbake til hovedsiden",
+    submissionFailed: "Innsending mislyktes. Prøv igjen.",
+
   },
   
   da: {
@@ -831,7 +1029,47 @@ export const translations = {
     // Fee speeds
     slow: "Langsom",
     standard: "Standard",
-    fast: "Hurtig"
+    fast: "Hurtig",
+
+        // Welcome Modal
+    welcomeTitle: "Velkommen!",
+    welcomeToApp: "Velkommen til BigFoot Works Crypto Donation",
+    welcomeDescription: "En sikker og gennemsigtig måde at støtte BigFoot Works Bikepark ved hjælp af kryptovalutaer. Du kan bruge dette værktøj eller sende donation manuelt direkte fra din tegnebog.",
+    securePayments: "Sikre betalinger",
+    securePaymentsDesc: "Decentraliserede transaktioner uden mellemmænd",
+    multipleChains: "Flere blockchains",
+    multipleChainsDesc: "Bitcoin, Ethereum, Solana, TON og mere",
+    openSource: "Åben kildekode",
+    openSourceDesc: "Tjek koden på GitHub for fuld gennemsigtighed",
+    manualDonationOption: "Manuel donationsalternativ",
+    manualDonationDesc: "Foretrækker du at sende penge direkte fra din tegnebog? Vi har et enklere alternativ til dig!",
+    startDonation: "Start i appen",
+    manualDonation: "Send manuelt fra tegnebog",
+    viewSourceCode: "Vis kildekode",
+    trustMessage: "💯 Gennemsigtig, sikker og bygget til MTB-fællesskabet",
+    
+    // Manual Donation
+    manualDonationTitle: "Manuel donation fra tegnebog",
+    walletAddresses: "Fondens tegnebogsadresser",
+    copyAddress: "Kopier adresse",
+    copied: "Kopieret!",
+    donationDetails: "Donationsdetaljer",
+    donationInfo: "Donationsinformation",
+    amount: "Beløb",
+    blockchain: "Blockchain",
+    transactionLink: "Transaktionslink",
+    transactionLinkHelp: "Indsæt transaktionslinket fra blockchain-udforskeren (f.eks. Etherscan, Blockstream)",
+    amountRequired: "Beløb er påkrævet",
+    invalidAmount: "Ugyldigt beløb",
+    blockchainRequired: "Blockchain-valg er påkrævet",
+    transactionLinkRequired: "Transaktionslink er påkrævet",
+    submitDonation: "Indsend donation",
+    submitting: "Indsender...",
+    donationSubmitted: "Donation indsendt!",
+    manualDonationThankYou: "Tak for din donation! Vi vil verificere din transaktion og kontakte dig om belønninger.",
+    backToMain: "Tilbage til hovedsiden",
+    submissionFailed: "Indsendelse mislykkedes. Prøv igen.",
+
   }
 };
 

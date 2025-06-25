@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
 import { useTranslations } from '../hooks/useTranslations';
 import TierSelector from './TierSelector';
@@ -12,10 +12,40 @@ import Footer from './Footer';
 import LanguageSelector from './LanguageSelector';
 import { APP_CONFIG } from '../utils/constants';
 import logo from '../assets/BFW-GOLD.png';
+import WelcomeModal from './WelcomeModal';
+import ManualDonation from './ManualDonation';
 
 const PaymentFlow = () => {
   const { currentStep } = usePaymentStore();
   const { _t } = useTranslations();
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [showManualDonation, setShowManualDonation] = useState(false);
+
+  // Show welcome modal on first load
+  useEffect(() => {
+    // In a real app, you would check localStorage here
+    // For this demo, we'll always show the welcome modal initially
+    setShowWelcomeModal(true);
+  }, []);
+
+  const handleCloseWelcome = () => {
+    setShowWelcomeModal(false);
+    // In a real app, you would save to localStorage here
+    // localStorage.setItem('bigfoot_welcome_seen', 'true');
+  };
+
+  const handleManualDonation = () => {
+    setShowManualDonation(true);
+  };
+
+  const handleBackFromManual = () => {
+    setShowManualDonation(false);
+  };
+
+  // Show manual donation page if active
+  if (showManualDonation) {
+    return <ManualDonation onBack={handleBackFromManual} />;
+  }
 
   return (
     <div 
@@ -49,6 +79,13 @@ const PaymentFlow = () => {
         {/* Footer */}
         <Footer />
       </div>
+
+      {/* Welcome Modal */}
+      <WelcomeModal 
+        isOpen={showWelcomeModal}
+        onClose={handleCloseWelcome}
+        onManualDonation={handleManualDonation}
+      />
     </div>
   );
 };
