@@ -80,13 +80,16 @@ const WelcomeModal = ({ isOpen, onClose, onManualDonation }) => {
       
       <div className="backdrop-blur-xl bg-gradient-to-b from-black/95 to-gray-800/95 rounded-2xl max-w-3xl w-full shadow-2xl border border-gray-600/50 max-h-[90vh] overflow-y-auto dark-modal-scroll">
         {/* Top Bar: Language Selector on the left, Close Button on the right */}
-        <div className="flex items-center justify-between px-6 pt-4 pb-6 border-b border-gray-700/50">
+        <div className="relative flex items-center justify-center px-6 pt-4 pb-6 border-b border-gray-700/50">
+        {/* Language Selector Centered */}
         <div className="dark-theme-language-selector">
             <LanguageSelector />
         </div>
+
+        {/* Close Button Top Right */}
         <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-200 transition-colors p-1"
+            className="absolute right-6 top-4 text-gray-400 hover:text-gray-200 transition-colors p-1"
         >
             <X className="w-6 h-6" />
         </button>

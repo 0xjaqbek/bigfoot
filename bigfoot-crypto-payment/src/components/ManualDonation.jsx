@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
-import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator } from 'lucide-react';
+import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator, Coins } from 'lucide-react';
 import CalculationModal from './CalculationModal';
 
 const ManualDonation = ({ onBack }) => {
@@ -17,6 +17,8 @@ const ManualDonation = ({ onBack }) => {
     fbUsername: '',
     phone: '',
     amount: '',
+    cryptoAmount: '',
+    cryptoSymbol: '',
     selectedBlockchain: '',
     transactionLink: '',
     termsAccepted: false,
@@ -157,6 +159,8 @@ const ManualDonation = ({ onBack }) => {
     setFormData(prev => ({
       ...prev,
       amount: selectedData.plnAmount.toString(),
+      cryptoAmount: selectedData.cryptoAmount.toString(),
+      cryptoSymbol: selectedData.symbol,
       selectedBlockchain: getBlockchainFromSymbol(selectedData.symbol)
     }));
   };
@@ -335,27 +339,58 @@ const ManualDonation = ({ onBack }) => {
                   
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-gray-700">
-                      {t('blockchain')} *
+                      {t('cryptoAmount')} {formData.cryptoSymbol ? `(${formData.cryptoSymbol})` : ''}
                     </label>
-                    <select
-                      value={formData.selectedBlockchain}
-                      onChange={(e) => handleInputChange('selectedBlockchain', e.target.value)}
-                      className={`w-full px-3 py-2 bg-white border ${
-                        errors.selectedBlockchain ? 'border-red-300' : 'border-gray-300'
-                      } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    >
-                      <option value="">{t('selectBlockchain')}</option>
-                      {Object.keys(walletAddresses).map(blockchain => (
-                        <option key={blockchain} value={blockchain}>{blockchain}</option>
-                      ))}
-                    </select>
-                    {errors.selectedBlockchain && (
-                      <div className="flex items-center text-red-600 text-xs mt-1">
-                        <AlertCircle className="w-3 h-3 mr-1" />
-                        {errors.selectedBlockchain}
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <Coins className="w-4 h-4" />
                       </div>
+                      {formData.cryptoAmount && formData.cryptoSymbol && (
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                          <Check className="w-4 h-4 text-green-500" />
+                        </div>
+                      )}
+                      <input
+                        type="text"
+                        value={formData.cryptoAmount}
+                        onChange={(e) => handleInputChange('cryptoAmount', e.target.value)}
+                        placeholder={t('calculatedFromAmount')}
+                        className={`w-full pl-10 ${formData.cryptoAmount && formData.cryptoSymbol ? 'pr-10' : 'pr-3'} py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500`}
+                      />
+                    </div>
+                    {formData.cryptoAmount && formData.cryptoSymbol && (
+                      <p className="text-xs text-green-600 mt-1">
+                        ✓ {t('calculatedValue')}: {formData.cryptoAmount} {formData.cryptoSymbol}
+                      </p>
+                    )}
+                    {!formData.cryptoAmount && (
+                      <p className="text-xs text-gray-500 mt-1">{t('useCalculatorForExactAmount')}</p>
                     )}
                   </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {t('blockchain')} *
+                  </label>
+                  <select
+                    value={formData.selectedBlockchain}
+                    onChange={(e) => handleInputChange('selectedBlockchain', e.target.value)}
+                    className={`w-full px-3 py-2 bg-white border ${
+                      errors.selectedBlockchain ? 'border-red-300' : 'border-gray-300'
+                    } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                  >
+                    <option value="">{t('selectBlockchain')}</option>
+                    {Object.keys(walletAddresses).map(blockchain => (
+                      <option key={blockchain} value={blockchain}>{blockchain}</option>
+                    ))}
+                  </select>
+                  {errors.selectedBlockchain && (
+                    <div className="flex items-center text-red-600 text-xs mt-1">
+                      <AlertCircle className="w-3 h-3 mr-1" />
+                      {errors.selectedBlockchain}
+                    </div>
+                  )}
                 </div>
 
                 <FormField
@@ -520,7 +555,8 @@ const FormField = ({
   type = "text", 
   placeholder, 
   icon, 
-  helpText 
+  helpText,
+  readOnly = false
 }) => (
   <div className="space-y-1">
     <label className="block text-sm font-medium text-gray-700">
@@ -537,9 +573,12 @@ const FormField = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        readOnly={readOnly}
         className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-2 bg-white border ${
           error ? 'border-red-300' : 'border-gray-300'
-        } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500`}
+        } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 ${
+          readOnly ? 'bg-gray-50 cursor-not-allowed' : ''
+        }`}
       />
     </div>
     {error && (

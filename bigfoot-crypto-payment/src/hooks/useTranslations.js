@@ -204,7 +204,17 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Otwórz kalkulator kwot",
-    calculatorHelp: "Kliknij aby obliczyć dokładne kwoty krypto dla różnych poziomów wsparcia"
+    calculatorHelp: "Kliknij aby obliczyć dokładne kwoty krypto dla różnych poziomów wsparcia",
+    selectAmount: "Wybierz kwotę",
+    copy: "Kopiuj",
+    selectTierStep: "Wybierz poziom wsparcia",
+    selectBlockchainStep: "Wybierz blockchain",
+    chooseSupportTier: "Wybierz poziom wsparcia",
+    selectTierDescription: "Każdy poziom ma różne nagrody i kwoty",
+    chooseBlockchain: "Wybierz blockchain",
+    selectedTier: "Wybrany poziom",
+    calculationResults: "Wyniki kalkulacji",
+    pleasewait: "Proszę czekać...",
 
   },
   
@@ -400,7 +410,17 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Open amount calculator",
-    calculatorHelp: "Click to calculate exact crypto amounts for different support tiers"
+    calculatorHelp: "Click to calculate exact crypto amounts for different support tiers",
+    selectAmount: "Select amount",
+    copy: "Copy",
+    selectTierStep: "Select support tier",
+    selectBlockchainStep: "Select blockchain",
+    chooseSupportTier: "Choose support tier",
+    selectTierDescription: "Each tier has different rewards and amounts",
+    chooseBlockchain: "Choose blockchain",
+    selectedTier: "Selected tier",
+    calculationResults: "Calculation results",
+    pleasewait: "Please wait...",
   },
   
   de: {
@@ -595,7 +615,18 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Betrag-Rechner öffnen",
-    calculatorHelp: "Klicken Sie, um genaue Krypto-Beträge für verschiedene Unterstützungsstufen zu berechnen"
+    calculatorHelp: "Klicken Sie, um genaue Krypto-Beträge für verschiedene Unterstützungsstufen zu berechnen",
+    selectAmount: "Betrag auswählen",
+    copy: "Kopieren",
+    selectTierStep: "Unterstützungsstufe auswählen",
+    selectBlockchainStep: "Blockchain auswählen",
+    chooseSupportTier: "Unterstützungsstufe wählen",
+    selectTierDescription: "Jede Stufe hat verschiedene Belohnungen und Beträge",
+    chooseBlockchain: "Blockchain wählen",
+    selectedTier: "Gewählte Stufe",
+    calculationResults: "Berechnungsergebnisse",
+    pleasewait: "Bitte warten...",
+
 
 
   },
@@ -792,7 +823,17 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Öppna beloppskalkylator",
-    calculatorHelp: "Klicka för att beräkna exakta kryptobelopp för olika stödnivåer"
+    calculatorHelp: "Klicka för att beräkna exakta kryptobelopp för olika stödnivåer",
+    selectAmount: "Välj belopp",
+    copy: "Kopiera",
+    selectTierStep: "Välj stödnivå",
+    selectBlockchainStep: "Välj blockchain",
+    chooseSupportTier: "Välj stödnivå",
+    selectTierDescription: "Varje nivå har olika belöningar och belopp",
+    chooseBlockchain: "Välj blockchain",
+    selectedTier: "Vald nivå",
+    calculationResults: "Beräkningsresultat",
+    pleasewait: "Vänta...",
 
 
   },
@@ -989,7 +1030,17 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Åpne beløpskalkulator",
-    calculatorHelp: "Klikk for å beregne nøyaktige kryptobeløp for ulike støttenivåer"
+    calculatorHelp: "Klikk for å beregne nøyaktige kryptobeløp for ulike støttenivåer",
+    selectAmount: "Velg beløp",
+    copy: "Kopier",
+    selectTierStep: "Velg støttenivå",
+    selectBlockchainStep: "Velg blockchain",
+    chooseSupportTier: "Velg støttenivå",
+    selectTierDescription: "Hvert nivå har forskjellige belønninger og beløp",
+    chooseBlockchain: "Velg blockchain",
+    selectedTier: "Valgt nivå",
+    calculationResults: "Beregningsresultater",
+    pleasewait: "Vennligst vent...",
 
 
   },
@@ -1186,7 +1237,17 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Åbn beløbsberegner",
-    calculatorHelp: "Klik for at beregne nøjagtige kryptobeløb for forskellige støtteniveauer"
+    calculatorHelp: "Klik for at beregne nøjagtige kryptobeløb for forskellige støtteniveauer",
+    selectAmount: "Vælg beløb",
+    copy: "Kopier",
+    selectTierStep: "Vælg støtteniveau",
+    selectBlockchainStep: "Vælg blockchain",
+    chooseSupportTier: "Vælg støtteniveau",
+    selectTierDescription: "Hvert niveau har forskellige belønninger og beløb",
+    chooseBlockchain: "Vælg blockchain",
+    selectedTier: "Valgt niveau",
+    calculationResults: "Beregningsresultater",
+    pleasewait: "Vent venligst...",
 
 
   }
