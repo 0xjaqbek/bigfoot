@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslations } from '../hooks/useTranslations';
 import { X, Github, Wallet, Shield, Code, Heart } from 'lucide-react';
+import LanguageSelector from './LanguageSelector';
 
 const WelcomeModal = ({ isOpen, onClose, onManualDonation }) => {
   const { t } = useTranslations();
@@ -18,31 +19,87 @@ const WelcomeModal = ({ isOpen, onClose, onManualDonation }) => {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="backdrop-blur-xl bg-white/95 rounded-2xl max-w-lg w-full shadow-2xl border border-gray-200/50 max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200/50">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center">
-              <Heart className="w-6 h-6 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('welcomeTitle')}</h2>
-          </div>
-          <button 
+      {/* Custom dark theme styles for language selector */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .dark-theme-language-selector button {
+            background: rgba(55, 65, 81, 0.8) !important;
+            border-color: rgba(107, 114, 128, 0.5) !important;
+            color: white !important;
+          }
+          .dark-theme-language-selector button:hover {
+            background: rgba(75, 85, 99, 0.9) !important;
+          }
+          .dark-theme-language-selector button span {
+            color: white !important;
+          }
+          .dark-theme-language-selector button svg {
+            color: rgba(229, 231, 235, 0.8) !important;
+          }
+          .dark-theme-language-selector .absolute > div {
+            background: rgba(17, 24, 39, 0.95) !important;
+            border-color: rgba(107, 114, 128, 0.5) !important;
+            backdrop-filter: blur(12px);
+          }
+          .dark-theme-language-selector .absolute button {
+            color: rgb(229, 231, 235) !important;
+          }
+          .dark-theme-language-selector .absolute button:hover {
+            background: rgba(55, 65, 81, 0.7) !important;
+          }
+          .dark-theme-language-selector .absolute .text-gray-600 {
+            color: rgb(156, 163, 175) !important;
+          }
+          .dark-theme-language-selector .absolute .text-gray-500 {
+            color: rgb(107, 114, 128) !important;
+          }
+          
+          /* Dark scrollbar for modal */
+          .dark-modal-scroll::-webkit-scrollbar {
+            width: 8px;
+          }
+          .dark-modal-scroll::-webkit-scrollbar-track {
+            background: rgba(55, 65, 81, 0.3);
+            border-radius: 4px;
+          }
+          .dark-modal-scroll::-webkit-scrollbar-thumb {
+            background: rgba(107, 114, 128, 0.6);
+            border-radius: 4px;
+          }
+          .dark-modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 114, 128, 0.8);
+          }
+          
+          /* Firefox scrollbar */
+          .dark-modal-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(107, 114, 128, 0.6) rgba(55, 65, 81, 0.3);
+          }
+        `
+      }} />
+      
+      <div className="backdrop-blur-xl bg-gradient-to-b from-black/95 to-gray-800/95 rounded-2xl max-w-3xl w-full shadow-2xl border border-gray-600/50 max-h-[90vh] overflow-y-auto dark-modal-scroll">
+        {/* Top Bar: Language Selector on the left, Close Button on the right */}
+        <div className="flex items-center justify-between px-6 pt-4 pb-6 border-b border-gray-700/50">
+        <div className="dark-theme-language-selector">
+            <LanguageSelector />
+        </div>
+        <button 
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors p-1"
-          >
+            className="text-gray-400 hover:text-gray-200 transition-colors p-1"
+        >
             <X className="w-6 h-6" />
-          </button>
+        </button>
         </div>
 
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Welcome Message */}
           <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            <h3 className="text-xl font-semibold text-white mb-3">
               {t('welcomeToApp')}
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-300 leading-relaxed">
               {t('welcomeDescription')}
             </p>
           </div>
@@ -50,37 +107,37 @@ const WelcomeModal = ({ isOpen, onClose, onManualDonation }) => {
           {/* Features */}
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
-              <Shield className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" />
+              <Shield className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
               <div>
-                <div className="font-medium text-gray-800">{t('securePayments')}</div>
-                <div className="text-sm text-gray-600">{t('securePaymentsDesc')}</div>
+                <div className="font-medium text-white">{t('securePayments')}</div>
+                <div className="text-sm text-gray-300">{t('securePaymentsDesc')}</div>
               </div>
             </div>
             
             <div className="flex items-start space-x-3">
-              <Wallet className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+              <Wallet className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
               <div>
-                <div className="font-medium text-gray-800">{t('multipleChains')}</div>
-                <div className="text-sm text-gray-600">{t('multipleChainsDesc')}</div>
+                <div className="font-medium text-white">{t('multipleChains')}</div>
+                <div className="text-sm text-gray-300">{t('multipleChainsDesc')}</div>
               </div>
             </div>
             
             <div className="flex items-start space-x-3">
-              <Code className="w-5 h-5 text-purple-600 mt-1 flex-shrink-0" />
+              <Code className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
               <div>
-                <div className="font-medium text-gray-800">{t('openSource')}</div>
-                <div className="text-sm text-gray-600">{t('openSourceDesc')}</div>
+                <div className="font-medium text-white">{t('openSource')}</div>
+                <div className="text-sm text-gray-300">{t('openSourceDesc')}</div>
               </div>
             </div>
           </div>
 
           {/* Manual Donation Info */}
-          <div className="bg-blue-50/70 border border-blue-200/50 rounded-xl p-4">
+          <div className="bg-blue-900/30 border border-blue-600/30 rounded-xl p-4">
             <div className="flex items-start space-x-3">
-              <Wallet className="w-5 h-5 text-blue-600 mt-1" />
+              <Wallet className="w-5 h-5 text-blue-400 mt-1" />
               <div>
-                <div className="font-medium text-blue-800 mb-1">{t('manualDonationOption')}</div>
-                <div className="text-sm text-blue-700">{t('manualDonationDesc')}</div>
+                <div className="font-medium text-blue-200 mb-1">{t('manualDonationOption')}</div>
+                <div className="text-sm text-blue-300">{t('manualDonationDesc')}</div>
               </div>
             </div>
           </div>
@@ -114,8 +171,8 @@ const WelcomeModal = ({ isOpen, onClose, onManualDonation }) => {
           </div>
 
           {/* Trust Message */}
-          <div className="text-center pt-4 border-t border-gray-200/50">
-            <p className="text-sm text-gray-600">
+          <div className="text-center pt-4 border-t border-gray-700/50">
+            <p className="text-sm text-gray-400">
               {t('trustMessage')}
             </p>
           </div>

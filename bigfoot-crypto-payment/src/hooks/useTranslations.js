@@ -186,6 +186,26 @@ export const translations = {
     manualDonationThankYou: "Dziękujemy za dotację! Sprawdzimy Twoją transakcję i skontaktujemy się w sprawie nagród.",
     backToMain: "Powrót do strony głównej",
     submissionFailed: "Błąd wysyłania. Spróbuj ponownie.",
+
+      // Calculator Modal
+    cryptoCalculator: "Kalkulator Krypto",
+    amounts: "kwoty",
+    refreshPrices: "Odśwież ceny",
+    loadingPrices: "Ładowanie cen kryptowalut...",
+    priceLoadError: "Błąd ładowania cen. Sprawdź połączenie internetowe.",
+    retryLoading: "Spróbuj ponownie",
+    calculatorInfo: "Kalkulator kwot krypto",
+    calculatorDescription: "Wybierz poziom wsparcia, aby zobaczyć dokładną kwotę kryptowaluty do wysłania",
+    tierCalculations: "Kalkulacje dla poziomów wsparcia",
+    tierRewards: "Nagrody",
+    copyAmount: "Kopiuj kwotę",
+    select: "Wybierz",
+    priceDisclaimer: "Ceny są orientacyjne i mogą się zmieniać. Sprawdź aktualne kursy przed wysłaniem.",
+    
+    // Manual Donation Updates
+    openCalculator: "Otwórz kalkulator kwot",
+    calculatorHelp: "Kliknij aby obliczyć dokładne kwoty krypto dla różnych poziomów wsparcia"
+
   },
   
   en: {
@@ -362,6 +382,25 @@ export const translations = {
     manualDonationThankYou: "Thank you for your donation! We will verify your transaction and contact you about rewards.",
     backToMain: "Back to main page",
     submissionFailed: "Submission failed. Please try again.",
+
+      // Calculator Modal
+    cryptoCalculator: "Crypto Calculator",
+    amounts: "amounts",
+    refreshPrices: "Refresh prices",
+    loadingPrices: "Loading cryptocurrency prices...",
+    priceLoadError: "Error loading prices. Check your internet connection.",
+    retryLoading: "Try again",
+    calculatorInfo: "Crypto amount calculator",
+    calculatorDescription: "Select a support tier to see the exact amount of cryptocurrency to send",
+    tierCalculations: "Support tier calculations",
+    tierRewards: "Rewards",
+    copyAmount: "Copy amount",
+    select: "Select",
+    priceDisclaimer: "Prices are indicative and may change. Check current rates before sending.",
+    
+    // Manual Donation Updates
+    openCalculator: "Open amount calculator",
+    calculatorHelp: "Click to calculate exact crypto amounts for different support tiers"
   },
   
   de: {
@@ -538,6 +577,26 @@ export const translations = {
     manualDonationThankYou: "Vielen Dank für Ihre Spende! Wir werden Ihre Transaktion überprüfen und Sie bezüglich der Belohnungen kontaktieren.",
     backToMain: "Zurück zur Hauptseite",
     submissionFailed: "Einreichung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+
+      // Calculator Modal
+    cryptoCalculator: "Krypto-Rechner",
+    amounts: "Beträge",
+    refreshPrices: "Preise aktualisieren",
+    loadingPrices: "Lade Kryptowährungspreise...",
+    priceLoadError: "Fehler beim Laden der Preise. Überprüfen Sie Ihre Internetverbindung.",
+    retryLoading: "Erneut versuchen",
+    calculatorInfo: "Krypto-Betrag-Rechner",
+    calculatorDescription: "Wählen Sie eine Unterstützungsstufe, um den genauen Kryptowährungsbetrag zu sehen",
+    tierCalculations: "Berechnungen für Unterstützungsstufen",
+    tierRewards: "Belohnungen",
+    copyAmount: "Betrag kopieren",
+    select: "Auswählen",
+    priceDisclaimer: "Die Preise sind Richtwerte und können sich ändern. Überprüfen Sie die aktuellen Kurse vor dem Senden.",
+    
+    // Manual Donation Updates
+    openCalculator: "Betrag-Rechner öffnen",
+    calculatorHelp: "Klicken Sie, um genaue Krypto-Beträge für verschiedene Unterstützungsstufen zu berechnen"
+
 
   },
   
@@ -716,6 +775,26 @@ export const translations = {
     backToMain: "Tillbaka till huvudsidan",
     submissionFailed: "Inlämning misslyckades. Försök igen.",
 
+      // Calculator Modal
+    cryptoCalculator: "Krypto-kalkylator",
+    amounts: "belopp",
+    refreshPrices: "Uppdatera priser",
+    loadingPrices: "Laddar kryptovalutapriser...",
+    priceLoadError: "Fel vid laddning av priser. Kontrollera din internetanslutning.",
+    retryLoading: "Försök igen",
+    calculatorInfo: "Krypto-beloppskalkylator",
+    calculatorDescription: "Välj en stödnivå för att se det exakta beloppet kryptovaluta att skicka",
+    tierCalculations: "Beräkningar för stödnivåer",
+    tierRewards: "Belöningar",
+    copyAmount: "Kopiera belopp",
+    select: "Välj",
+    priceDisclaimer: "Priserna är vägledande och kan ändras. Kontrollera aktuella kurser innan du skickar.",
+    
+    // Manual Donation Updates
+    openCalculator: "Öppna beloppskalkylator",
+    calculatorHelp: "Klicka för att beräkna exakta kryptobelopp för olika stödnivåer"
+
+
   },
   
   no: {
@@ -893,6 +972,26 @@ export const translations = {
     backToMain: "Tilbake til hovedsiden",
     submissionFailed: "Innsending mislyktes. Prøv igjen.",
 
+      // Calculator Modal
+    cryptoCalculator: "Krypto-kalkulator",
+    amounts: "beløp",
+    refreshPrices: "Oppdater priser",
+    loadingPrices: "Laster kryptovalutapriser...",
+    priceLoadError: "Feil ved lasting av priser. Sjekk internetttilkoblingen din.",
+    retryLoading: "Prøv igjen",
+    calculatorInfo: "Krypto-beløpskalkulator",
+    calculatorDescription: "Velg et støttenivå for å se det nøyaktige beløpet kryptovaluta å sende",
+    tierCalculations: "Beregninger for støttenivåer",
+    tierRewards: "Belønninger",
+    copyAmount: "Kopier beløp",
+    select: "Velg",
+    priceDisclaimer: "Prisene er veiledende og kan endre seg. Sjekk gjeldende kurser før sending.",
+    
+    // Manual Donation Updates
+    openCalculator: "Åpne beløpskalkulator",
+    calculatorHelp: "Klikk for å beregne nøyaktige kryptobeløp for ulike støttenivåer"
+
+
   },
   
   da: {
@@ -1069,6 +1168,26 @@ export const translations = {
     manualDonationThankYou: "Tak for din donation! Vi vil verificere din transaktion og kontakte dig om belønninger.",
     backToMain: "Tilbage til hovedsiden",
     submissionFailed: "Indsendelse mislykkedes. Prøv igen.",
+
+      // Calculator Modal
+    cryptoCalculator: "Krypto-lommeregner",
+    amounts: "beløb",
+    refreshPrices: "Opdater priser",
+    loadingPrices: "Indlæser kryptovalutapriser...",
+    priceLoadError: "Fejl ved indlæsning af priser. Tjek din internetforbindelse.",
+    retryLoading: "Prøv igen",
+    calculatorInfo: "Krypto-beløbsberegner",
+    calculatorDescription: "Vælg et støtteniveau for at se det nøjagtige beløb kryptovaluta at sende",
+    tierCalculations: "Beregninger for støtteniveauer",
+    tierRewards: "Belønninger",
+    copyAmount: "Kopier beløb",
+    select: "Vælg",
+    priceDisclaimer: "Priserne er vejledende og kan ændre sig. Tjek aktuelle kurser før afsendelse.",
+    
+    // Manual Donation Updates
+    openCalculator: "Åbn beløbsberegner",
+    calculatorHelp: "Klik for at beregne nøjagtige kryptobeløb for forskellige støtteniveauer"
+
 
   }
 };

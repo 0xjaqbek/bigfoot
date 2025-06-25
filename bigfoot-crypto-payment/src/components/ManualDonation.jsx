@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
-import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send } from 'lucide-react';
+import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator } from 'lucide-react';
+import CalculationModal from './CalculationModal';
 
 const ManualDonation = ({ onBack }) => {
   const { t, language } = useTranslations();
@@ -24,6 +25,7 @@ const ManualDonation = ({ onBack }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
 
   // Get default country based on language
   function getDefaultCountry(lang) {
@@ -41,28 +43,28 @@ const ManualDonation = ({ onBack }) => {
   // Wallet addresses from environment variables
   const walletAddresses = {
     Bitcoin: {
-      address: import.meta.env.VITE_BTC_ADDRESS || 'bc1q...',
+      address: import.meta.env.VITE_BTC_ADDRESS || 'bc1qexample...',
       symbol: 'BTC',
       network: 'Bitcoin',
       icon: '₿',
       color: 'from-orange-400 to-yellow-500'
     },
     Ethereum: {
-      address: import.meta.env.VITE_ETH_ADDRESS || '0x...',
+      address: import.meta.env.VITE_ETH_ADDRESS || '0xexample...',
       symbol: 'ETH/USDC',
       network: 'Ethereum/Polygon/Arbitrum/Optimism',
       icon: 'Ξ',
       color: 'from-blue-400 to-indigo-500'
     },
     Solana: {
-      address: import.meta.env.VITE_SOL_ADDRESS || 'So1ana...',
+      address: import.meta.env.VITE_SOL_ADDRESS || 'SolExample...',
       symbol: 'SOL/USDC',
       network: 'Solana',
       icon: '◎',
       color: 'from-purple-400 to-pink-500'
     },
     TON: {
-      address: import.meta.env.VITE_TON_ADDRESS || 'UQB...',
+      address: import.meta.env.VITE_TON_ADDRESS || 'UQExample...',
       symbol: 'TON',
       network: 'TON',
       icon: '💎',
@@ -149,6 +151,25 @@ const ManualDonation = ({ onBack }) => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleCalculatorSelect = (selectedData) => {
+    setFormData(prev => ({
+      ...prev,
+      amount: selectedData.plnAmount.toString(),
+      selectedBlockchain: getBlockchainFromSymbol(selectedData.symbol)
+    }));
+  };
+
+  const getBlockchainFromSymbol = (symbol) => {
+    const mapping = {
+      'BTC': 'Bitcoin',
+      'ETH': 'Ethereum', 
+      'USDC': 'Ethereum', // Default USDC to Ethereum
+      'SOL': 'Solana',
+      'TON': 'TON'
+    };
+    return mapping[symbol] || 'Ethereum';
   };
 
   if (isSubmitted) {
@@ -288,6 +309,19 @@ const ManualDonation = ({ onBack }) => {
                   <Send className="w-5 h-5 mr-2" />
                   {t('donationInfo')}
                 </h3>
+                
+                {/* Calculator Button */}
+                <div className="mb-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowCalculator(true)}
+                    className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <Calculator className="w-5 h-5" />
+                    <span>{t('openCalculator')}</span>
+                  </button>
+                  <p className="text-xs text-gray-500 mt-2 text-center">{t('calculatorHelp')}</p>
+                </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
@@ -466,6 +500,14 @@ const ManualDonation = ({ onBack }) => {
           </div>
         </div>
       </div>
+
+      {/* Calculation Modal */}
+      <CalculationModal
+        isOpen={showCalculator}
+        onClose={() => setShowCalculator(false)}
+        selectedBlockchain={formData.selectedBlockchain}
+        onAmountSelect={handleCalculatorSelect}
+      />
     </div>
   );
 };

@@ -1,56 +1,38 @@
 import React, { useState } from 'react';
 import { usePaymentStore } from '../stores/paymentStore';
-import { ChevronDown, Globe, MapPin } from 'lucide-react';
+import { ChevronDown, Globe } from 'lucide-react';
 
-// Języki z dedykowanymi ikonami i kolorami
+// Languages without visual icons
 const LANGUAGES = [
   { 
     code: 'pl', 
     name: 'Polski', 
-    shortName: 'PL',
-    color: 'from-red-500 to-red-600',
-    bgColor: 'bg-red-500',
-    icon: '🏛️' // Alternatywa: użyj '' jeśli emoji nie działają
+    shortName: 'PL'
   },
   { 
     code: 'en', 
     name: 'English', 
-    shortName: 'EN',
-    color: 'from-blue-500 to-blue-600',
-    bgColor: 'bg-blue-500',
-    icon: '🌍'
+    shortName: 'EN'
   },
   { 
     code: 'de', 
     name: 'Deutsch', 
-    shortName: 'DE',
-    color: 'from-gray-600 to-gray-700',
-    bgColor: 'bg-gray-600',
-    icon: '🏰'
+    shortName: 'DE'
   },
   { 
     code: 'sv', 
     name: 'Svenska', 
-    shortName: 'SV',
-    color: 'from-yellow-400 to-blue-500',
-    bgColor: 'bg-blue-400',
-    icon: '🌲'
+    shortName: 'SV'
   },
   { 
     code: 'no', 
     name: 'Norsk', 
-    shortName: 'NO',
-    color: 'from-red-500 to-blue-600',
-    bgColor: 'bg-red-600',
-    icon: '⛰️'
+    shortName: 'NO'
   },
   { 
     code: 'da', 
     name: 'Dansk', 
-    shortName: 'DK',
-    color: 'from-red-500 to-white',
-    bgColor: 'bg-red-500',
-    icon: '🚢'
+    shortName: 'DK'
   }
 ];
 
@@ -68,23 +50,16 @@ const LanguageSelector = () => {
 
   return (
     <div className="relative">
-      {/* Current Language Button - Compact Design */}
+      {/* Current Language Button - Clean text-only design */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 backdrop-blur-sm bg-white/20 border border-white/30 rounded-xl px-3 py-2 hover:bg-white/30 transition-all duration-200 shadow-sm"
         title={`Current language: ${currentLanguage.name}`}
       >
-        {/* Icon/Code combination */}
-        <div className="flex items-center space-x-1">
-          {/* Simple colored circle */}
-          <div className={`w-4 h-4 rounded-full ${currentLanguage.bgColor} flex items-center justify-center`}>
-            <span className="text-white text-xs font-bold">
-              {currentLanguage.shortName[0]}
-            </span>
-          </div>
-          
-          {/* Language code - hidden on small screens */}
-          <span className="text-sm font-medium text-white hidden sm:block">
+        {/* Globe icon and language code */}
+        <div className="flex items-center space-x-2">
+          <Globe className="w-4 h-4 text-white/80" />
+          <span className="text-sm font-medium text-white">
             {currentLanguage.shortName}
           </span>
         </div>
@@ -103,7 +78,7 @@ const LanguageSelector = () => {
           />
           
           {/* Dropdown content */}
-          <div className="absolute right-0 top-full mt-2 z-20 backdrop-blur-md bg-white/95 border border-gray-200/50 rounded-xl shadow-xl overflow-hidden min-w-[200px]">
+          <div className="absolute left-0 md:left-auto md:right-0 top-full mt-2 z-20 backdrop-blur-md bg-white/95 border border-gray-200/50 rounded-xl shadow-xl overflow-hidden min-w-[180px]">
             
             {/* Header */}
             <div className="px-4 py-2 bg-gray-50/80 border-b border-gray-200/50">
@@ -118,32 +93,18 @@ const LanguageSelector = () => {
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-100/70 transition-all duration-150 ${
-                  language === lang.code ? 'bg-blue-50/80 text-blue-700 border-r-2 border-blue-500' : 'text-gray-700'
+                className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-100/70 transition-all duration-150 ${
+                  language === lang.code ? 'bg-blue-50/80 text-blue-700' : 'text-gray-700'
                 }`}
                 title={`Switch to ${lang.name}`}
               >
-                {/* Visual indicator */}
-                <div className="relative">
-                  <div className={`w-6 h-6 rounded-full ${lang.bgColor} flex items-center justify-center shadow-sm`}>
-                    <span className="text-white text-xs font-bold">
-                      {lang.shortName[0]}
-                    </span>
-                  </div>
-                  
-                  {/* Active ring */}
-                  {language === lang.code && (
-                    <div className="absolute -inset-1 rounded-full border-2 border-blue-400 animate-pulse"></div>
-                  )}
-                </div>
-                
                 {/* Language info */}
                 <div className="flex-1">
                   <div className="font-medium text-sm">{lang.name}</div>
                   <div className="text-xs opacity-60">{lang.shortName}</div>
                 </div>
                 
-                {/* Check mark for active */}
+                {/* Check mark for active language */}
                 {language === lang.code && (
                   <div className="text-blue-500">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
