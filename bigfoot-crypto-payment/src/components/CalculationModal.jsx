@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
 import { usePrices } from '../hooks/usePrices';
-import { X, Calculator, Coins, TrendingUp, Copy, Check, RefreshCw, ArrowLeft, ChevronRight } from 'lucide-react';
+import { X, Calculator, Coins, TrendingUp, Copy, Check, RefreshCw, ArrowLeft, ChevronRight, AlertCircle } from 'lucide-react';
 
-const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
+const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
   const { t } = useTranslations();
   const { calculateCrypto, loading: priceLoading, fetchPrices, hasData } = usePrices();
   const [currentStep, setCurrentStep] = useState(1);
@@ -11,6 +11,8 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
   const [selectedBlockchainStep, setSelectedBlockchainStep] = useState(null);
   const [copiedAmount, setCopiedAmount] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [customAmount, setCustomAmount] = useState('');
+  const [customAmountError, setCustomAmountError] = useState('');
 
   // Available blockchains
   const blockchains = [
@@ -26,7 +28,8 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
     { name: 'tourist', amount: 100, icon: '🗺️', color: 'from-emerald-400/20 to-green-500/20' },
     { name: 'scout', amount: 170, icon: '🔍', color: 'from-amber-400/20 to-yellow-500/20' },
     { name: 'ranger', amount: 360, icon: '🏕️', color: 'from-orange-400/20 to-red-500/20' },
-    { name: 'sheriff', amount: 750, icon: '⭐', color: 'from-purple-400/20 to-pink-500/20' }
+    { name: 'sheriff', amount: 750, icon: '⭐', color: 'from-purple-400/20 to-pink-500/20' },
+    { name: 'custom', amount: null, icon: '💝', color: 'from-gray-400/20 to-slate-500/20' }
   ];
 
   useEffect(() => {
@@ -42,6 +45,8 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
       setSelectedTier(null);
       setSelectedBlockchainStep(null);
       setCopiedAmount(null);
+      setCustomAmount('');
+      setCustomAmountError('');
     }
   }, [isOpen]);
 
@@ -56,12 +61,48 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
     }
   };
 
-  const handleTierSelect = (tier) => {
-    setSelectedTier(tier);
+  const handleCustomAmountSubmit = () => {
+    const amount = parseFloat(customAmount);
+    
+    // Validate custom amount
+    if (!customAmount || isNaN(amount) || amount <= 0) {
+      setCustomAmountError(t('amountRequired'));
+      return;
+    }
+    
+    if (amount < 1) {
+      setCustomAmountError(t('minimumAmount'));
+      return;
+    }
+    
+    if (amount > 10000) {
+      setCustomAmountError(t('maximumAmount'));
+      return;
+    }
+    
+    // Clear error and update tier with custom amount
+    setCustomAmountError('');
+    setSelectedTier({
+      ...selectedTier,
+      amount: amount
+    });
     setCurrentStep(2);
   };
 
+  const handleTierSelect = (tier) => {
+    setSelectedTier(tier);
+    if (tier.name === 'custom') {
+      // For custom tier, stay on step 1 to show custom amount input
+      // Don't proceed to step 2 yet
+    } else {
+      setCurrentStep(2);
+    }
+  };
+
   const handleBlockchainSelect = (blockchain) => {
+    console.log('=== BLOCKCHAIN SELECTED ===');
+    console.log('Selected blockchain object:', blockchain);
+    console.log('Blockchain name:', blockchain?.name);
     setSelectedBlockchainStep(blockchain);
     setCurrentStep(3);
   };
@@ -77,14 +118,21 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
   };
 
   const handleSelectAmount = (cryptoData, currencyType) => {
-    onAmountSelect({
+    console.log('=== CALCULATOR SENDING DATA ===');
+    console.log('selectedBlockchainStep:', selectedBlockchainStep);
+    console.log('selectedBlockchainStep.name:', selectedBlockchainStep?.name);
+    
+    const dataToSend = {
       plnAmount: selectedTier.amount,
       cryptoAmount: cryptoData.amount,
       symbol: cryptoData.symbol,
-      tierName: t(selectedTier.name),
+      tierName: selectedTier.name === 'custom' ? t('customAmount') : t(selectedTier.name),
       currencyType,
-      blockchain: selectedBlockchainStep.name
-    });
+      blockchainName: selectedBlockchainStep?.name // Use optional chaining
+    };
+    
+    console.log('Full data being sent:', dataToSend);
+    onAmountSelect(dataToSend);
     onClose();
   };
 
@@ -92,6 +140,8 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
     if (currentStep === 2) {
       setCurrentStep(1);
       setSelectedTier(null);
+      setCustomAmount('');
+      setCustomAmountError('');
     } else if (currentStep === 3) {
       setCurrentStep(2);
       setSelectedBlockchainStep(null);
@@ -143,7 +193,9 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
             <div>
               <h2 className="text-2xl font-bold text-white">{t('cryptoCalculator')}</h2>
               <p className="text-sm text-gray-300">
-                {currentStep === 1 && t('selectTierStep')}
+                {currentStep === 1 && !selectedTier && t('selectTierStep')}
+                {currentStep === 1 && selectedTier?.name === 'custom' && t('enterCustomAmount')}
+                {currentStep === 1 && selectedTier?.name !== 'custom' && selectedTier && t('selectBlockchainStep')}
                 {currentStep === 2 && t('selectBlockchainStep')}
                 {currentStep === 3 && `${selectedTier?.amount} PLN • ${selectedBlockchainStep?.name}`}
               </p>
@@ -175,7 +227,12 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
           {currentStep === 1 && (
             <TierSelectionStep
               tiers={tiers}
+              selectedTier={selectedTier}
+              customAmount={customAmount}
+              customAmountError={customAmountError}
               onTierSelect={handleTierSelect}
+              onCustomAmountChange={setCustomAmount}
+              onCustomAmountSubmit={handleCustomAmountSubmit}
               t={t}
             />
           )}
@@ -212,7 +269,16 @@ const CalculationModal = ({ isOpen, onClose,  onAmountSelect }) => {
 };
 
 // Step 1: Tier Selection
-const TierSelectionStep = ({ tiers, onTierSelect, t }) => (
+const TierSelectionStep = ({ 
+  tiers, 
+  selectedTier, 
+  customAmount, 
+  customAmountError, 
+  onTierSelect, 
+  onCustomAmountChange, 
+  onCustomAmountSubmit, 
+  t 
+}) => (
   <div className="space-y-4">
     <div className="text-center mb-6">
       <h3 className="text-xl font-semibold text-white mb-2">{t('chooseSupportTier')}</h3>
@@ -224,20 +290,79 @@ const TierSelectionStep = ({ tiers, onTierSelect, t }) => (
         <button
           key={tier.name}
           onClick={() => onTierSelect(tier)}
-          className={`relative overflow-hidden backdrop-blur-sm bg-gradient-to-br ${tier.color} border border-white/20 text-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group`}
+          className={`relative overflow-hidden backdrop-blur-sm bg-gradient-to-br ${tier.color} border transition-all duration-300 group ${
+            selectedTier?.name === tier.name 
+              ? 'border-blue-400 text-white shadow-lg scale-105' 
+              : 'border-white/20 text-white hover:border-white/40 hover:scale-105'
+          } p-6 rounded-xl shadow-lg hover:shadow-xl transform`}
         >
           <div className="flex items-center space-x-4">
             <div className="text-3xl">{tier.icon}</div>
             <div className="text-left">
               <h4 className="text-lg font-bold">{t(tier.name)}</h4>
-              <p className="text-2xl font-bold">{tier.amount} PLN</p>
-              <p className="text-sm opacity-75">{t(`${tier.name}Rewards`)}</p>
+              <p className="text-2xl font-bold">
+                {tier.name === 'custom' ? t('customAmount') : `${tier.amount} PLN`}
+              </p>
+              <p className="text-sm opacity-75">
+                {tier.name === 'custom' ? t('customAmountDescription') : t(`${tier.name}Rewards`)}
+              </p>
             </div>
           </div>
           <ChevronRight className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
       ))}
     </div>
+
+    {/* Custom Amount Input - Show when custom tier is selected */}
+    {selectedTier?.name === 'custom' && (
+      <div className="mt-6 p-6 backdrop-blur-sm bg-gradient-to-r from-gray-500/20 to-slate-600/20 border border-white/30 rounded-xl">
+        <h4 className="text-lg font-semibold text-white mb-4">{t('enterCustomAmount')}</h4>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-200 mb-2">
+              {t('amount')} (PLN) *
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={customAmount}
+                onChange={(e) => onCustomAmountChange(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    onCustomAmountSubmit();
+                  }
+                }}
+                placeholder="100"
+                min="1"
+                max="10000"
+                className={`w-full px-4 py-3 bg-white/10 border rounded-lg text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${
+                  customAmountError ? 'border-red-400' : 'border-white/30'
+                }`}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <span className="text-gray-300 text-sm">PLN</span>
+              </div>
+            </div>
+            {customAmountError && (
+              <p className="text-red-400 text-sm mt-2 flex items-center">
+                <AlertCircle className="w-4 h-4 mr-1" />
+                {customAmountError}
+              </p>
+            )}
+          </div>
+
+          <button
+            onClick={onCustomAmountSubmit}
+            disabled={!customAmount}
+            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center space-x-2"
+          >
+            <span>{t('continueToBlockchain')}</span>
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    )}
   </div>
 );
 
@@ -247,7 +372,9 @@ const BlockchainSelectionStep = ({ blockchains, selectedTier, onBlockchainSelect
     <div className="text-center mb-6">
       <h3 className="text-xl font-semibold text-white mb-2">{t('chooseBlockchain')}</h3>
       <p className="text-gray-300 text-sm">
-        {t('selectedTier')}: <span className="text-emerald-400 font-semibold">{t(selectedTier.name)} ({selectedTier.amount} PLN)</span>
+        {t('selectedTier')}: <span className="text-emerald-400 font-semibold">
+          {selectedTier.name === 'custom' ? t('customAmount') : t(selectedTier.name)} ({selectedTier.amount} PLN)
+        </span>
       </p>
     </div>
 
@@ -342,7 +469,7 @@ const AmountDisplayStep = ({
         <h3 className="text-xl font-semibold text-white mb-2">{t('calculationResults')}</h3>
         <div className="flex items-center justify-center space-x-4 text-sm">
           <span className="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full">
-            {t(tier.name)} • {tier.amount} PLN
+            {tier.name === 'custom' ? t('customAmount') : t(tier.name)} • {tier.amount} PLN
           </span>
           <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
             {blockchain.name}

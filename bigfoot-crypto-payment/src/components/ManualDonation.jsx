@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
 import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator, Coins } from 'lucide-react';
 import CalculationModal from './CalculationModal';
@@ -28,6 +28,11 @@ const ManualDonation = ({ onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
+
+  // Debug effect to monitor blockchain selection
+  useEffect(() => {
+    console.log('Current selectedBlockchain in form:', formData.selectedBlockchain);
+  }, [formData.selectedBlockchain]);
 
   // Get default country based on language
   function getDefaultCountry(lang) {
@@ -92,6 +97,29 @@ const ManualDonation = ({ onBack }) => {
     }
   };
 
+  const handleCalculatorSelect = (selectedData) => {
+    console.log('=== CALCULATOR DATA RECEIVED ===');
+    console.log('Full selectedData object:', selectedData);
+    console.log('blockchainName from calculator:', selectedData.blockchainName);
+    console.log('Available wallet addresses keys:', Object.keys(walletAddresses));
+    
+    // Direct update to ensure all fields are populated correctly
+    setFormData(prev => {
+      const updated = {
+        ...prev,
+        amount: selectedData.plnAmount.toString(),
+        cryptoAmount: selectedData.cryptoAmount.toString(),
+        cryptoSymbol: selectedData.symbol,
+        selectedBlockchain: selectedData.blockchainName
+      };
+      console.log('=== FORM UPDATE ===');
+      console.log('Previous selectedBlockchain:', prev.selectedBlockchain);
+      console.log('New selectedBlockchain:', updated.selectedBlockchain);
+      console.log('Updated form data:', updated);
+      return updated;
+    });
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -153,27 +181,6 @@ const ManualDonation = ({ onBack }) => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleCalculatorSelect = (selectedData) => {
-    setFormData(prev => ({
-      ...prev,
-      amount: selectedData.plnAmount.toString(),
-      cryptoAmount: selectedData.cryptoAmount.toString(),
-      cryptoSymbol: selectedData.symbol,
-      selectedBlockchain: getBlockchainFromSymbol(selectedData.symbol)
-    }));
-  };
-
-  const getBlockchainFromSymbol = (symbol) => {
-    const mapping = {
-      'BTC': 'Bitcoin',
-      'ETH': 'Ethereum', 
-      'USDC': 'Ethereum', // Default USDC to Ethereum
-      'SOL': 'Solana',
-      'TON': 'TON'
-    };
-    return mapping[symbol] || 'Ethereum';
   };
 
   if (isSubmitted) {
@@ -260,7 +267,7 @@ const ManualDonation = ({ onBack }) => {
           {/* Form Section */}
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">{t('donationDetails')}</h2>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Personal Information */}
               <div>
@@ -371,19 +378,29 @@ const ManualDonation = ({ onBack }) => {
 
                 <div className="space-y-1">
                   <label className="block text-sm font-medium text-gray-700">
-                    {t('blockchain')} *
+                    {t('blockchain')} * 
+                    <span className="text-xs text-gray-500 ml-2">
+                      (Current: {formData.selectedBlockchain || 'None'})
+                    </span>
                   </label>
                   <select
+                    key={`blockchain-${formData.selectedBlockchain}`} // Force re-render
                     value={formData.selectedBlockchain}
-                    onChange={(e) => handleInputChange('selectedBlockchain', e.target.value)}
+                    onChange={(e) => {
+                      console.log('Dropdown changed to:', e.target.value);
+                      handleInputChange('selectedBlockchain', e.target.value);
+                    }}
                     className={`w-full px-3 py-2 bg-white border ${
                       errors.selectedBlockchain ? 'border-red-300' : 'border-gray-300'
                     } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   >
                     <option value="">{t('selectBlockchain')}</option>
-                    {Object.keys(walletAddresses).map(blockchain => (
-                      <option key={blockchain} value={blockchain}>{blockchain}</option>
-                    ))}
+                    {Object.keys(walletAddresses).map(blockchain => {
+                      console.log('Rendering option:', blockchain, 'Selected:', formData.selectedBlockchain === blockchain);
+                      return (
+                        <option key={blockchain} value={blockchain}>{blockchain}</option>
+                      );
+                    })}
                   </select>
                   {errors.selectedBlockchain && (
                     <div className="flex items-center text-red-600 text-xs mt-1">
