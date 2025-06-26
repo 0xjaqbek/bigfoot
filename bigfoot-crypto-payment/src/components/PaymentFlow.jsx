@@ -26,17 +26,20 @@ const PaymentFlow = () => {
     setShowWelcomeModal(true);
   }, []);
 
-  const handleCloseWelcome = () => {
-    setShowWelcomeModal(false);
-  };
+const handleCloseWelcome = () => {
+  setShowWelcomeModal(false);
+  setShowDAppInstructions(true);
+};
 
   const handleManualDonation = () => {
     setShowManualDonation(true);
   };
 
-  const handleBackFromManual = () => {
-    setShowManualDonation(false);
-  };
+const handleBackFromManual = () => {
+  setShowManualDonation(false);
+  setShowDAppInstructions(true);
+};
+
 
   const handleShowInstructions = () => {
     setShowDAppInstructions(true);
