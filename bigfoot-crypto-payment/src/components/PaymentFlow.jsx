@@ -13,12 +13,14 @@ import { APP_CONFIG } from '../utils/constants';
 import logo from '../assets/BFW-GOLD.png';
 import WelcomeModal from './WelcomeModal';
 import ManualDonation from './ManualDonation';
+import DAppInstructionsModal from './DAppInstructionsModal';
 
 const PaymentFlow = () => {
   const { currentStep } = usePaymentStore();
   const { _t } = useTranslations();
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showManualDonation, setShowManualDonation] = useState(false);
+  const [showDAppInstructions, setShowDAppInstructions] = useState(false);
 
   useEffect(() => {
     setShowWelcomeModal(true);
@@ -34,6 +36,14 @@ const PaymentFlow = () => {
 
   const handleBackFromManual = () => {
     setShowManualDonation(false);
+  };
+
+  const handleShowInstructions = () => {
+    setShowDAppInstructions(true);
+  };
+
+  const handleCloseInstructions = () => {
+    setShowDAppInstructions(false);
   };
 
   if (showManualDonation) {
@@ -55,8 +65,11 @@ const PaymentFlow = () => {
       </div>
       
       <div className="container mx-auto relative z-10">
-        {/* Header - FIXED: Now passing the handleManualDonation function */}
-        <Header onManualDonation={handleManualDonation} />
+        {/* Header - Now passing both functions */}
+        <Header 
+          onManualDonation={handleManualDonation}
+          onShowInstructions={handleShowInstructions}
+        />
 
         {/* Content */}
         <div className="mt-12">
@@ -79,11 +92,17 @@ const PaymentFlow = () => {
         onClose={handleCloseWelcome}
         onManualDonation={handleManualDonation}
       />
+
+      {/* DApp Instructions Modal */}
+      <DAppInstructionsModal
+        isOpen={showDAppInstructions}
+        onClose={handleCloseInstructions}
+      />
     </div>
   );
 };
 
-const Header = ({ onManualDonation }) => {
+const Header = ({ onManualDonation, onShowInstructions }) => {
   const { currentStep } = usePaymentStore();
   const { t } = useTranslations();
 
@@ -100,6 +119,18 @@ const Header = ({ onManualDonation }) => {
           >
             <span>💰</span>
             <span>{t('manualDonation')}</span>
+          </button>
+        </div>
+
+        {/* dApp Instructions Button */}
+        <div className="absolute top-4 right-4 z-20">
+          <button
+            onClick={onShowInstructions}
+            className="flex items-center space-x-2 backdrop-blur-sm bg-blue-600/20 border border-blue-500/30 rounded-xl px-3 py-2 hover:bg-blue-500/30 transition-all duration-200 shadow-sm text-blue-200 text-sm font-medium"
+            title={t('dappInstructions')}
+          >
+            <span>❓</span>
+            <span>{t('help')}</span>
           </button>
         </div>
               

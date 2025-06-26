@@ -11,7 +11,7 @@ const Footer = () => {
 
   return (
     <footer className="relative z-10 mt-16 pb-8">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto">
         <div className="backdrop-blur-sm bg-white/30 border border-gray-200/30 rounded-2xl p-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-1 md:space-y-0 md:space-x-6">
             
