@@ -231,6 +231,46 @@ export const getOptimismGas = async () => {
   });
 };
 
+// zkSync Era Fee Estimation - NEW: FIXED with ETH-based calculation
+export const getZkSyncGas = async () => {
+  return getCachedOrFetch('zksync', async () => {
+    try {
+      // zkSync Era has very low fees, paid in ETH
+      const ethPricePln = 12600; // Should come from price service
+      
+      // zkSync Era typical gas costs in gwei (much lower than mainnet)
+      const baseGwei = 0.001; // Very low base fee
+      const gasLimit = 21000; // Standard transfer
+      
+      return {
+        slow: { 
+          gwei: baseGwei, 
+          pln: calculatePlnFee(baseGwei, gasLimit, ethPricePln), 
+          time: '2 min' 
+        },
+        standard: { 
+          gwei: baseGwei * 1.5, 
+          pln: calculatePlnFee(baseGwei * 1.5, gasLimit, ethPricePln), 
+          time: '1 min' 
+        },
+        fast: { 
+          gwei: baseGwei * 2, 
+          pln: calculatePlnFee(baseGwei * 2, gasLimit, ethPricePln), 
+          time: '30s' 
+        }
+      };
+    } catch (error) {
+      console.warn('zkSync Era fee estimation failed:', error.message);
+      // Fallback fees for zkSync Era (very low, paid in ETH)
+      return {
+        slow: { gwei: 0.001, pln: 1, time: '2 min' },
+        standard: { gwei: 0.0015, pln: 1.5, time: '1 min' },
+        fast: { gwei: 0.002, pln: 2, time: '30s' }
+      };
+    }
+  });
+};
+
 // Solana Fee Estimation - IMPROVED
 export const getSolanaFees = async () => {
   return getCachedOrFetch('solana', async () => {
@@ -289,7 +329,7 @@ export const getTonFees = async () => {
   });
 };
 
-// Main fee estimation function - IMPROVED ERROR HANDLING
+// Main fee estimation function - IMPROVED ERROR HANDLING with zkSync support
 export const getNetworkFees = async (blockchain) => {
   const networkName = blockchain?.name?.toLowerCase();
   
@@ -310,6 +350,8 @@ export const getNetworkFees = async (blockchain) => {
         return await getArbitrumGas();
       case 'optimism':
         return await getOptimismGas();
+      case 'zksync': // ADDED: zkSync Era fee estimation
+        return await getZkSyncGas();
       case 'solana':
         return await getSolanaFees();
       case 'ton':

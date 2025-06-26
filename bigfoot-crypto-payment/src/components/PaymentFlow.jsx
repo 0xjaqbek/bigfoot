@@ -62,8 +62,8 @@ const PaymentFlow = () => {
       </div>
       
       <div className="container mx-auto relative z-10">
-        {/* Header */}
-        <Header />
+        {/* Header - FIXED: Now passing the handleManualDonation function */}
+        <Header onManualDonation={handleManualDonation} />
 
         {/* Content */}
         <div className="mt-12">
@@ -90,7 +90,7 @@ const PaymentFlow = () => {
   );
 };
 
-const Header = () => {
+const Header = ({ onManualDonation }) => {
   const { currentStep } = usePaymentStore();
   const { t } = useTranslations();
 
@@ -98,6 +98,18 @@ const Header = () => {
     <div className="text-center">
       <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] p-4 text-center" 
        style={{ background: 'black'}}>
+        {/* Manual Donation Button - positioned at top left */}
+        <div className="absolute top-4 left-4 z-20">
+          <button
+            onClick={onManualDonation}
+            className="flex items-center space-x-2 backdrop-blur-sm bg-white/20 border border-white/30 rounded-xl px-3 py-2 hover:bg-white/30 transition-all duration-200 shadow-sm text-white text-sm font-medium"
+            title={t('manualDonation')}
+          >
+            <span>💰</span>
+            <span>{t('manualDonation')}</span>
+          </button>
+        </div>
+        
         {/* Language Selector - positioned at top right */}
         <div className="absolute top-4 right-4 z-20">
           <LanguageSelector />

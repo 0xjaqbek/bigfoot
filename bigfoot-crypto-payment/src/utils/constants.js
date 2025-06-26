@@ -116,7 +116,7 @@ export const BLOCKCHAIN_GROUPS = [
       },
       { 
         name: 'zkSync', 
-        symbol: 'ZKS', 
+        symbol: 'ETH', 
         fee: '~1zł', 
         time: '~30s', 
         type: 'evm', 
@@ -150,7 +150,7 @@ export const WALLETS_BY_TYPE = {
   ]
 };
 
-// Price API Configuration  
+// Price API Configuration - FIXED: Removed ZKS since zkSync Era uses ETH
 export const COIN_IDS = {
   'BTC': 'bitcoin',
   'ETH': 'ethereum', 

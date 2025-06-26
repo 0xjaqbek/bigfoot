@@ -72,12 +72,12 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
     { 
       name: 'zkSync', 
       displayName: 'zkSync Era',
-      symbol: 'ZKS', 
+      symbol: 'ETH', 
       icon: '⚡', 
       color: 'from-yellow-400 to-orange-500',
       fees: 'Very Low',
       time: '~30 sec',
-      description: 'Zero-knowledge L2',
+      description: 'Zero-knowledge L2, uses ETH for gas', 
       hasStablecoin: true
     }
   ];

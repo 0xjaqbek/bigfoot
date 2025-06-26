@@ -234,8 +234,43 @@ export const translations = {
     fees: "Opłaty",
     time: "Czas",
     currencyOptionsNote: "Opcje waluty",
-    currencyOptionsDescription: "Po wyborze sieci będziesz mógł wybrać między natywną walutą sieci lub stablecoin USDC"
+    currencyOptionsDescription: "Po wyborze sieci będziesz mógł wybrać między natywną walutą sieci lub stablecoin USDC",
 
+      help: "Pomoc",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Przewodnik Ręcznej Dotacji",
+  manualDonationSubtitle: "Instrukcje krok po kroku",
+  manualDonationIntro: "Ręczna dotacja to prosty sposób na wsparcie BigFoot Works",
+  manualDonationDescription: "Wyślij kryptowaluty bezpośrednio z swojego portfela, a następnie wypełnij formularz aby otrzymać nagrody.",
+  howToManualDonate: "Jak wykonać ręczną dotację?",
+  
+  // Steps
+  step1Title: "Skopiuj adres portfela",
+  step1Description: "Wybierz blockchain i skopiuj odpowiedni adres portfela fundacji. Sprawdź dwukrotnie poprawność adresu przed wysłaniem.",
+  step2Title: "Wyślij kryptowaluty ze swojego portfela",
+  step2Description: "Użyj swojego portfela kryptowalut aby wysłać wybraną kwotę na adres fundacji. Zapisz hash transakcji.",
+  step3Title: "Wypełnij formularz potwierdzenia",
+  step3Description: "Podaj dane osobowe, link do transakcji i informacje kontaktowe aby otrzymać nagrody i dostęp do grupy.",
+  
+  // Benefits
+  manualDonationBenefits: "Zalety ręcznej dotacji",
+  benefit1: "Pełna kontrola nad transakcją - wysyłasz bezpośrednio ze swojego portfela",
+  benefit2: "Możliwość wyboru własnych opłat sieciowych",
+  benefit3: "Nie musisz łączyć portfela z aplikacją",
+  benefit4: "Działa z każdym portfelem kryptowalut",
+  
+  // Important Notes
+  importantNotes: "Ważne informacje",
+  note1: "Sprawdź adres portfela przed wysłaniem - transakcje kryptowalut są nieodwracalne",
+  note2: "Zapisz hash transakcji - będzie potrzebny do weryfikacji",
+  note3: "Dostęp do grupy Facebook otrzymasz w ciągu 24 godzin po weryfikacji",
+  
+  // Processing
+  processingTime: "Czas przetwarzania",
+  processingTimeDescription: "Weryfikujemy transakcje ręcznie w ciągu 24 godzin. Otrzymasz email z potwierdzeniem po sprawdzeniu płatności.",
+  
+  gotItStartDonating: "Rozumiem, zacznij dotację!",
 
   },
   
@@ -460,7 +495,44 @@ export const translations = {
     fees: "Fees",
     time: "Time",
     currencyOptionsNote: "Currency Options",
-    currencyOptionsDescription: "After selecting a network, you'll be able to choose between the network's native currency or USDC stablecoin"
+    currencyOptionsDescription: "After selecting a network, you'll be able to choose between the network's native currency or USDC stablecoin",
+
+      help: "Help",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Manual Donation Guide",
+  manualDonationSubtitle: "Step-by-step instructions",
+  manualDonationIntro: "Manual donation is a simple way to support BigFoot Works",
+  manualDonationDescription: "Send cryptocurrencies directly from your wallet, then fill out the form to receive rewards.",
+  howToManualDonate: "How to make a manual donation?",
+  
+  // Steps
+  step1Title: "Copy wallet address",
+  step1Description: "Choose a blockchain and copy the corresponding foundation wallet address. Double-check the address before sending.",
+  step2Title: "Send cryptocurrencies from your wallet",
+  step2Description: "Use your cryptocurrency wallet to send the chosen amount to the foundation address. Save the transaction hash.",
+  step3Title: "Fill out confirmation form",
+  step3Description: "Provide personal data, transaction link and contact information to receive rewards and group access.",
+  
+  // Benefits
+  manualDonationBenefits: "Manual donation benefits",
+  benefit1: "Full control over transaction - you send directly from your wallet",
+  benefit2: "Ability to choose your own network fees",
+  benefit3: "No need to connect wallet to the application",
+  benefit4: "Works with any cryptocurrency wallet",
+  
+  // Important Notes
+  importantNotes: "Important information",
+  note1: "Check wallet address before sending - cryptocurrency transactions are irreversible",
+  note2: "Save transaction hash - it will be needed for verification",
+  note3: "Facebook group access will be granted within 24 hours after verification",
+  
+  // Processing
+  processingTime: "Processing time",
+  processingTimeDescription: "We verify transactions manually within 24 hours. You will receive confirmation email after payment verification.",
+  
+  gotItStartDonating: "Got it, start donating!",
+  
   
   },
   
@@ -686,7 +758,43 @@ export const translations = {
     fees: "Gebühren",
     time: "Zeit",
     currencyOptionsNote: "Währungsoptionen",
-    currencyOptionsDescription: "Nach der Auswahl eines Netzwerks können Sie zwischen der nativen Währung des Netzwerks oder USDC Stablecoin wählen"
+    currencyOptionsDescription: "Nach der Auswahl eines Netzwerks können Sie zwischen der nativen Währung des Netzwerks oder USDC Stablecoin wählen",
+
+      help: "Hilfe",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Anleitung für manuelle Spende",
+  manualDonationSubtitle: "Schritt-für-Schritt Anweisungen",
+  manualDonationIntro: "Manuelle Spende ist ein einfacher Weg, BigFoot Works zu unterstützen",
+  manualDonationDescription: "Senden Sie Kryptowährungen direkt von Ihrer Wallet und füllen Sie dann das Formular aus, um Belohnungen zu erhalten.",
+  howToManualDonate: "Wie mache ich eine manuelle Spende?",
+  
+  // Steps
+  step1Title: "Wallet-Adresse kopieren",
+  step1Description: "Wählen Sie eine Blockchain und kopieren Sie die entsprechende Stiftungs-Wallet-Adresse. Überprüfen Sie die Adresse vor dem Senden.",
+  step2Title: "Kryptowährungen von Ihrer Wallet senden",
+  step2Description: "Verwenden Sie Ihre Kryptowährungs-Wallet, um den gewählten Betrag an die Stiftungsadresse zu senden. Speichern Sie den Transaktions-Hash.",
+  step3Title: "Bestätigungsformular ausfüllen",
+  step3Description: "Geben Sie persönliche Daten, Transaktionslink und Kontaktinformationen an, um Belohnungen und Gruppenzugang zu erhalten.",
+  
+  // Benefits
+  manualDonationBenefits: "Vorteile der manuellen Spende",
+  benefit1: "Volle Kontrolle über die Transaktion - Sie senden direkt von Ihrer Wallet",
+  benefit2: "Möglichkeit, eigene Netzwerkgebühren zu wählen",
+  benefit3: "Keine Notwendigkeit, Wallet mit der Anwendung zu verbinden",
+  benefit4: "Funktioniert mit jeder Kryptowährungs-Wallet",
+  
+  // Important Notes
+  importantNotes: "Wichtige Informationen",
+  note1: "Überprüfen Sie die Wallet-Adresse vor dem Senden - Kryptowährungs-Transaktionen sind irreversibel",
+  note2: "Speichern Sie den Transaktions-Hash - er wird für die Verifizierung benötigt",
+  note3: "Facebook-Gruppenzugang wird innerhalb von 24 Stunden nach Verifizierung gewährt",
+  
+  // Processing
+  processingTime: "Bearbeitungszeit",
+  processingTimeDescription: "Wir verifizieren Transaktionen manuell innerhalb von 24 Stunden. Sie erhalten eine Bestätigungs-E-Mail nach der Zahlungsverifizierung.",
+  
+  gotItStartDonating: "Verstanden, mit Spenden beginnen!",
 
 
   },
@@ -912,7 +1020,44 @@ export const translations = {
     fees: "Avgifter",
     time: "Tid",
     currencyOptionsNote: "Valutaalternativ",
-    currencyOptionsDescription: "Efter att ha valt ett nätverk kan du välja mellan nätverkets inhemska valuta eller USDC stablecoin"
+    currencyOptionsDescription: "Efter att ha valt ett nätverk kan du välja mellan nätverkets inhemska valuta eller USDC stablecoin",
+
+      help: "Hjälp",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Guide för manuell donation",
+  manualDonationSubtitle: "Steg-för-steg instruktioner",
+  manualDonationIntro: "Manuell donation är ett enkelt sätt att stödja BigFoot Works",
+  manualDonationDescription: "Skicka kryptovalutor direkt från din plånbok och fyll sedan i formuläret för att få belöningar.",
+  howToManualDonate: "Hur gör man en manuell donation?",
+  
+  // Steps
+  step1Title: "Kopiera plånboksadress",
+  step1Description: "Välj en blockchain och kopiera motsvarande stiftelsens plånboksadress. Dubbelkolla adressen innan du skickar.",
+  step2Title: "Skicka kryptovalutor från din plånbok",
+  step2Description: "Använd din kryptovaluta-plånbok för att skicka det valda beloppet till stiftelsens adress. Spara transaktionshash.",
+  step3Title: "Fyll i bekräftelseformulär",
+  step3Description: "Ange personuppgifter, transaktionslänk och kontaktinformation för att få belöningar och gruppåtkomst.",
+  
+  // Benefits
+  manualDonationBenefits: "Fördelar med manuell donation",
+  benefit1: "Full kontroll över transaktionen - du skickar direkt från din plånbok",
+  benefit2: "Möjlighet att välja egna nätverksavgifter",
+  benefit3: "Ingen anslutning av plånbok till applikationen behövs",
+  benefit4: "Fungerar med vilken kryptovaluta-plånbok som helst",
+  
+  // Important Notes
+  importantNotes: "Viktig information",
+  note1: "Kontrollera plånboksadressen innan du skickar - kryptovalutatransaktioner är irreversibla",
+  note2: "Spara transaktionshash - det behövs för verifiering",
+  note3: "Facebook-gruppåtkomst beviljas inom 24 timmar efter verifiering",
+  
+  // Processing
+  processingTime: "Behandlingstid",
+  processingTimeDescription: "Vi verifierar transaktioner manuellt inom 24 timmar. Du får bekräftelse-e-post efter betalningsverifiering.",
+  
+  gotItStartDonating: "Förstått, börja donera!",
+  
 
   },
   
@@ -1138,7 +1283,43 @@ export const translations = {
     fees: "Avgifter",
     time: "Tid",
     currencyOptionsNote: "Valutaalternativer",
-    currencyOptionsDescription: "Etter å ha valgt et nettverk kan du velge mellom nettverkets opprinnelige valuta eller USDC stablecoin"
+    currencyOptionsDescription: "Etter å ha valgt et nettverk kan du velge mellom nettverkets opprinnelige valuta eller USDC stablecoin",
+
+      help: "Hjelp",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Guide for manuell donasjon",
+  manualDonationSubtitle: "Steg-for-steg instruksjoner",
+  manualDonationIntro: "Manuell donasjon er en enkel måte å støtte BigFoot Works",
+  manualDonationDescription: "Send kryptovalutaer direkte fra lommeboken din, og fyll deretter ut skjemaet for å motta belønninger.",
+  howToManualDonate: "Hvordan gjøre en manuell donasjon?",
+  
+  // Steps
+  step1Title: "Kopier lommebokadresse",
+  step1Description: "Velg en blockchain og kopier tilsvarende stiftelsens lommebokadresse. Dobbeltsjekk adressen før sending.",
+  step2Title: "Send kryptovalutaer fra lommeboken din",
+  step2Description: "Bruk din kryptovaluta-lommebok til å sende det valgte beløpet til stiftelsens adresse. Lagre transaksjonshash.",
+  step3Title: "Fyll ut bekreftelsesformulär",
+  step3Description: "Oppgi personopplysninger, transaksjonslenke og kontaktinformasjon for å motta belønninger og gruppeadgang.",
+  
+  // Benefits
+  manualDonationBenefits: "Fordeler med manuell donasjon",
+  benefit1: "Full kontroll over transaksjonen - du sender direkte fra lommeboken din",
+  benefit2: "Mulighet til å velge egne nettverksavgifter",
+  benefit3: "Ingen behov for å koble lommebok til applikasjonen",
+  benefit4: "Fungerer med enhver kryptovaluta-lommebok",
+  
+  // Important Notes
+  importantNotes: "Viktig informasjon",
+  note1: "Sjekk lommebokadresse før sending - kryptovalutatransaksjoner er irreversible",
+  note2: "Lagre transaksjonshash - det vil være nødvendig for verifisering",
+  note3: "Facebook-gruppeadgang vil bli gitt innen 24 timer etter verifisering",
+  
+  // Processing
+  processingTime: "Behandlingstid",
+  processingTimeDescription: "Vi verifiserer transaksjoner manuelt innen 24 timer. Du vil motta bekreftelses-e-post etter betalingsverifisering.",
+  
+  gotItStartDonating: "Forstått, start donering!",
 
   },
   
@@ -1364,7 +1545,43 @@ export const translations = {
     fees: "Gebyrer",
     time: "Tid",
     currencyOptionsNote: "Valutamuligheder",
-    currencyOptionsDescription: "Efter at have valgt et netværk kan du vælge mellem netværkets oprindelige valuta eller USDC stablecoin"
+    currencyOptionsDescription: "Efter at have valgt et netværk kan du vælge mellem netværkets oprindelige valuta eller USDC stablecoin",
+
+      help: "Hjælp",
+
+  // Manual Donation Guide Modal
+  manualDonationGuide: "Guide til manuel donation",
+  manualDonationSubtitle: "Trin-for-trin instruktioner",
+  manualDonationIntro: "Manuel donation er en enkel måde at støtte BigFoot Works",
+  manualDonationDescription: "Send kryptovalutaer direkte fra din tegnebog og udfyld derefter formularen for at modtage belønninger.",
+  howToManualDonate: "Hvordan laver man en manuel donation?",
+  
+  // Steps
+  step1Title: "Kopier tegnebogsadresse",
+  step1Description: "Vælg en blockchain og kopier den tilsvarende fondens tegnebogsadresse. Dobbelttjek adressen før afsendelse.",
+  step2Title: "Send kryptovalutaer fra din tegnebog",
+  step2Description: "Brug din kryptovaluta-tegnebog til at sende det valgte beløb til fondens adresse. Gem transaktionshash.",
+  step3Title: "Udfyld bekræftelsesformular",
+  step3Description: "Angiv personlige data, transaktionslink og kontaktoplysninger for at modtage belønninger og gruppeadgang.",
+  
+  // Benefits
+  manualDonationBenefits: "Fordele ved manuel donation",
+  benefit1: "Fuld kontrol over transaktionen - du sender direkte fra din tegnebog",
+  benefit2: "Mulighed for at vælge egne netværksgebyrer",
+  benefit3: "Ingen tilslutning af tegnebog til applikationen nødvendig",
+  benefit4: "Fungerer med enhver kryptovaluta-tegnebog",
+  
+  // Important Notes
+  importantNotes: "Vigtig information",
+  note1: "Tjek tegnebogsadresse før afsendelse - kryptovalutatransaktioner er irreversible",
+  note2: "Gem transaktionshash - det vil være nødvendigt for verifikation",
+  note3: "Facebook-gruppeadgang gives inden for 24 timer efter verifikation",
+  
+  // Processing
+  processingTime: "Behandlingstid",
+  processingTimeDescription: "Vi verificerer transaktioner manuelt inden for 24 timer. Du modtager bekræftelses-e-mail efter betalingsverifikation.",
+  
+  gotItStartDonating: "Forstået, begynd at donere!",
 
   }
 };

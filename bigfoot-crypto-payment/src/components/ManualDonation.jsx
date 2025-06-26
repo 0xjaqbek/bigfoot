@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
-import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator, Coins } from 'lucide-react';
+import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator, Coins, HelpCircle } from 'lucide-react';
 import CalculationModal from './CalculationModal';
+import ManualDonationModal from './ManualDonationModal';
 
 const ManualDonation = ({ onBack }) => {
   const { t, language } = useTranslations();
@@ -28,6 +29,22 @@ const ManualDonation = ({ onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
+  const [showGuideModal, setShowGuideModal] = useState(false);
+
+  // Show guide modal on first load
+  useEffect(() => {
+    // Check if user has seen the guide before
+    const hasSeenGuide = localStorage.getItem('bigfoot_manual_guide_seen');
+    if (!hasSeenGuide) {
+      setShowGuideModal(true);
+    }
+  }, []);
+
+  const handleCloseGuide = () => {
+    setShowGuideModal(false);
+    // Remember that user has seen the guide
+    localStorage.setItem('bigfoot_manual_guide_seen', 'true');
+  };
 
   // Debug effect to monitor blockchain selection
   useEffect(() => {
@@ -188,13 +205,13 @@ const ManualDonation = ({ onBack }) => {
       <div 
         className="min-h-screen relative overflow-hidden"
         style={{
-          background: 'linear-gradient(180deg, black 20%, #1f2937 100%)',
+          background: 'linear-gradient(180deg, black 20%, #f1f5f9 100%)',
         }}
       >
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-green-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gray-100/30 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-2xl mx-auto relative z-10 p-6">
@@ -220,27 +237,40 @@ const ManualDonation = ({ onBack }) => {
     <div 
       className="min-h-screen relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, black 20%, #1f2937 100%)',
+        background: 'linear-gradient(180deg, black 20%, #f1f5f9 100%)',
       }}
     >
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 left-1/4 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gray-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 left-1/4 w-60 h-60 bg-indigo-100/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10 p-6">
         {/* Header */}
-        <div className="flex items-center mb-8">
+        <div className="flex items-center justify-between mb-8">
           <button 
             onClick={onBack}
-            className="flex items-center text-blue-100 hover:text-blue-300 font-semibold mr-6 backdrop-blur-sm bg-gray-800/30 px-4 py-2 rounded-xl border border-gray-600/50 transition-all duration-300 hover:bg-gray-700/40"
+            className="flex items-center text-blue-100 hover:text-blue-300 font-semibold backdrop-blur-sm bg-gray-800/30 px-4 py-2 rounded-xl border border-gray-600/50 transition-all duration-300 hover:bg-gray-700/40"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             {t('goToDapp')}
           </button>
-          <h1 className="text-3xl font-bold text-gray-100">{t('manualDonationTitle')}</h1>
+          
+          <div className="flex items-center space-x-4">
+            <h1 className="text-3xl font-bold text-gray-100">{t('manualDonationTitle')}</h1>
+            
+            {/* Help Button */}
+            <button
+              onClick={() => setShowGuideModal(true)}
+              className="flex items-center space-x-2 backdrop-blur-sm bg-blue-600/20 border border-blue-500/30 px-3 py-2 rounded-xl hover:bg-blue-500/30 transition-all duration-300 text-blue-200"
+              title={t('manualDonationGuide')}
+            >
+              <HelpCircle className="w-5 h-5" />
+              <span className="text-sm font-medium">{t('help')}</span>
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -609,6 +639,12 @@ const ManualDonation = ({ onBack }) => {
         onClose={() => setShowCalculator(false)}
         selectedBlockchain={formData.selectedBlockchain}
         onAmountSelect={handleCalculatorSelect}
+      />
+
+      {/* Manual Donation Guide Modal */}
+      <ManualDonationModal
+        isOpen={showGuideModal}
+        onClose={handleCloseGuide}
       />
     </div>
   );
