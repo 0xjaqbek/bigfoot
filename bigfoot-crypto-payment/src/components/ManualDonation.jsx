@@ -3,6 +3,7 @@ import { useTranslations } from '../hooks/useTranslations';
 import { Copy, Check, ExternalLink, User, Mail, MapPin, Users, Phone, AlertCircle, ArrowLeft, Send, Calculator, Coins, HelpCircle } from 'lucide-react';
 import CalculationModal from './CalculationModal';
 import ManualDonationModal from './ManualDonationModal';
+import Footer from './Footer';
 
 const ManualDonation = ({ onBack }) => {
   const { t, language } = useTranslations();
@@ -31,19 +32,15 @@ const ManualDonation = ({ onBack }) => {
   const [showCalculator, setShowCalculator] = useState(false);
   const [showGuideModal, setShowGuideModal] = useState(false);
 
-  // Show guide modal on first load
+  // Show guide modal on every load
   useEffect(() => {
-    // Check if user has seen the guide before
-    const hasSeenGuide = localStorage.getItem('bigfoot_manual_guide_seen');
-    if (!hasSeenGuide) {
-      setShowGuideModal(true);
-    }
+    // Always show the guide modal when manual donation page loads
+    setShowGuideModal(true);
   }, []);
 
   const handleCloseGuide = () => {
     setShowGuideModal(false);
-    // Remember that user has seen the guide
-    localStorage.setItem('bigfoot_manual_guide_seen', 'true');
+    // No localStorage - modal will show again on next visit
   };
 
   // Debug effect to monitor blockchain selection
@@ -228,6 +225,9 @@ const ManualDonation = ({ onBack }) => {
               {t('goToDapp')}
             </button>
           </div>
+          
+          {/* Footer */}
+          <Footer />
         </div>
       </div>
     );
@@ -631,6 +631,9 @@ const ManualDonation = ({ onBack }) => {
             </form>
           </div>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
 
       {/* Calculation Modal */}
