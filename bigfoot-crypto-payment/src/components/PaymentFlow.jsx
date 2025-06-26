@@ -9,7 +9,6 @@ import WalletConnector from './WalletConnector';
 import PaymentConfirmation from './PaymentConfirmation';
 import PaymentSuccess from './PaymentSuccess';
 import Footer from './Footer'; 
-import LanguageSelector from './LanguageSelector';
 import { APP_CONFIG } from '../utils/constants';
 import logo from '../assets/BFW-GOLD.png';
 import WelcomeModal from './WelcomeModal';
@@ -21,17 +20,12 @@ const PaymentFlow = () => {
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showManualDonation, setShowManualDonation] = useState(false);
 
-  // Show welcome modal on first load
   useEffect(() => {
-    // In a real app, you would check localStorage here
-    // For this demo, we'll always show the welcome modal initially
     setShowWelcomeModal(true);
   }, []);
 
   const handleCloseWelcome = () => {
     setShowWelcomeModal(false);
-    // In a real app, you would save to localStorage here
-    // localStorage.setItem('bigfoot_welcome_seen', 'true');
   };
 
   const handleManualDonation = () => {
@@ -42,7 +36,6 @@ const PaymentFlow = () => {
     setShowManualDonation(false);
   };
 
-  // Show manual donation page if active
   if (showManualDonation) {
     return <ManualDonation onBack={handleBackFromManual} />;
   }
@@ -98,7 +91,7 @@ const Header = ({ onManualDonation }) => {
     <div className="text-center">
       <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] p-4 text-center" 
        style={{ background: 'black'}}>
-        {/* Manual Donation Button - positioned at top left */}
+        {/* Manual Donation Button */}
         <div className="absolute top-4 left-4 z-20">
           <button
             onClick={onManualDonation}
@@ -109,12 +102,7 @@ const Header = ({ onManualDonation }) => {
             <span>{t('manualDonation')}</span>
           </button>
         </div>
-        
-        {/* Language Selector - positioned at top right */}
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
-          <LanguageSelector />
-        </div>
-        
+              
         <img
           src={logo}
           alt="BigFoot Works Logo"

@@ -473,20 +473,6 @@ const ManualDonation = ({ onBack }) => {
                     </div>
                   )}
                   
-                  {/* Helper text for selected blockchain */}
-                  {formData.selectedBlockchain && walletAddresses[formData.selectedBlockchain] && (
-                    <div className="mt-2 p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
-                      <div className="flex items-center space-x-2 text-sm">
-                        <span className="text-lg">{walletAddresses[formData.selectedBlockchain].icon}</span>
-                        <div>
-                          <span className="text-gray-300 font-medium">{walletAddresses[formData.selectedBlockchain].network}</span>
-                          <div className="text-xs text-gray-400">
-                            {t('supportedCurrencies')}: {walletAddresses[formData.selectedBlockchain].symbol}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
 
                 <FormField
