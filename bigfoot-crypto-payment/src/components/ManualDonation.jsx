@@ -72,21 +72,21 @@ const ManualDonation = ({ onBack }) => {
     },
     Ethereum: {
       address: import.meta.env.VITE_ETH_ADDRESS || '0xexample...',
-      symbol: 'ETH/USDC',
-      network: 'Ethereum/Polygon/Arbitrum/Optimism',
+      symbol: 'ETH/$',
+      network: 'Polygon/Arb/Op/zkSync',
       icon: 'Ξ',
       color: 'from-blue-400 to-indigo-500'
     },
     Solana: {
       address: import.meta.env.VITE_SOL_ADDRESS || 'SolExample...',
-      symbol: 'SOL/USDC',
+      symbol: 'SOL/$',
       network: 'Solana',
       icon: '◎',
       color: 'from-purple-400 to-pink-500'
     },
     TON: {
       address: import.meta.env.VITE_TON_ADDRESS || 'UQExample...',
-      symbol: 'TON',
+      symbol: 'TON/$',
       network: 'TON',
       icon: '💎',
       color: 'from-cyan-400 to-blue-500'
@@ -259,7 +259,6 @@ const ManualDonation = ({ onBack }) => {
           </button>
           
           <div className="flex items-center space-x-4">
-            <h1 className="text-3xl font-bold text-gray-100">{t('manualDonationTitle')}</h1>
             
             {/* Help Button */}
             <button

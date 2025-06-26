@@ -111,7 +111,7 @@ const Header = ({ onManualDonation }) => {
         </div>
         
         {/* Language Selector - positioned at top right */}
-        <div className="absolute top-4 right-4 z-20">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
           <LanguageSelector />
         </div>
         
