@@ -9,6 +9,7 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTier, setSelectedTier] = useState(null);
   const [selectedBlockchainStep, setSelectedBlockchainStep] = useState(null);
+  const [selectedEthereumNetwork, setSelectedEthereumNetwork] = useState(null);
   const [copiedAmount, setCopiedAmount] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [customAmount, setCustomAmount] = useState('');
@@ -20,6 +21,65 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
     { name: 'Ethereum', symbol: 'ETH', hasStablecoin: true, icon: 'Ξ', color: 'from-blue-400 to-indigo-500' },
     { name: 'Solana', symbol: 'SOL', hasStablecoin: true, icon: '◎', color: 'from-purple-400 to-pink-500' },
     { name: 'TON', symbol: 'TON', hasStablecoin: true, icon: '💎', color: 'from-cyan-400 to-blue-500' }
+  ];
+
+  // Ethereum networks
+  const ethereumNetworks = [
+    { 
+      name: 'Ethereum', 
+      displayName: 'Ethereum Mainnet',
+      symbol: 'ETH', 
+      icon: 'Ξ', 
+      color: 'from-blue-400 to-indigo-500',
+      fees: 'High',
+      time: '~2 min',
+      description: 'Most secure, highest fees',
+      hasStablecoin: true
+    },
+    { 
+      name: 'Polygon', 
+      displayName: 'Polygon',
+      symbol: 'MATIC', 
+      icon: '🟣', 
+      color: 'from-purple-400 to-violet-500',
+      fees: 'Very Low',
+      time: '~2 sec',
+      description: 'Fast and cheap',
+      hasStablecoin: true
+    },
+    { 
+      name: 'Optimism', 
+      displayName: 'Optimism',
+      symbol: 'OP', 
+      icon: '🔴', 
+      color: 'from-red-400 to-pink-500',
+      fees: 'Low',
+      time: '~1 min',
+      description: 'Ethereum L2 - Lower fees',
+      hasStablecoin: true
+    },
+    { 
+      name: 'Arbitrum', 
+      displayName: 'Arbitrum',
+      symbol: 'ARB', 
+      icon: '🔵', 
+      color: 'from-blue-500 to-cyan-500',
+      fees: 'Low',
+      time: '~1 min',
+      description: 'Ethereum L2 - Fast & cheap',
+      hasStablecoin: true
+    },
+    { 
+      name: 'zkSync', 
+      displayName: 'zkSync Era',
+      symbol: 'ZKS', 
+      icon: '⚡', 
+      color: 'from-yellow-400 to-orange-500',
+      fees: 'Very Low',
+      time: '~30 sec',
+      description: 'Zero-knowledge L2',
+      hasStablecoin: true
+    }
   ];
 
   // Tier amounts in PLN
@@ -44,6 +104,7 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
       setCurrentStep(1);
       setSelectedTier(null);
       setSelectedBlockchainStep(null);
+      setSelectedEthereumNetwork(null);
       setCopiedAmount(null);
       setCustomAmount('');
       setCustomAmountError('');
@@ -104,7 +165,21 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
     console.log('Selected blockchain object:', blockchain);
     console.log('Blockchain name:', blockchain?.name);
     setSelectedBlockchainStep(blockchain);
-    setCurrentStep(3);
+    
+    // If Ethereum is selected, go to network selection step (3)
+    // Otherwise, go directly to amount display step (3)
+    if (blockchain.name === 'Ethereum') {
+      setCurrentStep(3);
+    } else {
+      setCurrentStep(3); // For non-Ethereum, step 3 will show amount display
+    }
+  };
+
+  const handleEthereumNetworkSelect = (network) => {
+    console.log('=== ETHEREUM NETWORK SELECTED ===');
+    console.log('Selected network:', network);
+    setSelectedEthereumNetwork(network);
+    setCurrentStep(4); // Go to amount display
   };
 
   const handleCopyAmount = async (amount, symbol) => {
@@ -120,7 +195,15 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
   const handleSelectAmount = (cryptoData, currencyType) => {
     console.log('=== CALCULATOR SENDING DATA ===');
     console.log('selectedBlockchainStep:', selectedBlockchainStep);
-    console.log('selectedBlockchainStep.name:', selectedBlockchainStep?.name);
+    console.log('selectedEthereumNetwork:', selectedEthereumNetwork);
+    
+    // Determine the final blockchain name to send
+    let finalBlockchainName = selectedBlockchainStep?.name;
+    
+    // If Ethereum was selected and a specific network was chosen, use that network name
+    if (selectedBlockchainStep?.name === 'Ethereum' && selectedEthereumNetwork) {
+      finalBlockchainName = selectedEthereumNetwork.name;
+    }
     
     const dataToSend = {
       plnAmount: selectedTier.amount,
@@ -128,7 +211,9 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
       symbol: cryptoData.symbol,
       tierName: selectedTier.name === 'custom' ? t('customAmount') : t(selectedTier.name),
       currencyType,
-      blockchainName: selectedBlockchainStep?.name // Use optional chaining
+      blockchainName: finalBlockchainName,
+      isEthereumNetwork: selectedBlockchainStep?.name === 'Ethereum',
+      ethereumNetwork: selectedEthereumNetwork
     };
     
     console.log('Full data being sent:', dataToSend);
@@ -145,6 +230,17 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
     } else if (currentStep === 3) {
       setCurrentStep(2);
       setSelectedBlockchainStep(null);
+      setSelectedEthereumNetwork(null);
+    } else if (currentStep === 4) {
+      // If we're on step 4 (amount display) and came from Ethereum network selection
+      if (selectedBlockchainStep?.name === 'Ethereum') {
+        setCurrentStep(3); // Go back to network selection
+        setSelectedEthereumNetwork(null);
+      } else {
+        // This shouldn't happen for non-Ethereum blockchains
+        setCurrentStep(2);
+        setSelectedBlockchainStep(null);
+      }
     }
   };
 
@@ -197,12 +293,14 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
                 {currentStep === 1 && selectedTier?.name === 'custom' && t('enterCustomAmount')}
                 {currentStep === 1 && selectedTier?.name !== 'custom' && selectedTier && t('selectBlockchainStep')}
                 {currentStep === 2 && t('selectBlockchainStep')}
-                {currentStep === 3 && `${selectedTier?.amount} PLN • ${selectedBlockchainStep?.name}`}
+                {currentStep === 3 && selectedBlockchainStep?.name === 'Ethereum' && t('selectEthereumNetwork')}
+                {currentStep === 3 && selectedBlockchainStep?.name !== 'Ethereum' && `${selectedTier?.amount} PLN • ${selectedBlockchainStep?.name}`}
+                {currentStep === 4 && `${selectedTier?.amount} PLN • ${selectedEthereumNetwork?.displayName || selectedBlockchainStep?.name}`}
               </p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            {currentStep === 3 && (
+            {(currentStep === 3 || currentStep === 4) && (
               <button
                 onClick={handleRefreshPrices}
                 disabled={refreshing}
@@ -247,11 +345,38 @@ const CalculationModal = ({ isOpen, onClose, onAmountSelect }) => {
             />
           )}
 
-          {/* Step 3: Amount Display */}
+          {/* Step 3: Ethereum Network Selection OR Amount Display for non-Ethereum */}
           {currentStep === 3 && selectedTier && selectedBlockchainStep && (
+            <>
+              {selectedBlockchainStep.name === 'Ethereum' ? (
+                <EthereumNetworkSelectionStep
+                  networks={ethereumNetworks}
+                  selectedTier={selectedTier}
+                  onNetworkSelect={handleEthereumNetworkSelect}
+                  t={t}
+                />
+              ) : (
+                <AmountDisplayStep
+                  tier={selectedTier}
+                  blockchain={selectedBlockchainStep}
+                  calculateCrypto={calculateCrypto}
+                  onCopy={handleCopyAmount}
+                  onSelect={handleSelectAmount}
+                  copiedAmount={copiedAmount}
+                  priceLoading={priceLoading}
+                  hasData={hasData}
+                  onRefresh={handleRefreshPrices}
+                  t={t}
+                />
+              )}
+            </>
+          )}
+
+          {/* Step 4: Amount Display for Ethereum networks */}
+          {currentStep === 4 && selectedTier && selectedEthereumNetwork && (
             <AmountDisplayStep
               tier={selectedTier}
-              blockchain={selectedBlockchainStep}
+              blockchain={selectedEthereumNetwork}
               calculateCrypto={calculateCrypto}
               onCopy={handleCopyAmount}
               onSelect={handleSelectAmount}
@@ -416,7 +541,80 @@ const BlockchainSelectionStep = ({ blockchains, selectedTier, onBlockchainSelect
   </div>
 );
 
-// Step 3: Amount Display
+// Step 3: Ethereum Network Selection
+const EthereumNetworkSelectionStep = ({ networks, selectedTier, onNetworkSelect, t }) => (
+  <div className="space-y-4">
+    <div className="text-center mb-6">
+      <h3 className="text-xl font-semibold text-white mb-2">{t('selectEthereumNetwork')}</h3>
+      <p className="text-gray-300 text-sm">
+        {t('selectedTier')}: <span className="text-emerald-400 font-semibold">
+          {selectedTier.name === 'custom' ? t('customAmount') : t(selectedTier.name)} ({selectedTier.amount} PLN)
+        </span>
+      </p>
+      <p className="text-gray-400 text-xs mt-2">{t('chooseEthereumNetworkDescription')}</p>
+    </div>
+
+    <div className="space-y-3">
+      {networks.map((network) => (
+        <button
+          key={network.name}
+          onClick={() => onNetworkSelect(network)}
+          className={`w-full bg-gradient-to-r ${network.color} p-1 rounded-xl hover:shadow-lg transition-all duration-300 group`}
+        >
+          <div className="bg-gray-800/90 backdrop-blur-sm rounded-lg p-4 h-full">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl">{network.icon}</span>
+                <div className="text-left flex-1">
+                  <h4 className="font-semibold text-white text-lg">{network.displayName}</h4>
+                  <p className="text-sm text-gray-300 mb-2">{network.description}</p>
+                  
+                  {/* Fee and time info */}
+                  <div className="flex items-center space-x-4 mb-2">
+                    <span className="text-xs text-gray-400">
+                      {t('fees')}: <span className="text-white">{network.fees}</span>
+                    </span>
+                    <span className="text-xs text-gray-400">
+                      {t('time')}: <span className="text-white">{network.time}</span>
+                    </span>
+                  </div>
+
+                  {/* Currency support */}
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2 text-xs">
+                      <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                      <span className="text-gray-300">{t('nativeCurrency')}: {network.symbol}</span>
+                    </div>
+                    {network.hasStablecoin && (
+                      <div className="flex items-center space-x-2 text-xs">
+                        <span className="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                        <span className="text-gray-300">{t('stablecoin')}: USDC</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors flex-shrink-0" />
+            </div>
+          </div>
+        </button>
+      ))}
+    </div>
+
+    {/* Info note about currency options */}
+    <div className="mt-6 p-4 bg-blue-900/20 border border-blue-600/30 rounded-xl">
+      <div className="flex items-start space-x-3">
+        <div className="text-blue-400 mt-0.5">💡</div>
+        <div>
+          <p className="text-blue-200 text-sm font-medium mb-1">{t('currencyOptionsNote')}</p>
+          <p className="text-blue-300 text-xs">{t('currencyOptionsDescription')}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Step 3/4: Amount Display
 const AmountDisplayStep = ({ 
   tier, 
   blockchain, 
@@ -472,7 +670,7 @@ const AmountDisplayStep = ({
             {tier.name === 'custom' ? t('customAmount') : t(tier.name)} • {tier.amount} PLN
           </span>
           <span className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
-            {blockchain.name}
+            {blockchain.displayName || blockchain.name}
           </span>
         </div>
       </div>

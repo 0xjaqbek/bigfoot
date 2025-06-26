@@ -185,19 +185,30 @@ const ManualDonation = ({ onBack }) => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6">
-        <div className="max-w-2xl mx-auto">
+      <div 
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, black 20%, #1f2937 100%)',
+        }}
+      >
+        {/* Background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-green-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-2xl mx-auto relative z-10 p-6">
           <div className="text-center py-12">
             <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">{t('donationSubmitted')}</h2>
-            <p className="text-gray-600 mb-8">{t('manualDonationThankYou')}</p>
+            <h2 className="text-3xl font-bold text-gray-100 mb-4">{t('donationSubmitted')}</h2>
+            <p className="text-gray-300 mb-8">{t('manualDonationThankYou')}</p>
             <button
               onClick={onBack}
               className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-8 rounded-xl font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
             >
-              {t('backToMain')}
+              {t('goToDapp')}
             </button>
           </div>
         </div>
@@ -206,46 +217,58 @@ const ManualDonation = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6">
-      <div className="max-w-4xl mx-auto">
+    <div 
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, black 20%, #1f2937 100%)',
+      }}
+    >
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 left-1/4 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-4xl mx-auto relative z-10 p-6">
         {/* Header */}
         <div className="flex items-center mb-8">
           <button 
             onClick={onBack}
-            className="flex items-center text-blue-600 hover:text-blue-700 font-semibold mr-6"
+            className="flex items-center text-blue-100 hover:text-blue-300 font-semibold mr-6 backdrop-blur-sm bg-gray-800/30 px-4 py-2 rounded-xl border border-gray-600/50 transition-all duration-300 hover:bg-gray-700/40"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            {t('back')}
+            {t('goToDapp')}
           </button>
-          <h1 className="text-3xl font-bold text-gray-800">{t('manualDonationTitle')}</h1>
+          <h1 className="text-3xl font-bold text-gray-100">{t('manualDonationTitle')}</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Wallet Addresses Section */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">{t('walletAddresses')}</h2>
+            <h2 className="text-2xl font-semibold text-gray-100 mb-4">{t('walletAddresses')}</h2>
             
             {Object.entries(walletAddresses).map(([blockchain, wallet]) => (
               <div key={blockchain} className={`bg-gradient-to-r ${wallet.color} p-1 rounded-xl`}>
-                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-6">
+                <div className="backdrop-blur-sm bg-gray-800/90 rounded-lg p-6 border border-gray-600/30">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <span className="text-2xl">{wallet.icon}</span>
                       <div>
-                        <h3 className="font-semibold text-gray-800">{blockchain}</h3>
-                        <p className="text-sm text-gray-600">{wallet.network}</p>
+                        <h3 className="font-semibold text-gray-100">{blockchain}</h3>
+                        <p className="text-sm text-gray-400">{wallet.network}</p>
                       </div>
                     </div>
-                    <span className="text-sm font-medium text-gray-700">{wallet.symbol}</span>
+                    <span className="text-sm font-medium text-gray-300">{wallet.symbol}</span>
                   </div>
                   
-                  <div className="bg-gray-50 rounded-lg p-3 mb-3">
-                    <p className="font-mono text-sm break-all text-gray-800">{wallet.address}</p>
+                  <div className="bg-gray-900/50 rounded-lg p-3 mb-3 border border-gray-600/30">
+                    <p className="font-mono text-sm break-all text-gray-200">{wallet.address}</p>
                   </div>
                   
                   <button
                     onClick={() => handleCopyAddress(blockchain, wallet.address)}
-                    className="w-full flex items-center justify-center space-x-2 bg-gray-800 text-white py-2 px-4 rounded-lg hover:bg-gray-900 transition-colors"
+                    className="w-full flex items-center justify-center space-x-2 bg-gray-700 text-gray-100 py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors border border-gray-600/50"
                   >
                     {copiedAddress === blockchain ? (
                       <>
@@ -265,13 +288,13 @@ const ManualDonation = ({ onBack }) => {
           </div>
 
           {/* Form Section */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">{t('donationDetails')}</h2>
+          <div className="backdrop-blur-sm bg-gray-800/80 rounded-xl p-6 border border-gray-600/50 shadow-xl">
+            <h2 className="text-2xl font-semibold text-gray-100 mb-6">{t('donationDetails')}</h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Personal Information */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <h3 className="text-lg font-semibold text-gray-100 mb-4 flex items-center">
                   <User className="w-5 h-5 mr-2" />
                   {t('personalData')}
                 </h3>
@@ -316,7 +339,7 @@ const ManualDonation = ({ onBack }) => {
 
               {/* Donation Information */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <h3 className="text-lg font-semibold text-gray-100 mb-4 flex items-center">
                   <Send className="w-5 h-5 mr-2" />
                   {t('donationInfo')}
                 </h3>
@@ -331,7 +354,7 @@ const ManualDonation = ({ onBack }) => {
                     <Calculator className="w-5 h-5" />
                     <span>{t('openCalculator')}</span>
                   </button>
-                  <p className="text-xs text-gray-500 mt-2 text-center">{t('calculatorHelp')}</p>
+                  <p className="text-xs text-gray-400 mt-2 text-center">{t('calculatorHelp')}</p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -345,7 +368,7 @@ const ManualDonation = ({ onBack }) => {
                   />
                   
                   <div className="space-y-1">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-gray-300">
                       {t('cryptoAmount')} {formData.cryptoSymbol ? `(${formData.cryptoSymbol})` : ''}
                     </label>
                     <div className="relative">
@@ -354,7 +377,7 @@ const ManualDonation = ({ onBack }) => {
                       </div>
                       {formData.cryptoAmount && formData.cryptoSymbol && (
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                          <Check className="w-4 h-4 text-green-500" />
+                          <Check className="w-4 h-4 text-green-400" />
                         </div>
                       )}
                       <input
@@ -362,50 +385,77 @@ const ManualDonation = ({ onBack }) => {
                         value={formData.cryptoAmount}
                         onChange={(e) => handleInputChange('cryptoAmount', e.target.value)}
                         placeholder={t('calculatedFromAmount')}
-                        className={`w-full pl-10 ${formData.cryptoAmount && formData.cryptoSymbol ? 'pr-10' : 'pr-3'} py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500`}
+                        className={`w-full pl-10 ${formData.cryptoAmount && formData.cryptoSymbol ? 'pr-10' : 'pr-3'} py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-100 placeholder-gray-400`}
                       />
                     </div>
                     {formData.cryptoAmount && formData.cryptoSymbol && (
-                      <p className="text-xs text-green-600 mt-1">
+                      <p className="text-xs text-green-400 mt-1">
                         ✓ {t('calculatedValue')}: {formData.cryptoAmount} {formData.cryptoSymbol}
                       </p>
                     )}
                     {!formData.cryptoAmount && (
-                      <p className="text-xs text-gray-500 mt-1">{t('useCalculatorForExactAmount')}</p>
+                      <p className="text-xs text-gray-400 mt-1">{t('useCalculatorForExactAmount')}</p>
                     )}
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-300">
                     {t('blockchain')} * 
-                    <span className="text-xs text-gray-500 ml-2">
+                    <span className="text-xs text-gray-400 ml-2">
                       (Current: {formData.selectedBlockchain || 'None'})
                     </span>
                   </label>
                   <select
-                    key={`blockchain-${formData.selectedBlockchain}`} // Force re-render
+                    key={`blockchain-${formData.selectedBlockchain}`}
                     value={formData.selectedBlockchain}
                     onChange={(e) => {
                       console.log('Dropdown changed to:', e.target.value);
                       handleInputChange('selectedBlockchain', e.target.value);
                     }}
-                    className={`w-full px-3 py-2 bg-white border ${
-                      errors.selectedBlockchain ? 'border-red-300' : 'border-gray-300'
-                    } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                    className={`w-full px-3 py-2 bg-gray-700/50 border ${
+                      errors.selectedBlockchain ? 'border-red-400' : 'border-gray-600'
+                    } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-100`}
                   >
                     <option value="">{t('selectBlockchain')}</option>
-                    {Object.keys(walletAddresses).map(blockchain => {
-                      console.log('Rendering option:', blockchain, 'Selected:', formData.selectedBlockchain === blockchain);
-                      return (
-                        <option key={blockchain} value={blockchain}>{blockchain}</option>
-                      );
-                    })}
+                    
+                    {/* Bitcoin */}
+                    <option value="Bitcoin">Bitcoin (BTC)</option>
+                    
+                    {/* Ethereum Mainnet */}
+                    <option value="Ethereum">Ethereum Mainnet (ETH/USDC)</option>
+                    
+                    {/* Ethereum Layer 2 Networks */}
+                    <optgroup label="━━━ Ethereum Layer 2 ━━━">
+                      <option value="Polygon">Polygon (MATIC/USDC)</option>
+                      <option value="Arbitrum">Arbitrum (ARB/USDC)</option>
+                      <option value="Optimism">Optimism (OP/USDC)</option>
+                      <option value="zkSync">zkSync Era (ZKS/USDC)</option>
+                    </optgroup>
+                    
+                    {/* Other Networks */}
+                    <option value="Solana">Solana (SOL/USDC)</option>
+                    <option value="TON">TON (TON)</option>
                   </select>
                   {errors.selectedBlockchain && (
-                    <div className="flex items-center text-red-600 text-xs mt-1">
+                    <div className="flex items-center text-red-400 text-xs mt-1">
                       <AlertCircle className="w-3 h-3 mr-1" />
                       {errors.selectedBlockchain}
+                    </div>
+                  )}
+                  
+                  {/* Helper text for selected blockchain */}
+                  {formData.selectedBlockchain && walletAddresses[formData.selectedBlockchain] && (
+                    <div className="mt-2 p-3 bg-gray-800/50 rounded-lg border border-gray-600/30">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <span className="text-lg">{walletAddresses[formData.selectedBlockchain].icon}</span>
+                        <div>
+                          <span className="text-gray-300 font-medium">{walletAddresses[formData.selectedBlockchain].network}</span>
+                          <div className="text-xs text-gray-400">
+                            {t('supportedCurrencies')}: {walletAddresses[formData.selectedBlockchain].symbol}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -424,7 +474,7 @@ const ManualDonation = ({ onBack }) => {
               {/* Address (conditional) */}
               {parseFloat(formData.amount) >= 50 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <h3 className="text-lg font-semibold text-gray-100 mb-4 flex items-center">
                     <MapPin className="w-5 h-5 mr-2" />
                     {t('shippingAddress')}
                   </h3>
@@ -465,7 +515,7 @@ const ManualDonation = ({ onBack }) => {
 
               {/* Facebook */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <h3 className="text-lg font-semibold text-gray-100 mb-4 flex items-center">
                   <Users className="w-5 h-5 mr-2" />
                   {t('facebookAccess')}
                 </h3>
@@ -488,15 +538,15 @@ const ManualDonation = ({ onBack }) => {
                       type="checkbox"
                       checked={formData.termsAccepted}
                       onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
-                      className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="mt-1 w-4 h-4 text-blue-600 border-gray-600 bg-gray-700 rounded focus:ring-blue-500"
                     />
-                    <div className="text-sm text-gray-700">
+                    <div className="text-sm text-gray-300">
                       <span className="font-medium">{t('acceptTerms')} </span>
                       <a 
                         href="https://bigfootworks.pl/regulamin/" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                        className="text-blue-400 hover:text-blue-300 hover:underline font-medium"
                       >
                         {t('terms')}
                       </a>
@@ -505,15 +555,15 @@ const ManualDonation = ({ onBack }) => {
                         href="https://bigfootworks.pl/polityka-prywatnosci/" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
+                        className="text-blue-400 hover:text-blue-300 hover:underline font-medium"
                       >
                         {t('privacyPolicy')}
                       </a>
-                      <span className="text-red-500 ml-1">{t('required')}</span>
+                      <span className="text-red-400 ml-1">{t('required')}</span>
                     </div>
                   </label>
                   {errors.termsAccepted && (
-                    <div className="flex items-center text-red-600 text-xs mt-2 ml-7">
+                    <div className="flex items-center text-red-400 text-xs mt-2 ml-7">
                       <AlertCircle className="w-3 h-3 mr-1" />
                       {errors.termsAccepted}
                     </div>
@@ -525,9 +575,9 @@ const ManualDonation = ({ onBack }) => {
                     type="checkbox"
                     checked={formData.marketingConsent}
                     onChange={(e) => handleInputChange('marketingConsent', e.target.checked)}
-                    className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="mt-1 w-4 h-4 text-blue-600 border-gray-600 bg-gray-700 rounded focus:ring-blue-500"
                   />
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-gray-300">
                     {t('marketingConsent')}
                   </span>
                 </label>
@@ -543,7 +593,7 @@ const ManualDonation = ({ onBack }) => {
               </button>
 
               {errors.submit && (
-                <div className="flex items-center text-red-600 text-sm mt-2">
+                <div className="flex items-center text-red-400 text-sm mt-2">
                   <AlertCircle className="w-4 h-4 mr-2" />
                   {errors.submit}
                 </div>
@@ -576,7 +626,7 @@ const FormField = ({
   readOnly = false
 }) => (
   <div className="space-y-1">
-    <label className="block text-sm font-medium text-gray-700">
+    <label className="block text-sm font-medium text-gray-300">
       {label}
     </label>
     <div className="relative">
@@ -591,21 +641,21 @@ const FormField = ({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         readOnly={readOnly}
-        className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-2 bg-white border ${
-          error ? 'border-red-300' : 'border-gray-300'
-        } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 ${
-          readOnly ? 'bg-gray-50 cursor-not-allowed' : ''
+        className={`w-full ${icon ? 'pl-10' : 'pl-3'} pr-3 py-2 bg-gray-700/50 border ${
+          error ? 'border-red-400' : 'border-gray-600'
+        } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-100 placeholder-gray-400 ${
+          readOnly ? 'bg-gray-800/50 cursor-not-allowed' : ''
         }`}
       />
     </div>
     {error && (
-      <div className="flex items-center text-red-600 text-xs mt-1">
+      <div className="flex items-center text-red-400 text-xs mt-1">
         <AlertCircle className="w-3 h-3 mr-1" />
         {error}
       </div>
     )}
     {helpText && !error && (
-      <p className="text-xs text-gray-500 mt-1">{helpText}</p>
+      <p className="text-xs text-gray-400 mt-1">{helpText}</p>
     )}
   </div>
 );

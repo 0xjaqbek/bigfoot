@@ -216,6 +216,27 @@ export const translations = {
     calculationResults: "Wyniki kalkulacji",
     pleasewait: "Proszę czekać...",
 
+        // Navigation
+    goToDapp: "Przejdź do dApp",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Obliczone z kwoty PLN",
+    calculatedValue: "Obliczona wartość",
+    useCalculatorForExactAmount: "Użyj kalkulatora aby uzyskać dokładną kwotę krypto",
+    minimumAmount: "Minimalna kwota to 1 PLN",
+    maximumAmount: "Maksymalna kwota to 10 000 PLN",
+    enterCustomAmount: "Wprowadź własną kwotę",
+    continueToBlockchain: "Przejdź do wyboru blockchain",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Wybierz sieć Ethereum",
+    chooseEthereumNetworkDescription: "Wybierz sieć Ethereum lub Layer 2 dla Twojej transakcji",
+    fees: "Opłaty",
+    time: "Czas",
+    currencyOptionsNote: "Opcje waluty",
+    currencyOptionsDescription: "Po wyborze sieci będziesz mógł wybrać między natywną walutą sieci lub stablecoin USDC"
+
+
   },
   
   en: {
@@ -421,6 +442,26 @@ export const translations = {
     selectedTier: "Selected tier",
     calculationResults: "Calculation results",
     pleasewait: "Please wait...",
+
+        goToDapp: "Go to dApp",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Calculated from PLN amount",
+    calculatedValue: "Calculated value",
+    useCalculatorForExactAmount: "Use calculator to get exact crypto amount",
+    minimumAmount: "Minimum amount is 1 PLN",
+    maximumAmount: "Maximum amount is 10,000 PLN",
+    enterCustomAmount: "Enter custom amount",
+    continueToBlockchain: "Continue to blockchain selection",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Select Ethereum Network",
+    chooseEthereumNetworkDescription: "Choose Ethereum mainnet or Layer 2 for your transaction",
+    fees: "Fees",
+    time: "Time",
+    currencyOptionsNote: "Currency Options",
+    currencyOptionsDescription: "After selecting a network, you'll be able to choose between the network's native currency or USDC stablecoin"
+  
   },
   
   de: {
@@ -627,6 +668,25 @@ export const translations = {
     calculationResults: "Berechnungsergebnisse",
     pleasewait: "Bitte warten...",
 
+        // Navigation
+    goToDapp: "Zur dApp gehen",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Aus PLN-Betrag berechnet",
+    calculatedValue: "Berechneter Wert",
+    useCalculatorForExactAmount: "Verwenden Sie den Rechner für den genauen Krypto-Betrag",
+    minimumAmount: "Mindestbetrag ist 1 PLN",
+    maximumAmount: "Höchstbetrag ist 10.000 PLN",
+    enterCustomAmount: "Benutzerdefinierten Betrag eingeben",
+    continueToBlockchain: "Weiter zur Blockchain-Auswahl",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Ethereum-Netzwerk auswählen",
+    chooseEthereumNetworkDescription: "Wählen Sie Ethereum Mainnet oder Layer 2 für Ihre Transaktion",
+    fees: "Gebühren",
+    time: "Zeit",
+    currencyOptionsNote: "Währungsoptionen",
+    currencyOptionsDescription: "Nach der Auswahl eines Netzwerks können Sie zwischen der nativen Währung des Netzwerks oder USDC Stablecoin wählen"
 
 
   },
@@ -835,6 +895,24 @@ export const translations = {
     calculationResults: "Beräkningsresultat",
     pleasewait: "Vänta...",
 
+        goToDapp: "Gå till dApp",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Beräknat från PLN-belopp",
+    calculatedValue: "Beräknat värde",
+    useCalculatorForExactAmount: "Använd kalkylatorn för exakt kryptobelopp",
+    minimumAmount: "Minimibelopp är 1 PLN",
+    maximumAmount: "Maximibelopp är 10 000 PLN",
+    enterCustomAmount: "Ange anpassat belopp",
+    continueToBlockchain: "Fortsätt till blockchain-val",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Välj Ethereum-nätverk",
+    chooseEthereumNetworkDescription: "Välj Ethereum mainnet eller Layer 2 för din transaktion",
+    fees: "Avgifter",
+    time: "Tid",
+    currencyOptionsNote: "Valutaalternativ",
+    currencyOptionsDescription: "Efter att ha valt ett nätverk kan du välja mellan nätverkets inhemska valuta eller USDC stablecoin"
 
   },
   
@@ -1042,6 +1120,25 @@ export const translations = {
     calculationResults: "Beregningsresultater",
     pleasewait: "Vennligst vent...",
 
+        // Navigation
+    goToDapp: "Gå til dApp",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Beregnet fra PLN-beløp",
+    calculatedValue: "Beregnet verdi",
+    useCalculatorForExactAmount: "Bruk kalkulatoren for nøyaktig kryptobeløp",
+    minimumAmount: "Minimumsbeløp er 1 PLN",
+    maximumAmount: "Maksimumsbeløp er 10 000 PLN",
+    enterCustomAmount: "Angi tilpasset beløp",
+    continueToBlockchain: "Fortsett til blockchain-valg",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Velg Ethereum-nettverk",
+    chooseEthereumNetworkDescription: "Velg Ethereum mainnet eller Layer 2 for din transaksjon",
+    fees: "Avgifter",
+    time: "Tid",
+    currencyOptionsNote: "Valutaalternativer",
+    currencyOptionsDescription: "Etter å ha valgt et nettverk kan du velge mellom nettverkets opprinnelige valuta eller USDC stablecoin"
 
   },
   
@@ -1248,7 +1345,26 @@ export const translations = {
     selectedTier: "Valgt niveau",
     calculationResults: "Beregningsresultater",
     pleasewait: "Vent venligst...",
-
+    
+        // Navigation
+    goToDapp: "Gå til dApp",
+    
+    // Manual Donation specific
+    calculatedFromAmount: "Beregnet fra PLN-beløb",
+    calculatedValue: "Beregnet værdi",
+    useCalculatorForExactAmount: "Brug lommeregneren til nøjagtigt kryptobeløb",
+    minimumAmount: "Minimumsbeløb er 1 PLN",
+    maximumAmount: "Maksimumsbeløb er 10.000 PLN",
+    enterCustomAmount: "Indtast tilpasset beløb",
+    continueToBlockchain: "Fortsæt til blockchain-valg",
+    
+    // Ethereum Network Selection
+    selectEthereumNetwork: "Vælg Ethereum-netværk",
+    chooseEthereumNetworkDescription: "Vælg Ethereum mainnet eller Layer 2 til din transaktion",
+    fees: "Gebyrer",
+    time: "Tid",
+    currencyOptionsNote: "Valutamuligheder",
+    currencyOptionsDescription: "Efter at have valgt et netværk kan du vælge mellem netværkets oprindelige valuta eller USDC stablecoin"
 
   }
 };
