@@ -272,6 +272,11 @@ export const translations = {
   
   gotItStartDonating: "Rozumiem, zacznij dotację!",
 
+  // Currency Types
+    currency: "Waluta", // NEW
+    selectCurrency: "Wybierz walutę", // NEW
+    currencyRequired: "Wybór waluty jest wymagany", // NEW
+
   },
   
   en: {
@@ -532,7 +537,9 @@ export const translations = {
   processingTimeDescription: "We verify transactions manually within 24 hours. You will receive confirmation email after payment verification.",
   
   gotItStartDonating: "Got it, start donating!",
-  
+        currency: "Currency", // NEW
+        selectCurrency: "Select currency", // NEW
+        currencyRequired: "Currency selection is required", // NEW
   
   },
   
@@ -796,6 +803,9 @@ export const translations = {
   
   gotItStartDonating: "Verstanden, mit Spenden beginnen!",
 
+  currency: "Währung", // NEW
+selectCurrency: "Währung wählen", // NEW
+currencyRequired: "Währungsauswahl ist erforderlich", // NEW
 
   },
   
@@ -1057,6 +1067,10 @@ export const translations = {
   processingTimeDescription: "Vi verifierar transaktioner manuellt inom 24 timmar. Du får bekräftelse-e-post efter betalningsverifiering.",
   
   gotItStartDonating: "Förstått, börja donera!",
+
+  currency: "Valuta", // NEW
+selectCurrency: "Välj valuta", // NEW
+currencyRequired: "Valutaval krävs", // NEW
   
 
   },
@@ -1321,6 +1335,10 @@ export const translations = {
   
   gotItStartDonating: "Forstått, start donering!",
 
+  currency: "Valuta", // NEW
+selectCurrency: "Velg valuta", // NEW
+currencyRequired: "Valutavalg er påkrevd", // NEW
+
   },
   
   da: {
@@ -1582,6 +1600,10 @@ export const translations = {
   processingTimeDescription: "Vi verificerer transaktioner manuelt inden for 24 timer. Du modtager bekræftelses-e-mail efter betalingsverifikation.",
   
   gotItStartDonating: "Forstået, begynd at donere!",
+
+  currency: "Valuta", // NEW
+selectCurrency: "Vælg valuta", // NEW
+currencyRequired: "Valutavalg er påkrævet", // NEW
 
   }
 };
