@@ -47,6 +47,21 @@ const ManualDonation = ({ onBack }) => {
     console.log('Current selectedBlockchain in form:', formData.selectedBlockchain);
   }, [formData.selectedBlockchain]);
 
+  // Clear incompatible currency selection when blockchain changes
+  useEffect(() => {
+    if (formData.selectedBlockchain && formData.selectedCurrency) {
+      const availableCurrencies = getAvailableCurrencies();
+      const isCurrentCurrencyAvailable = availableCurrencies.some(
+        currency => currency.id === formData.selectedCurrency
+      );
+      
+      if (!isCurrentCurrencyAvailable) {
+        console.log('Clearing incompatible currency:', formData.selectedCurrency, 'for blockchain:', formData.selectedBlockchain);
+        handleInputChange('selectedCurrency', '');
+      }
+    }
+  }, [formData.selectedBlockchain]);
+
   // Get default country based on language
   function getDefaultCountry(lang) {
     const defaults = {
@@ -66,8 +81,19 @@ const ManualDonation = ({ onBack }) => {
     { id: 'ETH', name: 'Ethereum (ETH)', blockchains: ['Ethereum', 'Polygon', 'Arbitrum', 'Optimism', 'zkSync'] },
     { id: 'SOL', name: 'Solana (SOL)', blockchains: ['Solana'] },
     { id: 'TON', name: 'TON (TON)', blockchains: ['TON'] },
-    { id: 'USDC', name: 'USDC Stablecoin', blockchains: ['Ethereum', 'Polygon', 'Arbitrum', 'Optimism', 'zkSync', 'Solana'] }
+    { id: 'USDC', name: 'USDC Stablecoin', blockchains: ['Ethereum', 'Polygon', 'Arbitrum', 'Optimism', 'zkSync', 'Solana', 'TON'] }
   ];
+
+  // Filter currencies based on selected blockchain
+  const getAvailableCurrencies = () => {
+    if (!formData.selectedBlockchain) {
+      return availableCurrencies; // Show all if no blockchain selected
+    }
+
+    return availableCurrencies.filter(currency => 
+      currency.blockchains.includes(formData.selectedBlockchain)
+    );
+  };
 
   // Wallet addresses from environment variables
   const walletAddresses = {
@@ -441,6 +467,11 @@ const ManualDonation = ({ onBack }) => {
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       {t('currency')} *
+                      {formData.selectedBlockchain && (
+                        <span className="text-xs text-gray-400 ml-2">
+                          (Available for {formData.selectedBlockchain})
+                        </span>
+                      )}
                     </label>
                     <select
                       value={formData.selectedCurrency}
@@ -450,7 +481,7 @@ const ManualDonation = ({ onBack }) => {
                       } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-100`}
                     >
                       <option value="">{t('selectCurrency')}</option>
-                      {availableCurrencies.map((currency) => (
+                      {getAvailableCurrencies().map((currency) => (
                         <option key={currency.id} value={currency.id}>
                           {currency.name}
                         </option>
@@ -461,6 +492,11 @@ const ManualDonation = ({ onBack }) => {
                         <AlertCircle className="w-3 h-3 mr-1" />
                         {errors.selectedCurrency}
                       </div>
+                    )}
+                    {formData.selectedBlockchain && getAvailableCurrencies().length === 1 && (
+                      <p className="text-xs text-yellow-400 mt-1">
+                        ℹ️ {formData.selectedBlockchain === 'Bitcoin' ? 'Bitcoin supports only BTC payments' : 'Limited currency options for this blockchain'}
+                      </p>
                     )}
                   </div>
 
