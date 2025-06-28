@@ -818,21 +818,21 @@ const DAppInstructionsModal = ({ isOpen, onClose }) => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Native Currency */}
-              <div className="bg-orange-900/20 border border-orange-600/30 rounded-lg p-4">
-                <h4 className="font-semibold text-orange-200 mb-2 flex items-center">
+              <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4">
+                <h4 className="font-semibold text-yellow-200 mb-2 flex items-center">
                   <TrendingUp className="w-4 h-4 mr-2" />
                   {t('nativeCurrencyExplain')}
                 </h4>
-                <p className="text-orange-300 text-sm">{t('nativeCurrencyExplainDesc')}</p>
+                <p className="text-yellow-300 text-sm">{t('nativeCurrencyExplainDesc')}</p>
               </div>
               
               {/* Stablecoin */}
-              <div className="bg-emerald-900/20 border border-emerald-600/30 rounded-lg p-4">
-                <h4 className="font-semibold text-emerald-200 mb-2 flex items-center">
+              <div className="bg-blue-900/20 border border-blue-600/30 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-200 mb-2 flex items-center">
                   <Shield className="w-4 h-4 mr-2" />
                   {t('stablecoinExplain')}
                 </h4>
-                <p className="text-emerald-300 text-sm">{t('stablecoinExplainDesc')}</p>
+                <p className="text-blue-300 text-sm">{t('stablecoinExplainDesc')}</p>
               </div>
             </div>
           </div>
@@ -872,26 +872,26 @@ const DAppInstructionsModal = ({ isOpen, onClose }) => {
           </div>
 
           {/* Important Notes */}
-          <div className="bg-amber-900/30 border border-amber-600/30 rounded-xl p-4">
-            <h4 className="font-semibold text-amber-200 mb-3 flex items-center">
+          <div className="bg-orange-900/30 border border-orange-600/30 rounded-xl p-4">
+            <h4 className="font-semibold text-red-200 mb-3 flex items-center">
               <AlertTriangle className="w-5 h-5 mr-2" />
               {t('importantNotesDapp')}
             </h4>
             <ul className="space-y-2 text-amber-300 text-sm">
               <li className="flex items-start space-x-2">
-                <span className="text-amber-400 mt-1">⚠️</span>
+                <span className="text-orange-400 mt-1">⚠️</span>
                 <span>{t('noteWallet')}</span>
               </li>
               <li className="flex items-start space-x-2">
-                <span className="text-amber-400 mt-1">⚠️</span>
+                <span className="text-orange-400 mt-1">⚠️</span>
                 <span>{t('noteFunds')}</span>
               </li>
               <li className="flex items-start space-x-2">
-                <span className="text-amber-400 mt-1">⚠️</span>
+                <span className="text-orange-400 mt-1">⚠️</span>
                 <span>{t('noteNetwork')}</span>
               </li>
               <li className="flex items-start space-x-2">
-                <span className="text-amber-400 mt-1">⚠️</span>
+                <span className="text-orange-400 mt-1">⚠️</span>
                 <span>{t('noteMobile')}</span>
               </li>
             </ul>

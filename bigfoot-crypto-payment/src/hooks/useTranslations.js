@@ -167,7 +167,7 @@ export const translations = {
     
     // Manual Donation
     manualDonationTitle: "Ręczna dotacja z portfela",
-    walletAddresses: "Adresy portfeli fundacji",
+    walletAddresses: "Adresy portfeli BFW",
     copyAddress: "Kopiuj adres",
     copied: "Skopiowano!",
     donationDetails: "Formularz donacji",
@@ -204,7 +204,7 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Otwórz kalkulator kwot",
-    calculatorHelp: "Kliknij aby obliczyć dokładne kwoty krypto dla różnych poziomów wsparcia",
+    calculatorHelp: "Kliknij aby obliczyć dokładne kwoty krypto dla różnych poziomów wsparcia. Wybrane dane zostana wpisane do formularza automatycznie.",
     selectAmount: "Wybierz kwotę",
     copy: "Kopiuj",
     selectTierStep: "Wybierz poziom wsparcia",
@@ -471,7 +471,7 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Open amount calculator",
-    calculatorHelp: "Click to calculate exact crypto amounts for different support tiers",
+    calculatorHelp: "Click to calculate exact crypto amounts for different support tiers. The selected data will be entered into the form automatically.",
     selectAmount: "Select amount",
     copy: "Copy",
     selectTierStep: "Select support tier",
@@ -735,7 +735,7 @@ export const translations = {
     
     // Manual Donation Updates
     openCalculator: "Betrag-Rechner öffnen",
-    calculatorHelp: "Klicken Sie, um genaue Krypto-Beträge für verschiedene Unterstützungsstufen zu berechnen",
+    calculatorHelp: "Klicken Sie, um genaue Krypto-Beträge für verschiedene Unterstützungsstufen zu berechnen. Die ausgewählten Daten werden automatisch in das Formular eingetragen.",
     selectAmount: "Betrag auswählen",
     copy: "Kopieren",
     selectTierStep: "Unterstützungsstufe auswählen",
@@ -1001,7 +1001,7 @@ currencyRequired: "Währungsauswahl ist erforderlich", // NEW
     
     // Manual Donation Updates
     openCalculator: "Öppna beloppskalkylator",
-    calculatorHelp: "Klicka för att beräkna exakta kryptobelopp för olika stödnivåer",
+    calculatorHelp: "Klicka för att beräkna exakta kryptobelopp för olika stödnivåer. De valda uppgifterna kommer att fyllas i formuläret automatiskt.",
     selectAmount: "Välj belopp",
     copy: "Kopiera",
     selectTierStep: "Välj stödnivå",
@@ -1267,7 +1267,7 @@ currencyRequired: "Valutaval krävs", // NEW
     
     // Manual Donation Updates
     openCalculator: "Åpne beløpskalkulator",
-    calculatorHelp: "Klikk for å beregne nøyaktige kryptobeløp for ulike støttenivåer",
+    calculatorHelp: "Klikk for å beregne nøyaktige kryptobeløp for ulike støttenivåer. De valgte dataene blir automatisk fylt inn i skjemaet.",
     selectAmount: "Velg beløp",
     copy: "Kopier",
     selectTierStep: "Velg støttenivå",
@@ -1533,7 +1533,7 @@ currencyRequired: "Valutavalg er påkrevd", // NEW
     
     // Manual Donation Updates
     openCalculator: "Åbn beløbsberegner",
-    calculatorHelp: "Klik for at beregne nøjagtige kryptobeløb for forskellige støtteniveauer",
+    calculatorHelp: "Klik for at beregne nøjagtige kryptobeløb for forskellige støtteniveauer. De valgte oplysninger vil automatisk blive indtastet i formularen.",
     selectAmount: "Vælg beløb",
     copy: "Kopier",
     selectTierStep: "Vælg støtteniveau",
